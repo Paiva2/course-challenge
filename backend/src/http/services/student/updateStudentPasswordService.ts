@@ -1,4 +1,4 @@
-import { UserInterface } from "../interfaces/userInterface"
+import { UserInterface } from "../../interfaces/userInterface"
 import { hash } from "bcryptjs"
 
 type UpdateStudentPasswordServiceRequest = {

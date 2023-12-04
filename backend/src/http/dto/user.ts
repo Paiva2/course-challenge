@@ -18,7 +18,7 @@ export const registerNewStudentDto = z
     message: "Confirmação de senha e senha não conferem.",
   })
 
-export const updateStudantPassword = z
+export const updateStudentPassword = z
   .object({
     name: z
       .string()
@@ -35,3 +35,11 @@ export const updateStudantPassword = z
   .refine((data) => data.newPassword === data.passwordConfirmation, {
     message: "Confirmação de senha e senha não conferem.",
   })
+
+export const authStudent = z.object({
+  name: z.string().min(3, { message: "Nome precisa ter pelo menos 3 caracteres." }),
+
+  password: z
+    .string()
+    .min(6, { message: "A senha precisa ter pelo menos 6 caracteres." }),
+})

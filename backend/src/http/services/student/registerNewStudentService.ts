@@ -1,5 +1,5 @@
-import { IUser } from "../@types/types"
-import { UserInterface } from "../interfaces/userInterface"
+import { IUser } from "../../@types/types"
+import { UserInterface } from "../../interfaces/userInterface"
 import { hash } from "bcryptjs"
 
 type RegisterNewStudentServiceRequest = {
