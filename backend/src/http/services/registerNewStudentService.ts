@@ -35,7 +35,7 @@ export default class RegisterNewStudentService {
     if (doesUserWithThisNameExists) {
       throw {
         status: 409,
-        message: "Um usuário com esse nome já existe cadastrado.",
+        message: "Um estudante com esse nome já existe cadastrado.",
       }
     }
 
