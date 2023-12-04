@@ -5,7 +5,7 @@ import { hash } from "bcryptjs"
 type RegisterNewStudentServiceRequest = {
   name: string
   password: string
-  role: "student" | "professor"
+  role?: "student" | "professor"
 }
 
 type RegisterNewStudentServiceResponse = IUser

@@ -33,7 +33,7 @@ export default class AuthStudentService {
     if (!doesStudentExists) {
       throw {
         status: 404,
-        message: "Senha inválida.",
+        message: "Estudante não encontrado.",
       }
     }
 
