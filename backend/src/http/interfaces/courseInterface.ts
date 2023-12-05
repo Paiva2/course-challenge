@@ -6,4 +6,8 @@ export default interface CourseInterface {
   findById(courseId: string): Promise<ICourse | null>
 
   updateFull(course: ICourse): Promise<ICourse>
+
+  getActives(
+    page: number
+  ): Promise<{ page: number; totalPages: number; courses: ICourse[] }>
 }

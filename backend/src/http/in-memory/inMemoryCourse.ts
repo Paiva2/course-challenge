@@ -47,4 +47,20 @@ export default class InMemoryCourse implements CourseInterface {
 
     return courseUpdated
   }
+
+  async getActives(
+    page: number
+  ): Promise<{ page: number; totalPages: number; courses: ICourse[] }> {
+    const perPage = 10
+
+    const getActiveCourses = this.courses.filter((course) => course.active)
+
+    const totalPages = Math.ceil(getActiveCourses.length / perPage)
+
+    return {
+      totalPages,
+      page,
+      courses: getActiveCourses.slice((page - 1) * perPage, page * perPage),
+    }
+  }
 }

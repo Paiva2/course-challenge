@@ -49,4 +49,32 @@ export default class CourseModel implements CourseInterface {
 
     return updateCourseFull
   }
+
+  async getActives(
+    page: number
+  ): Promise<{ page: number; totalPages: number; courses: ICourse[] }> {
+    const perPage = 10
+
+    const offset = (page - 1) * perPage
+
+    const activeCourses = await prisma.$queryRawUnsafe<ICourse[]>(
+      `SELECT *
+      FROM public.course
+      WHERE active = true
+      ORDER BY "createdAt" DESC
+      LIMIT $1
+      OFFSET $2
+    `,
+      perPage,
+      offset
+    )
+
+    const pageTotal = Math.ceil(activeCourses.length / perPage)
+
+    return {
+      page,
+      totalPages: pageTotal,
+      courses: activeCourses,
+    }
+  }
 }

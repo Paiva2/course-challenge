@@ -4,6 +4,7 @@ import CreateNewCourseController from "../controllers/course/createNewCourseCont
 import jwtCheck from "../middleware/jwtCheck"
 import UpdateCourseInformationsController from "../controllers/course/updateCourseInformationsController"
 import dtoValidation from "../middleware/dtoValidation"
+import GetActiveCoursesController from "../controllers/course/getActiveCoursesController"
 
 export default function courseRoutes(app: Express) {
   app.post(
@@ -17,4 +18,6 @@ export default function courseRoutes(app: Express) {
     [jwtCheck, dtoValidation(updateCourseDto)],
     UpdateCourseInformationsController.handle
   )
+
+  app.get("/courses", GetActiveCoursesController.handle)
 }
