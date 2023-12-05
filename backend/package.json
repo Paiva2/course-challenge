@@ -5,8 +5,8 @@
   "main": "./src/server.ts",
   "scripts": {
     "dev": "nodemon",
-    "test": "vitest",
-    "test:watch": "vitest --watch"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "prisma": {
     "schema": "src/http/database/prisma/schema.prisma"

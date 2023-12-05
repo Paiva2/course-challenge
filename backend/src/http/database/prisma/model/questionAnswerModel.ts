@@ -5,19 +5,21 @@ import prisma from "../client"
 
 export default class QuestionAnswerModel implements QuestionAnswerInterface {
   async create(
+    courseId: string,
     professorId: string,
     questionId: string,
     content: string
   ): Promise<IQuestionAnswer> {
     const [newQuestionAnswer] = await prisma.$queryRawUnsafe<IQuestionAnswer[]>(
       `INSERT INTO public.question_answer 
-        (id, answer, "fkQuestion", "fkProfessor") 
-        VALUES ($1, $2, $3, $4) 
+        (id, answer, "fkQuestion", "fkProfessor", "fkCourse") 
+        VALUES ($1, $2, $3, $4, $5) 
         RETURNING *`,
       randomUUID(),
       content,
       questionId,
-      professorId
+      professorId,
+      courseId
     )
 
     return newQuestionAnswer
@@ -34,6 +36,15 @@ export default class QuestionAnswerModel implements QuestionAnswerInterface {
     )
 
     if (!findAnswer) return null
+
+    return findAnswer
+  }
+
+  async findAllFromQuestion(courseId: string): Promise<IQuestionAnswer[]> {
+    const findAnswer = await prisma.$queryRawUnsafe<IQuestionAnswer[]>(
+      `SELECT * FROM public.question_answer WHERE "fkCourse" = $1`,
+      courseId
+    )
 
     return findAnswer
   }

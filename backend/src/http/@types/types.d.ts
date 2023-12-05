@@ -39,6 +39,7 @@ export interface IQuestionAnswer {
   answer: string
   fkQuestion: string
   fkProfessor: string
+  fkCourse: string
 }
 
 export interface HttpError {

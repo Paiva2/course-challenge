@@ -1,8 +1,8 @@
 import { IQuestionAnswer } from "../../@types/types"
-import CourseInterface from "../../interfaces/courseInterface"
 import { QuestionAnswerInterface } from "../../interfaces/questionAnswerInterface"
-import QuestionInterface from "../../interfaces/questionInterface"
 import { UserInterface } from "../../interfaces/userInterface"
+import CourseInterface from "../../interfaces/courseInterface"
+import QuestionInterface from "../../interfaces/questionInterface"
 
 type InsertQuestionAnswerServiceRequest = {
   professorId: string
@@ -109,6 +109,7 @@ export default class InsertQuestionAnswerService {
     }
 
     const createNewAnswer = await this.questionAnswerInterface.create(
+      courseId,
       professorId,
       questionId,
       content

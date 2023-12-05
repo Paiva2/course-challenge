@@ -30,4 +30,12 @@ export default class InMemoryQuestion implements QuestionInterface {
 
     return findQuestion
   }
+
+  async findAllFromCourse(courseId: string): Promise<IQuestion[]> {
+    const getAllQuestionsFromCourse = this.questions.filter((question) => {
+      return question.fkCourse === courseId
+    })
+
+    return getAllQuestionsFromCourse
+  }
 }

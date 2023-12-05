@@ -6,6 +6,7 @@ export default class InMemoryQuestionAnswer implements QuestionAnswerInterface {
   private questionAnswers = [] as IQuestionAnswer[]
 
   async create(
+    courseId: string,
     professorId: string,
     questionId: string,
     content: string
@@ -16,6 +17,7 @@ export default class InMemoryQuestionAnswer implements QuestionAnswerInterface {
       answer: content,
       fkQuestion: questionId,
       fkProfessor: professorId,
+      fkCourse: courseId,
     }
 
     this.questionAnswers.push(newAnswer)
@@ -35,5 +37,13 @@ export default class InMemoryQuestionAnswer implements QuestionAnswerInterface {
     if (!findAnswer) return null
 
     return findAnswer
+  }
+
+  async findAllFromQuestion(courseId: string): Promise<IQuestionAnswer[]> {
+    const getAllQuestionAnswersFromCourse = this.questionAnswers.filter((answer) => {
+      return answer.fkCourse === courseId
+    })
+
+    return getAllQuestionAnswersFromCourse
   }
 }

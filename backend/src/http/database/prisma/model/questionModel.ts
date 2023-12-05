@@ -33,4 +33,13 @@ export default class QuestionModel implements QuestionInterface {
 
     return findQuestion
   }
+
+  async findAllFromCourse(courseId: string): Promise<IQuestion[]> {
+    const courseQuestions = await prisma.$queryRawUnsafe<IQuestion[]>(
+      `SELECT * FROM public.question WHERE "fkCourse" = $1`,
+      courseId
+    )
+
+    return courseQuestions
+  }
 }

@@ -1,7 +1,7 @@
 import express, { Express } from "express"
+import "dotenv/config"
 import bodyParser from "body-parser"
 import cors from "cors"
-import "dotenv/config"
 import userRoutes from "./http/routes/userRoutes"
 import courseRoutes from "./http/routes/courseRoutes"
 import questionRoutes from "./http/routes/questionRoutes"
