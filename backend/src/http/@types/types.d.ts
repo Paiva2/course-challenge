@@ -33,6 +33,14 @@ export interface IQuestion {
   fkCourse: string
 }
 
+export interface IQuestionAnswer {
+  id?: string
+  createdAt?: Date
+  answer: string
+  fkQuestion: string
+  fkProfessor: string
+}
+
 export interface HttpError {
   status: number
   message: string

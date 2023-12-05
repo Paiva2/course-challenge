@@ -40,7 +40,7 @@ describe("Insert new question service", () => {
     fakeStudent = await registerNewStudentService.exec({
       name: "John Doe Student",
       password: "123456",
-      role: "professor",
+      role: "student",
     })
 
     fakeCourse = await createNewCourseService.exec({

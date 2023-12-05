@@ -1,10 +1,12 @@
 import CourseModel from "../../database/prisma/model/courseModel"
+import QuestionAnswerModel from "../../database/prisma/model/questionAnswerModel"
 import QuestionModel from "../../database/prisma/model/questionModel"
 import UserModel from "../../database/prisma/model/userModel"
 import CreateNewCourseService from "../../services/course/createNewCourseService"
 import GetActiveCoursesService from "../../services/course/getActiveCoursesService"
 import UpdateCourseInformationsService from "../../services/course/updateCourseInformationsService"
 import InsertNewQuestionService from "../../services/question/insertNewQuestionService"
+import InsertQuestionAnswerService from "../../services/question_answer/insertQuestionAnswerService"
 import AuthStudentService from "../../services/student/authSudentService"
 import RegisterNewStudentService from "../../services/student/registerNewStudentService"
 import UpdateStudentPasswordService from "../../services/student/updateStudentPasswordService"
@@ -14,6 +16,14 @@ export default class Factory {
     const userModel = new UserModel()
     const courseModel = new CourseModel()
     const questionModel = new QuestionModel()
+    const questionAnswerModel = new QuestionAnswerModel()
+
+    const insertQuestionAnswerService = new InsertQuestionAnswerService(
+      userModel,
+      courseModel,
+      questionModel,
+      questionAnswerModel
+    )
 
     const insertNewQuestionService = new InsertNewQuestionService(
       userModel,
@@ -37,6 +47,7 @@ export default class Factory {
     const registerNewStudentService = new RegisterNewStudentService(userModel)
 
     return {
+      insertQuestionAnswerService,
       insertNewQuestionService,
       getActiveCoursesService,
       updateCourseInformationsService,

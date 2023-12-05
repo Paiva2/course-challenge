@@ -22,4 +22,12 @@ export default class InMemoryQuestion implements QuestionInterface {
 
     return newQuestion
   }
+
+  async findById(id: string): Promise<IQuestion | null> {
+    const findQuestion = this.questions.find((question) => question.id === id)
+
+    if (!findQuestion) return null
+
+    return findQuestion
+  }
 }

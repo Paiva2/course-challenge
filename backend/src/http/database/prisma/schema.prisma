@@ -59,11 +59,11 @@ model QuestionAnswer {
   createdAt DateTime @default(now())
   answer    String   @db.VarChar(500)
 
-  fkQuestion String @db.VarChar(100)
-  fkUser     String @db.VarChar(100)
+  fkQuestion  String @db.VarChar(100)
+  fkProfessor String @db.VarChar(100)
 
   question Question? @relation(fields: [fkQuestion], references: [id])
-  user     User?     @relation(fields: [fkUser], references: [id])
+  user     User?     @relation(fields: [fkProfessor], references: [id])
 
   @@map("question_answer")
 }

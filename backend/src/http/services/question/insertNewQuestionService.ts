@@ -1,3 +1,4 @@
+import { IQuestion } from "../../@types/types"
 import CourseInterface from "../../interfaces/courseInterface"
 import QuestionInterface from "../../interfaces/questionInterface"
 import { UserInterface } from "../../interfaces/userInterface"
@@ -8,6 +9,8 @@ type InsertNewQuestionServiceRequest = {
   content: string
 }
 
+type InsertNewQuestionServiceResponse = IQuestion
+
 export default class InsertNewQuestionService {
   constructor(
     private userInterface: UserInterface,
@@ -15,7 +18,11 @@ export default class InsertNewQuestionService {
     private questionInterface: QuestionInterface
   ) {}
 
-  async exec({ content, courseId, studentId }: InsertNewQuestionServiceRequest) {
+  async exec({
+    content,
+    courseId,
+    studentId,
+  }: InsertNewQuestionServiceRequest): Promise<InsertNewQuestionServiceResponse> {
     if (!courseId) {
       throw {
         status: 422,

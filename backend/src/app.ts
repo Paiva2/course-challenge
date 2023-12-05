@@ -5,6 +5,7 @@ import "dotenv/config"
 import userRoutes from "./http/routes/userRoutes"
 import courseRoutes from "./http/routes/courseRoutes"
 import questionRoutes from "./http/routes/questionRoutes"
+import questionAnswerRoutes from "./http/routes/questionAnswerRoutes"
 
 export const app: Express = express()
 
@@ -14,3 +15,4 @@ app.use(bodyParser.json())
 userRoutes(app)
 courseRoutes(app)
 questionRoutes(app)
+questionAnswerRoutes(app)

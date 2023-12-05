@@ -22,4 +22,15 @@ export default class QuestionModel implements QuestionInterface {
 
     return newQuestion
   }
+
+  async findById(id: string): Promise<IQuestion | null> {
+    const [findQuestion] = await prisma.$queryRawUnsafe<IQuestion[]>(
+      `SELECT * FROM public.question WHERE id = $1`,
+      id
+    )
+
+    if (!findQuestion) return null
+
+    return findQuestion
+  }
 }
