@@ -5,11 +5,6 @@ export interface IUser {
   role: string
 }
 
-export interface HttpError {
-  status: number
-  message: string
-}
-
 export interface ICourse {
   id?: string
   title: string
@@ -27,6 +22,20 @@ export interface ICourseCreation {
   title: string
   duration: number
   description: string
+}
+
+export interface IQuestion {
+  id?: string
+  createdAt?: Date
+  question: string
+  answers?: []
+  fkStudent: string
+  fkCourse: string
+}
+
+export interface HttpError {
+  status: number
+  message: string
 }
 
 export interface JwtParse {
