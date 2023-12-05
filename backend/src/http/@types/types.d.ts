@@ -20,6 +20,7 @@ export interface ICourse {
   description: string
   createdAt?: Date
   updatedAt?: Date
+  fkProfessor?: string
 }
 
 export interface ICourseCreation {

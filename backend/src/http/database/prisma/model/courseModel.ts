@@ -19,4 +19,34 @@ export default class CourseModel implements CourseInterface {
 
     return createdCourse
   }
+
+  async findById(courseId: string): Promise<ICourse | null> {
+    const [findCourse] = await prisma.$queryRawUnsafe<ICourse[]>(
+      `SELECT * FROM public.course WHERE id = $1`,
+      courseId
+    )
+
+    if (!findCourse) return null
+
+    return {
+      ...findCourse,
+      professor: findCourse.fkProfessor,
+    }
+  }
+
+  async updateFull(course: ICourse): Promise<ICourse> {
+    const [updateCourseFull] = await prisma.$queryRawUnsafe<ICourse[]>(
+      `UPDATE public.course 
+      SET (title, description, duration, active) = ($2, $3, $4, $5) 
+      WHERE id = $1 
+      RETURNING *`,
+      course.id,
+      course.title,
+      course.description,
+      course.duration,
+      course.active
+    )
+
+    return updateCourseFull
+  }
 }

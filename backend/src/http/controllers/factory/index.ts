@@ -1,6 +1,7 @@
 import CourseModel from "../../database/prisma/model/courseModel"
 import UserModel from "../../database/prisma/model/userModel"
 import CreateNewCourseService from "../../services/course/createNewCourseService"
+import UpdateCourseInformationsService from "../../services/course/updateCourseInformationsService"
 import AuthStudentService from "../../services/student/authSudentService"
 import RegisterNewStudentService from "../../services/student/registerNewStudentService"
 import UpdateStudentPasswordService from "../../services/student/updateStudentPasswordService"
@@ -9,6 +10,11 @@ export default class Factory {
   public static async exec() {
     const userModel = new UserModel()
     const courseModel = new CourseModel()
+
+    const updateCourseInformationsService = new UpdateCourseInformationsService(
+      userModel,
+      courseModel
+    )
 
     const createNewCourseService = new CreateNewCourseService(userModel, courseModel)
 
@@ -19,6 +25,7 @@ export default class Factory {
     const registerNewStudentService = new RegisterNewStudentService(userModel)
 
     return {
+      updateCourseInformationsService,
       createNewCourseService,
       authStudentService,
       updateStudentPasswordService,

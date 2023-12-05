@@ -4,9 +4,9 @@ import dtoValidation from "../middleware/dtoValidation"
 import UpdateStudentPasswordController from "../controllers/student/updateStudentPasswordController"
 import AuthStudentController from "../controllers/student/authStudentController"
 import {
-  authStudent,
+  authStudentDto,
   registerNewStudentDto,
-  updateStudentPassword,
+  updateStudentPasswordDto,
 } from "../dto/user"
 
 export default function userRoutes(app: Express) {
@@ -18,9 +18,9 @@ export default function userRoutes(app: Express) {
 
   app.patch(
     "/password",
-    [dtoValidation(updateStudentPassword)],
+    [dtoValidation(updateStudentPasswordDto)],
     UpdateStudentPasswordController.handle
   )
 
-  app.post("/login", [dtoValidation(authStudent)], AuthStudentController.handle)
+  app.post("/login", [dtoValidation(authStudentDto)], AuthStudentController.handle)
 }

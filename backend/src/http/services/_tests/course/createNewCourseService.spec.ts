@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
+import { ICourseCreation, IUser } from "../../../@types/types"
 import InMemoryUser from "../../../in-memory/inMemoryUser"
 import RegisterNewStudentService from "../../student/registerNewStudentService"
-import { ICourseCreation, IUser } from "../../../@types/types"
 import CreateNewCourseService from "../../course/createNewCourseService"
 import InMemoryCourse from "../../../in-memory/inMemoryCourse"
 

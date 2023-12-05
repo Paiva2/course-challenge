@@ -21,4 +21,30 @@ export default class InMemoryCourse implements CourseInterface {
 
     return newCourse
   }
+
+  async findById(courseId: string): Promise<ICourse | null> {
+    const findCourse = this.courses.find((course) => course.id === courseId)
+
+    if (!findCourse) return null
+
+    return findCourse
+  }
+
+  async updateFull(course: ICourse): Promise<ICourse> {
+    let courseUpdated = {} as ICourse
+
+    const updateList = this.courses.map((onBaseCourse) => {
+      if (onBaseCourse.id === course.id) {
+        onBaseCourse = course
+
+        courseUpdated = onBaseCourse
+      }
+
+      return onBaseCourse
+    })
+
+    this.courses = updateList
+
+    return courseUpdated
+  }
 }
