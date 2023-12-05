@@ -1,13 +1,13 @@
 import { Express } from "express"
-import RegisterNewStudentController from "../controllers/registerNewSudentController"
+import RegisterNewStudentController from "../controllers/student/registerNewSudentController"
+import dtoValidation from "../middleware/dtoValidation"
+import UpdateStudentPasswordController from "../controllers/student/updateStudentPasswordController"
+import AuthStudentController from "../controllers/student/authStudentController"
 import {
   authStudent,
   registerNewStudentDto,
   updateStudentPassword,
 } from "../dto/user"
-import dtoValidation from "../middleware/dtoValidation"
-import UpdateStudentPasswordController from "../controllers/updateStudentPasswordController"
-import AuthStudentController from "../controllers/authStudentController"
 
 export default function userRoutes(app: Express) {
   app.post(

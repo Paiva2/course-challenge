@@ -36,4 +36,15 @@ export default class UserModel implements UserInterface {
 
     return updatedUser
   }
+
+  async findById(userId: string): Promise<IUser | null> {
+    const [findUser] = await prisma.$queryRawUnsafe<IUser[]>(
+      `SELECT * FROM public.user WHERE id = $1`,
+      userId
+    )
+
+    if (!findUser) return null
+
+    return findUser
+  }
 }

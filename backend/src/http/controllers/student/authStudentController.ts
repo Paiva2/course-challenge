@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
-import { HttpError } from "../@types/types"
+import { HttpError } from "../../@types/types"
 import jwt from "jsonwebtoken"
-import Factory from "./factory"
+import Factory from "../factory"
 
 export default class AuthStudentController {
   public static async handle(req: Request, res: Response) {
@@ -18,6 +18,7 @@ export default class AuthStudentController {
       const jwtToken = jwt.sign(
         {
           data: {
+            id: authUser.id,
             name: authUser.name,
             role: authUser.role,
           },

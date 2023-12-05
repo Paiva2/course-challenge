@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
-import { HttpError } from "../@types/types"
-import Factory from "./factory"
+import { HttpError } from "../../@types/types"
+import Factory from "../factory"
 
 export default class UpdateStudentPasswordController {
   public static async handle(req: Request, res: Response) {

@@ -6,4 +6,6 @@ export interface UserInterface {
   findByName(name: string): Promise<IUser | null>
 
   updatePassword(name: string, newPassword: string): Promise<IUser>
+
+  findById(userId: string): Promise<IUser | null>
 }

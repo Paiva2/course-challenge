@@ -43,4 +43,12 @@ export default class InMemoryUser implements UserInterface {
 
     return userUpdated
   }
+
+  async findById(userId: string): Promise<IUser | null> {
+    const findUserById = this.users.find((user) => user.id === userId)
+
+    if (!findUserById) return null
+
+    return findUserById
+  }
 }

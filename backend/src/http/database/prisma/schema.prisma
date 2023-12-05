@@ -13,5 +13,57 @@ model User {
   password String @db.VarChar(500)
   role     String @default("student") @db.VarChar(20)
 
+  courses   Course[]
+  questions Question[]
+  answers   QuestionAnswer[]
+
   @@map("user")
+}
+
+model Course {
+  id          String   @id @default(uuid())
+  title       String   @db.VarChar(50)
+  duration    Int      @db.Integer()
+  active      Boolean  @default(true) @db.Boolean()
+  description String   @db.VarChar(500)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  questions Question[]
+
+  fkProfessor String @db.VarChar(100)
+
+  user User? @relation(fields: [fkProfessor], references: [id], onDelete: Cascade)
+
+  @@map("course")
+}
+
+model Question {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  question  String   @db.VarChar(500)
+
+  answers QuestionAnswer[]
+
+  fkStudent String @db.VarChar(100)
+  fkCourse  String @db.VarChar(100)
+
+  user   User?   @relation(fields: [fkStudent], references: [id], onDelete: Cascade)
+  course Course? @relation(fields: [fkCourse], references: [id], onDelete: Cascade)
+
+  @@map("question")
+}
+
+model QuestionAnswer {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  answer    String   @db.VarChar(500)
+
+  fkQuestion String @db.VarChar(100)
+  fkUser     String @db.VarChar(100)
+
+  question Question? @relation(fields: [fkQuestion], references: [id])
+  user     User?     @relation(fields: [fkUser], references: [id])
+
+  @@map("question_answer")
 }
