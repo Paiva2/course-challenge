@@ -9,6 +9,7 @@ import UpdateCourseInformationsService from "../../services/course/updateCourseI
 import InsertNewQuestionService from "../../services/question/insertNewQuestionService"
 import InsertQuestionAnswerService from "../../services/question_answer/insertQuestionAnswerService"
 import AuthStudentService from "../../services/student/authSudentService"
+import GetUserProfileService from "../../services/student/getUserProfileService"
 import RegisterNewStudentService from "../../services/student/registerNewStudentService"
 import UpdateStudentPasswordService from "../../services/student/updateStudentPasswordService"
 
@@ -47,6 +48,8 @@ export default class Factory {
 
     const createNewCourseService = new CreateNewCourseService(userModel, courseModel)
 
+    const getUserProfileService = new GetUserProfileService(userModel)
+
     const authStudentService = new AuthStudentService(userModel)
 
     const updateStudentPasswordService = new UpdateStudentPasswordService(userModel)
@@ -54,6 +57,7 @@ export default class Factory {
     const registerNewStudentService = new RegisterNewStudentService(userModel)
 
     return {
+      getUserProfileService,
       filterCourseService,
       insertQuestionAnswerService,
       insertNewQuestionService,

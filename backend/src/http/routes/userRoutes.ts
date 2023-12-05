@@ -8,6 +8,7 @@ import {
   registerNewStudentDto,
   updateStudentPasswordDto,
 } from "../dto/user"
+import GetUserProfileController from "../controllers/student/getUserProfileController"
 
 export default function userRoutes(app: Express) {
   app.post(
@@ -23,4 +24,6 @@ export default function userRoutes(app: Express) {
   )
 
   app.post("/login", [dtoValidation(authStudentDto)], AuthStudentController.handle)
+
+  app.get("/user/:userId", GetUserProfileController.handle)
 }
