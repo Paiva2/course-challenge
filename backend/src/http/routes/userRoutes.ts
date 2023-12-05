@@ -7,8 +7,11 @@ import {
   authStudentDto,
   registerNewStudentDto,
   updateStudentPasswordDto,
+  updateUserProfileDto,
 } from "../dto/user"
 import GetUserProfileController from "../controllers/student/getUserProfileController"
+import jwtCheck from "../middleware/jwtCheck"
+import UpdateUserProfileController from "../controllers/student/updateUserProfileController"
 
 export default function userRoutes(app: Express) {
   app.post(
@@ -22,6 +25,12 @@ export default function userRoutes(app: Express) {
     [dtoValidation(updateStudentPasswordDto)],
     UpdateStudentPasswordController.handle
   )
+
+  app.patch("/profile", [
+    jwtCheck,
+    dtoValidation(updateUserProfileDto),
+    UpdateUserProfileController.handle,
+  ])
 
   app.post("/login", [dtoValidation(authStudentDto)], AuthStudentController.handle)
 

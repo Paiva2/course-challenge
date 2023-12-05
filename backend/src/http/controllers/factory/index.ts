@@ -12,6 +12,7 @@ import AuthStudentService from "../../services/student/authSudentService"
 import GetUserProfileService from "../../services/student/getUserProfileService"
 import RegisterNewStudentService from "../../services/student/registerNewStudentService"
 import UpdateStudentPasswordService from "../../services/student/updateStudentPasswordService"
+import UpdateUserProfileService from "../../services/student/updateUserProfileService"
 
 export default class Factory {
   public static async exec() {
@@ -19,6 +20,8 @@ export default class Factory {
     const courseModel = new CourseModel()
     const questionModel = new QuestionModel()
     const questionAnswerModel = new QuestionAnswerModel()
+
+    const updateUserProfileService = new UpdateUserProfileService(userModel)
 
     const filterCourseService = new FilterCourseService(
       courseModel,
@@ -57,6 +60,7 @@ export default class Factory {
     const registerNewStudentService = new RegisterNewStudentService(userModel)
 
     return {
+      updateUserProfileService,
       getUserProfileService,
       filterCourseService,
       insertQuestionAnswerService,

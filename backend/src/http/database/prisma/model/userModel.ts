@@ -47,4 +47,17 @@ export default class UserModel implements UserInterface {
 
     return findUser
   }
+
+  async updateFull(user: IUser): Promise<IUser> {
+    const [updatedUser] = await prisma.$queryRawUnsafe<IUser[]>(
+      `UPDATE public.user SET (name, password) = ($2, $3)
+     WHERE id = $1 
+     RETURNING *`,
+      user.id,
+      user.name,
+      user.password
+    )
+
+    return updatedUser
+  }
 }

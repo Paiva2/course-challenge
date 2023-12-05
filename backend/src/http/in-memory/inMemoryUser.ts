@@ -51,4 +51,22 @@ export default class InMemoryUser implements UserInterface {
 
     return findUserById
   }
+
+  async updateFull(user: IUser): Promise<IUser> {
+    let updatedUser = {} as IUser
+
+    const updateUsers = this.users.map((userOnbase) => {
+      if (userOnbase.id === user.id) {
+        userOnbase = user
+
+        updatedUser = userOnbase
+      }
+
+      return userOnbase
+    })
+
+    this.users = updateUsers
+
+    return updatedUser
+  }
 }

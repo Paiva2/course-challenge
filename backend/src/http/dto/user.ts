@@ -43,3 +43,17 @@ export const authStudentDto = z.object({
     .string()
     .min(6, { message: "A senha precisa ter pelo menos 6 caracteres." }),
 })
+
+export const updateUserProfileDto = z.object({
+  fields: z.object({
+    name: z
+      .string()
+      .min(3, { message: "Nome precisa ter pelo menos 3 caracteres." })
+      .optional(),
+
+    password: z
+      .string()
+      .min(6, { message: "A senha precisa ter pelo menos 6 caracteres." })
+      .optional(),
+  }),
+})

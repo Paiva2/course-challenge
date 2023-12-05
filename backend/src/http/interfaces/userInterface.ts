@@ -8,4 +8,6 @@ export interface UserInterface {
   updatePassword(name: string, newPassword: string): Promise<IUser>
 
   findById(userId: string): Promise<IUser | null>
+
+  updateFull(user: IUser): Promise<IUser>
 }
