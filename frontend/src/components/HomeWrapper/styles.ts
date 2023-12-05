@@ -16,4 +16,5 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   padding-top: 3.125rem;
+  gap: 0.9375rem;
 `
