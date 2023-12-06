@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect } from "react"
+import React, { useEffect, Fragment } from "react"
 import { MessageCircle, ChevronLeft } from "lucide-react"
 import { useQuery, UseMutationResult } from "react-query"
 import { IAnswer, IQuestion } from "@/@types/types"
@@ -104,49 +104,59 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
 
         <S.QuestionsContainer>
           <h1>Perguntas</h1>
+          {queryCourse.data.questions.length ? (
+            queryCourse.data.questions.map((questionInfos) => {
+              return (
+                <S.Question key={questionInfos.question.id}>
+                  <S.QuestionContent>
+                    {!questionInfos.answers.length ? (
+                      <S.AnswerQuestionButton type="button">
+                        Responder
+                      </S.AnswerQuestionButton>
+                    ) : (
+                      <S.AnswerQuestionButton disabled type="button">
+                        Respondido
+                      </S.AnswerQuestionButton>
+                    )}
 
-          {queryCourse.data.questions.map((questionInfos) => {
-            return (
-              <S.Question key={questionInfos.question.id}>
-                <S.QuestionContent>
-                  {!questionInfos.answers.length ? (
-                    <S.AnswerQuestionButton type="button">
-                      Responder
-                    </S.AnswerQuestionButton>
-                  ) : (
-                    <S.AnswerQuestionButton disabled type="button">
-                      Respondido
-                    </S.AnswerQuestionButton>
-                  )}
+                    <p>Nome do estudante: X</p>
+                    <p>Dúvida: {questionInfos.question.question}</p>
 
-                  <p>Nome do estudante: X</p>
-                  <p>Dúvida: {questionInfos.question.question}</p>
+                    <p>
+                      Feita em:{" "}
+                      {new Date(
+                        questionInfos.question.createdAt
+                      ).toLocaleDateString()}
+                    </p>
+                  </S.QuestionContent>
 
-                  <p>
-                    Feita em:{" "}
-                    {new Date(questionInfos.question.createdAt).toLocaleDateString()}
-                  </p>
-                </S.QuestionContent>
+                  <Fragment>
+                    {questionInfos.answers.map((answer) => {
+                      return (
+                        <S.Answer key={answer.id}>
+                          <p>Professor: Y</p>
 
-                <div>
-                  {questionInfos.answers.map((answer) => {
-                    return (
-                      <S.Answer key={answer.id}>
-                        <p>Professor: Y</p>
+                          <p>Resposta: {answer.answer}</p>
 
-                        <p>Resposta: {answer.answer}</p>
-
-                        <p>
-                          Respondida em:{" "}
-                          {new Date(answer.createdAt).toLocaleDateString()}
-                        </p>
-                      </S.Answer>
-                    )
-                  })}
-                </div>
-              </S.Question>
-            )
-          })}
+                          <p>
+                            Respondida em:{" "}
+                            {new Date(answer.createdAt).toLocaleDateString()}
+                          </p>
+                        </S.Answer>
+                      )
+                    })}
+                  </Fragment>
+                </S.Question>
+              )
+            })
+          ) : (
+            <S.QuestionPlaceholder>
+              <h1>Faça a primeira pergunta!</h1>
+              <span>
+                <MessageCircle size={50} strokeWidth={0.7} />
+              </span>
+            </S.QuestionPlaceholder>
+          )}
         </S.QuestionsContainer>
 
         <S.NewQuestionContainer>

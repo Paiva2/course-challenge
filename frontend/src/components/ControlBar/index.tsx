@@ -25,7 +25,7 @@ const ControlBar = () => {
         </RightSide>
 
         <LeftSide>
-          <LoginLink>Entrar</LoginLink>
+          <LoginLink href="/entrar">Entrar</LoginLink>
         </LeftSide>
       </BarWrapper>
     </Bar>

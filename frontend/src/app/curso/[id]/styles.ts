@@ -13,6 +13,7 @@ export const CoursePageContainer = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-bottom: 3.125rem;
 `
 
 export const BackLink = styled.a`
@@ -128,6 +129,21 @@ export const QuestionsContainer = styled.div`
   box-shadow: rgb(245, 245, 245) 9px 13px 9px -6px;
   display: flex;
   flex-direction: column;
+  gap: 1.25rem;
+
+  h1 {
+    font-size: 1.25rem;
+    color: #3f3d3d;
+  }
+`
+
+export const QuestionPlaceholder = styled.div`
+  height: 18.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
   gap: 1.25rem;
 
   h1 {
