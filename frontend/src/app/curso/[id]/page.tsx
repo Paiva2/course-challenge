@@ -1,25 +1,12 @@
 "use client"
 
-import api from "@/lib/api"
-import React, { useEffect, Fragment } from "react"
-import {
-  BackLink,
-  Card,
-  CourseDetails,
-  CourseDuration,
-  CoursePageContainer,
-  CoursePageWrapper,
-  CourseQuestions,
-  Description,
-  LaunchDate,
-  NewQuestionContainer,
-  QuestionsContainer,
-  Title,
-} from "./styles"
+import React, { useEffect } from "react"
 import { MessageCircle, ChevronLeft } from "lucide-react"
 import { useQuery, UseMutationResult } from "react-query"
 import { IAnswer, IQuestion } from "@/@types/types"
 import secondsToHours from "@/utils/secondToHours"
+import api from "@/lib/api"
+import * as S from "./styles"
 
 interface TQueryCourse extends Omit<UseMutationResult, "data"> {
   data: {
@@ -75,36 +62,36 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
     !queryCourse ||
     !queryCourseProfessor
   )
-    return <></>
+    return <S.LoadingState />
 
   return (
-    <CoursePageContainer>
-      <CoursePageWrapper>
-        <div>
-          <BackLink href="/">
+    <S.CoursePageContainer>
+      <S.CoursePageWrapper>
+        <S.TopSide>
+          <S.BackLink href="/">
             <ChevronLeft size={20} color="#fff" />
             Voltar
-          </BackLink>
-        </div>
+          </S.BackLink>
+        </S.TopSide>
 
-        <Card>
-          <CourseDetails>
-            <Title>{queryCourse.data.title}</Title>
+        <S.Card>
+          <S.CourseDetails>
+            <S.Title>{queryCourse.data.title}</S.Title>
 
             <p>Professor: {queryCourseProfessor.data.name}</p>
-            <Description>Descrição: {queryCourse.data.description}</Description>
+            <S.Description>Descrição: {queryCourse.data.description}</S.Description>
 
-            <LaunchDate>
+            <S.LaunchDate>
               Data de lançamento:{" "}
               {new Date(queryCourse.data.createdAt).toLocaleDateString()}
-            </LaunchDate>
+            </S.LaunchDate>
 
-            <CourseDuration>
+            <S.CourseDuration>
               Duração: {secondsToHours(queryCourse.data.duration)}
-            </CourseDuration>
-          </CourseDetails>
+            </S.CourseDuration>
+          </S.CourseDetails>
 
-          <CourseQuestions>
+          <S.CourseQuestions>
             <MessageCircle
               strokeWidth={0.5}
               fill="#3f3d3d"
@@ -112,59 +99,65 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
               size={21}
             />
             <span>{queryCourse.data.questions?.length}</span>
-          </CourseQuestions>
-        </Card>
+          </S.CourseQuestions>
+        </S.Card>
 
-        <QuestionsContainer>
+        <S.QuestionsContainer>
           <h1>Perguntas</h1>
 
-          <div>
-            {queryCourse.data.questions.map((questionInfos) => {
-              return (
-                <Fragment key={questionInfos.question.id}>
-                  <div>
-                    <button type="button">Responder</button>
-                    <p>
-                      Feita em:{" "}
-                      {new Date(
-                        questionInfos.question.createdAt
-                      ).toLocaleDateString()}
-                    </p>
-                    <p>Nome do estudante: X</p>
+          {queryCourse.data.questions.map((questionInfos) => {
+            return (
+              <S.Question key={questionInfos.question.id}>
+                <S.QuestionContent>
+                  {!questionInfos.answers.length ? (
+                    <S.AnswerQuestionButton type="button">
+                      Responder
+                    </S.AnswerQuestionButton>
+                  ) : (
+                    <S.AnswerQuestionButton disabled type="button">
+                      Respondido
+                    </S.AnswerQuestionButton>
+                  )}
 
-                    <p>{questionInfos.question.question}</p>
-                  </div>
+                  <p>Nome do estudante: X</p>
+                  <p>Dúvida: {questionInfos.question.question}</p>
 
-                  <div>
-                    {questionInfos.answers.map((answer) => {
-                      return (
-                        <div key={answer.id}>
-                          <p>
-                            Respondida em:{" "}
-                            {new Date(answer.createdAt).toLocaleDateString()}
-                          </p>
-                          <p>Professor: Y</p>
+                  <p>
+                    Feita em:{" "}
+                    {new Date(questionInfos.question.createdAt).toLocaleDateString()}
+                  </p>
+                </S.QuestionContent>
 
-                          <p>{answer.answer}</p>
-                        </div>
-                      )
-                    })}
-                  </div>
-                </Fragment>
-              )
-            })}
-          </div>
-        </QuestionsContainer>
+                <div>
+                  {questionInfos.answers.map((answer) => {
+                    return (
+                      <S.Answer key={answer.id}>
+                        <p>Professor: Y</p>
 
-        <NewQuestionContainer>
+                        <p>Resposta: {answer.answer}</p>
+
+                        <p>
+                          Respondida em:{" "}
+                          {new Date(answer.createdAt).toLocaleDateString()}
+                        </p>
+                      </S.Answer>
+                    )
+                  })}
+                </div>
+              </S.Question>
+            )
+          })}
+        </S.QuestionsContainer>
+
+        <S.NewQuestionContainer>
           <h1>Adicionar nova pergunta</h1>
 
-          <textarea />
+          <textarea maxLength={500} placeholder="Escreva sua pergunta aqui..." />
 
-          <button type="button">Enviar</button>
-        </NewQuestionContainer>
-      </CoursePageWrapper>
-    </CoursePageContainer>
+          <S.SendQuestionButton type="button">Enviar</S.SendQuestionButton>
+        </S.NewQuestionContainer>
+      </S.CoursePageWrapper>
+    </S.CoursePageContainer>
   )
 }
 

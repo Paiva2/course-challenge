@@ -1,6 +1,7 @@
 "use client"
 
-import CourseContext from "@/courseContext"
+import CourseContext from "@/contexts/courseContext"
+import UserContext from "@/contexts/userContext"
 import GlobalStyle from "@/global/globalStyles"
 import { Roboto } from "next/font/google"
 import { QueryClient, QueryClientProvider } from "react-query"
@@ -20,11 +21,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="pt-BR">
       <GlobalStyle />
       <QueryClientProvider client={queryClient}>
-        <CourseContext>
-          <body suppressHydrationWarning={true} className={roboto.className}>
-            {children}
-          </body>
-        </CourseContext>
+        <UserContext>
+          <CourseContext>
+            <body suppressHydrationWarning={true} className={roboto.className}>
+              {children}
+            </body>
+          </CourseContext>
+        </UserContext>
       </QueryClientProvider>
     </html>
   )

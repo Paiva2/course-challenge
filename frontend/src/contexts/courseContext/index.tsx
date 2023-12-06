@@ -7,7 +7,7 @@ import React, {
 } from "react"
 import { useMutation, UseMutationResult } from "react-query"
 import { ICourseSchema } from "@/@types/types"
-import api from "../lib/api"
+import api from "../../lib/api"
 
 interface TQueryCourses extends Omit<UseMutationResult, "data"> {
   data: ICourseSchema

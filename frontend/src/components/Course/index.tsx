@@ -1,16 +1,8 @@
 import React from "react"
 import secondsToHours from "@/utils/secondToHours"
 import { MessageCircle } from "lucide-react"
-import {
-  Card,
-  CourseDetails,
-  CourseDuration,
-  CourseQuestions,
-  Description,
-  LaunchDate,
-  Title,
-} from "./styles"
 import { ICourse } from "@/@types/types"
+import * as S from "./styles"
 
 interface ICourseProps {
   course: ICourse
@@ -18,24 +10,26 @@ interface ICourseProps {
 
 const Course = ({ course }: ICourseProps) => {
   return (
-    <Card href={`/curso/${course.id}`}>
-      <CourseDetails>
-        <Title>{course.title}</Title>
+    <S.Card href={`/curso/${course.id}`}>
+      <S.CourseDetails>
+        <S.Title>{course.title}</S.Title>
 
-        <Description>Descrição: {course.description}</Description>
+        <S.Description>Descrição: {course.description}</S.Description>
 
-        <LaunchDate>
+        <S.LaunchDate>
           Data de lançamento: {new Date(course.createdAt).toLocaleDateString()}
-        </LaunchDate>
+        </S.LaunchDate>
 
-        <CourseDuration>Duração: {secondsToHours(course.duration)}</CourseDuration>
-      </CourseDetails>
+        <S.CourseDuration>
+          Duração: {secondsToHours(course.duration)}
+        </S.CourseDuration>
+      </S.CourseDetails>
 
-      <CourseQuestions>
+      <S.CourseQuestions>
         <MessageCircle strokeWidth={0.5} fill="#3f3d3d" color="#3f3d3d" size={21} />
         <span>{course.questions?.length}</span>
-      </CourseQuestions>
-    </Card>
+      </S.CourseQuestions>
+    </S.Card>
   )
 }
 

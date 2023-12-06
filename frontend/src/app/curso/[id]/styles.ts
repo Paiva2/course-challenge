@@ -1,4 +1,11 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
+
+export const TopSide = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`
 
 export const CoursePageContainer = styled.main`
   width: 100%;
@@ -23,6 +30,30 @@ export const BackLink = styled.a`
   &:hover {
     background-color: #2644cf;
   }
+`
+
+const rotateLoading = keyframes`
+from {
+  transform: rotate(0deg);
+}
+
+to {
+  transform: rotate(360deg);
+}
+`
+
+export const LoadingState = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  border: 6px solid #e9e9e9;
+  border-top: 6px #5a3ce8 solid;
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+  -webkit-animation: ${rotateLoading} 1s linear infinite;
+  animation: ${rotateLoading} 1s linear infinite;
 `
 
 export const CoursePageWrapper = styled.div`
@@ -95,6 +126,64 @@ export const QuestionsContainer = styled.div`
   border-radius: 8px;
   padding: 1.875rem;
   box-shadow: rgb(245, 245, 245) 9px 13px 9px -6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  h1 {
+    font-size: 1.25rem;
+    color: #3f3d3d;
+  }
+`
+
+export const Question = styled.div`
+  position: relative;
+  padding-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  border-bottom: 1px solid #e1e1e1;
+`
+
+export const AnswerQuestionButton = styled.button`
+  position: absolute;
+  right: 0;
+  color: #5a72e0;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  font-size: 0.875rem;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  &:hover {
+    color: #2644cf;
+  }
+`
+
+export const QuestionContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  p {
+    max-width: 90%;
+    word-break: normal;
+  }
+`
+
+export const Answer = styled.div`
+  padding-left: 1.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  p {
+    max-width: 90%;
+    word-break: normal;
+  }
 `
 
 export const NewQuestionContainer = styled.div`
@@ -102,4 +191,44 @@ export const NewQuestionContainer = styled.div`
   border-radius: 8px;
   padding: 1.875rem;
   box-shadow: rgb(245, 245, 245) 9px 13px 9px -6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  h1 {
+    font-size: 1.25rem;
+    color: #3f3d3d;
+  }
+
+  textarea {
+    resize: none;
+    outline: none;
+    height: 150px;
+    padding: 0.9375rem;
+    font-size: 1rem;
+    background-color: #f7f8fd;
+    border: 0;
+
+    &::placeholder {
+      color: #898989;
+      font-size: 1rem;
+    }
+  }
+`
+
+export const SendQuestionButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: start;
+  color: #fff;
+  background-color: #5a72e0;
+  border-radius: 10px;
+  padding: 0.75rem 1.875rem;
+  transition: all 0.2s ease-in-out;
+  font-weight: 600;
+
+  &:hover {
+    background-color: #2644cf;
+  }
 `

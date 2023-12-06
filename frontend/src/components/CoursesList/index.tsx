@@ -1,15 +1,10 @@
 "use client"
 
 import React, { useContext } from "react"
-import {
-  ListContainer,
-  ListWrapper,
-  LoadingWrapper,
-  PaginationWrapper,
-} from "./styles"
-import { CourseContextProvider } from "@/courseContext"
+import { CourseContextProvider } from "@/contexts/courseContext"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import Course from "../Course"
+import * as S from "./styles"
 
 const CoursesList = () => {
   const { pageNumber, queryCourses, setPageNumber } =
@@ -18,12 +13,12 @@ const CoursesList = () => {
   const isCoursesLoading = queryCourses.isLoading || queryCourses.isError
 
   return (
-    <ListContainer>
-      <ListWrapper>
+    <S.ListContainer>
+      <S.ListWrapper>
         {isCoursesLoading ? (
-          <LoadingWrapper>
+          <S.LoadingWrapper>
             <div className="loadingCourses" />
-          </LoadingWrapper>
+          </S.LoadingWrapper>
         ) : (
           <>
             {queryCourses?.data?.courses.map((course) => {
@@ -31,10 +26,10 @@ const CoursesList = () => {
             })}
           </>
         )}
-      </ListWrapper>
+      </S.ListWrapper>
 
       {!isCoursesLoading && (
-        <PaginationWrapper>
+        <S.PaginationWrapper>
           <button
             disabled={+pageNumber <= 1}
             onClick={() => setPageNumber((oldPage) => String(+oldPage - 1))}
@@ -62,9 +57,9 @@ const CoursesList = () => {
           >
             <ChevronRight size={20} color="#fff" />
           </button>
-        </PaginationWrapper>
+        </S.PaginationWrapper>
       )}
-    </ListContainer>
+    </S.ListContainer>
   )
 }
 

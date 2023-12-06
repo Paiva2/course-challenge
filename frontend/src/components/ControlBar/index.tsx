@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import { Bar, BarWrapper, LeftSide, LoginLink, RightSide } from "./styles"
 import { MonitorPlay } from "lucide-react"
-import { CourseContextProvider } from "@/courseContext"
+import { CourseContextProvider } from "@/contexts/courseContext"
 
 const ControlBar = () => {
   const { queryCourses } = useContext(CourseContextProvider)
