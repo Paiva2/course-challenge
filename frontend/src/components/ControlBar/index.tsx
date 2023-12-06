@@ -16,9 +16,9 @@ const ControlBar = () => {
 
           <p>
             {queryCourses.isLoading || queryCourses.isError ? (
-              <div className="loadingQuantity" />
+              <span className="loadingQuantity" />
             ) : (
-              queryCourses?.data?.totalPages * 10
+              queryCourses?.data?.totalCourses
             )}{" "}
             Cursos disponíveis
           </p>

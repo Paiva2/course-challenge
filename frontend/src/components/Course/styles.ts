@@ -47,6 +47,10 @@ export const LaunchDate = styled.p`
   font-size: 0.875rem;
 `
 
+export const CourseDuration = styled.p`
+  font-size: 0.875rem;
+`
+
 export const CourseQuestions = styled.div`
   display: flex;
   align-items: center;

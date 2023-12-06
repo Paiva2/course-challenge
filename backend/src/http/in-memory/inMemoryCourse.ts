@@ -50,7 +50,12 @@ export default class InMemoryCourse implements CourseInterface {
 
   async getActives(
     page: number
-  ): Promise<{ page: number; totalPages: number; courses: ICourse[] }> {
+  ): Promise<{
+    page: number
+    totalPages: number
+    courses: ICourse[]
+    totalCourses: number
+  }> {
     const perPage = 10
 
     const getActiveCourses = this.courses.filter((course) => course.active)
@@ -60,6 +65,7 @@ export default class InMemoryCourse implements CourseInterface {
     return {
       totalPages,
       page,
+      totalCourses: getActiveCourses.length,
       courses: getActiveCourses.slice((page - 1) * perPage, page * perPage),
     }
   }

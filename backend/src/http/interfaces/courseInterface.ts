@@ -7,7 +7,10 @@ export default interface CourseInterface {
 
   updateFull(course: ICourse): Promise<ICourse>
 
-  getActives(
+  getActives(page: number): Promise<{
     page: number
-  ): Promise<{ page: number; totalPages: number; courses: ICourse[] }>
+    totalPages: number
+    courses: ICourse[]
+    totalCourses: number
+  }>
 }

@@ -52,7 +52,12 @@ export default class CourseModel implements CourseInterface {
 
   async getActives(
     page: number
-  ): Promise<{ page: number; totalPages: number; courses: ICourse[] }> {
+  ): Promise<{
+    page: number
+    totalPages: number
+    courses: ICourse[]
+    totalCourses: number
+  }> {
     const perPage = 10
 
     const offset = (page - 1) * perPage
@@ -82,6 +87,7 @@ export default class CourseModel implements CourseInterface {
 
     return {
       page,
+      totalCourses: totalCount,
       totalPages: pageTotal,
       courses: activeCourses,
     }

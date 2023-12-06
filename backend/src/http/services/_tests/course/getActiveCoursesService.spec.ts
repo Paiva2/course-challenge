@@ -96,6 +96,7 @@ describe("Get Active Courses Service", () => {
 
     expect(courses).toEqual({
       page: 1,
+      totalCourses: 2,
       totalPages: 1,
       courses: [
         expect.objectContaining({
@@ -149,6 +150,7 @@ describe("Get Active Courses Service", () => {
 
     expect(courses).toEqual({
       page: 3,
+      totalCourses: 23,
       totalPages: 3,
       courses: [
         expect.objectContaining({

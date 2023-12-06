@@ -1,5 +1,6 @@
 export interface ICourseSchema {
   page: number
+  totalCourses: number
   totalPages: number
   courses: ICourse[]
 }

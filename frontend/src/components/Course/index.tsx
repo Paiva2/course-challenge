@@ -3,6 +3,7 @@ import { MessageCircle } from "lucide-react"
 import {
   Card,
   CourseDetails,
+  CourseDuration,
   CourseQuestions,
   Description,
   LaunchDate,
@@ -15,8 +16,28 @@ interface ICourseProps {
 }
 
 const Course = ({ course }: ICourseProps) => {
+  function secondsToHours(seconds: number) {
+    let courseTime = ""
+
+    const hours = seconds / 3600
+
+    const hoursFixed = hours.toFixed(2)
+
+    const splitHours = hoursFixed.split(".")
+
+    if (splitHours.length > 0) {
+      courseTime = `${splitHours[0]}h ${splitHours[1]}m`
+    }
+
+    if (splitHours[1] === "00") {
+      courseTime = `${splitHours[0]}h`
+    }
+
+    return courseTime
+  }
+
   return (
-    <Card href={`/course/${course.id}`}>
+    <Card href={`/curso/${course.id}`}>
       <CourseDetails>
         <Title>{course.title}</Title>
 
@@ -25,6 +46,8 @@ const Course = ({ course }: ICourseProps) => {
         <LaunchDate>
           Data de lançamento: {new Date(course.createdAt).toLocaleDateString()}
         </LaunchDate>
+
+        <CourseDuration>Duração: {secondsToHours(course.duration)}</CourseDuration>
       </CourseDetails>
 
       <CourseQuestions>
