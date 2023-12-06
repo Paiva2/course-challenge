@@ -58,6 +58,25 @@ export default class InsertNewQuestionService {
       }
     }
 
+    const getAllCourseQuestions = await this.questionInterface.findAllFromCourse(
+      courseId
+    )
+
+    if (getAllCourseQuestions.length) {
+      const getUserQuestionsForThisCourse = getAllCourseQuestions.filter(
+        (question) => {
+          return question.fkStudent === studentId && question.fkCourse === courseId
+        }
+      )
+
+      if (getUserQuestionsForThisCourse.length >= 2) {
+        throw {
+          status: 403,
+          message: "Um aluno só pode registrar no máximo 2 questões por curso.",
+        }
+      }
+    }
+
     const insertNewQuestion = await this.questionInterface.create(
       studentId,
       courseId,

@@ -77,6 +77,32 @@ describe("Insert new question service", () => {
     )
   })
 
+  it("should not be possible to insert a more than 2 questions for user on same course", async () => {
+    await sut.exec({
+      courseId: fakeCourse.id as string,
+      studentId: fakeStudent.id as string,
+      content: "Question 1",
+    })
+
+    await sut.exec({
+      courseId: fakeCourse.id as string,
+      studentId: fakeStudent.id as string,
+      content: "Question 2",
+    })
+
+    await expect(() => {
+      return sut.exec({
+        courseId: fakeCourse.id as string,
+        studentId: fakeStudent.id as string,
+        content: "Question 3 attempt",
+      })
+    }).rejects.toEqual(
+      expect.objectContaining({
+        message: "Um aluno só pode registrar no máximo 2 questões por curso.",
+      })
+    )
+  })
+
   it("should not insert a new question to an existing course if course id are not provided", async () => {
     await expect(() => {
       return sut.exec({

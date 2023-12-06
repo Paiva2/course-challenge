@@ -22,7 +22,7 @@ export default class InsertNewQuestionController {
     } catch (e) {
       const error = e as HttpError
 
-      return res.status(error.status).send(error.message)
+      return res.status(error.status).send({ message: error.message })
     }
   }
 }
