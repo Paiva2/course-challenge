@@ -14,7 +14,7 @@ export default class UpdateStudentPasswordController {
         newPassword,
       })
 
-      return res.status(204).send({ message: "Senha atualizada com sucesso." })
+      return res.status(200).send({ message: "Senha atualizada com sucesso." })
     } catch (e) {
       const error = e as HttpError
 
