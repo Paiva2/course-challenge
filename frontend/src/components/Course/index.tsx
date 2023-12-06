@@ -1,4 +1,5 @@
 import React from "react"
+import secondsToHours from "@/utils/secondToHours"
 import { MessageCircle } from "lucide-react"
 import {
   Card,
@@ -16,26 +17,6 @@ interface ICourseProps {
 }
 
 const Course = ({ course }: ICourseProps) => {
-  function secondsToHours(seconds: number) {
-    let courseTime = ""
-
-    const hours = seconds / 3600
-
-    const hoursFixed = hours.toFixed(2)
-
-    const splitHours = hoursFixed.split(".")
-
-    if (splitHours.length > 0) {
-      courseTime = `${splitHours[0]}h ${splitHours[1]}m`
-    }
-
-    if (splitHours[1] === "00") {
-      courseTime = `${splitHours[0]}h`
-    }
-
-    return courseTime
-  }
-
   return (
     <Card href={`/curso/${course.id}`}>
       <CourseDetails>

@@ -23,3 +23,12 @@ export interface IQuestion {
   fkStudent: string
   question: string
 }
+
+export interface IAnswer {
+  id: string
+  answer: string
+  createdAt: string
+  fkCourse: string
+  fkProfessor: string
+  fkQuestion: string
+}
