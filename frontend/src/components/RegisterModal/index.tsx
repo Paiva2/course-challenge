@@ -3,45 +3,47 @@
 import React, { FormEvent, useEffect, useRef, useState } from "react"
 import { ChevronLeft, ExternalLink } from "lucide-react"
 import { AxiosError } from "axios"
-import { useRouter } from "next/navigation"
-import Cookies from "js-cookie"
 import api from "@/lib/api"
 import * as S from "./styles"
 
 interface IFormErrors {
   name: string
   password: string
+  confirmPassword: string
 }
 
-const LoginComponent = () => {
-  const route = useRouter()
-
+const RegisterComponent = () => {
   const nameFieldRef = useRef<HTMLInputElement | null>(null)
   const passwordFieldRef = useRef<HTMLInputElement | null>(null)
+  const confirmPasswordFieldRef = useRef<HTMLInputElement | null>(null)
 
   const [formErrors, setFormErrors] = useState({} as IFormErrors)
   const [formSubmitting, setFormSubmitting] = useState(false)
+  const [apiSuccess, setApiSuccess] = useState("")
   const [apiErrors, setApiErrors] = useState("")
 
   async function submitInformations() {
     try {
-      const submitLogin = await api.post("/login", {
+      const submitRegister = await api.post("/register", {
         name: nameFieldRef?.current?.value,
         password: passwordFieldRef?.current?.value,
+        passwordConfirmation: confirmPasswordFieldRef?.current?.value,
       })
 
-      if (submitLogin.status === 200) {
-        Cookies.set("cursos-auth", submitLogin.data.token, {
-          expires: 7,
-          path: "/",
-        })
+      if (submitRegister.status === 201) {
+        setApiSuccess(submitRegister.data.message)
 
-        if (nameFieldRef.current && passwordFieldRef.current) {
+        if (
+          nameFieldRef.current &&
+          passwordFieldRef.current &&
+          confirmPasswordFieldRef?.current
+        ) {
           nameFieldRef.current.value = ""
           passwordFieldRef.current.value = ""
+          confirmPasswordFieldRef.current.value = ""
         }
 
-        route.push("/")
+        setTimeout(() => setApiSuccess(""), 4000)
       }
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -55,7 +57,12 @@ const LoginComponent = () => {
   function checkFormErrors() {
     const errors = {} as IFormErrors
 
-    if (!nameFieldRef.current || !passwordFieldRef.current) return
+    if (
+      !nameFieldRef.current ||
+      !passwordFieldRef.current ||
+      !confirmPasswordFieldRef.current
+    )
+      return
 
     if (nameFieldRef.current.value.length < 3) {
       errors.name = "O nome precisa ter pelo menos 3 caracteres"
@@ -63,6 +70,13 @@ const LoginComponent = () => {
 
     if (passwordFieldRef.current.value.length < 6) {
       errors.password = "A senha precisa ter pelo menos 6 caracteres"
+    }
+
+    if (
+      !passwordFieldRef.current.value.length ||
+      confirmPasswordFieldRef.current.value !== passwordFieldRef.current.value
+    ) {
+      errors.confirmPassword = "A confirmação de senha precisa ser igual a senha"
     }
 
     setFormErrors(errors)
@@ -89,16 +103,16 @@ const LoginComponent = () => {
   }, [formErrors])
 
   return (
-    <S.LoginContainer>
-      <S.LoginWrapper>
-        <S.LoginForm onSubmit={handleInitSubmit}>
-          <S.LoginFormTitle>
-            <h1>Entrar</h1>
+    <S.RegisterContainer>
+      <S.RegisterWrapper>
+        <S.RegisterForm onSubmit={handleInitSubmit}>
+          <S.RegisterFormTitle>
+            <h1>Registre-se</h1>
 
-            <p>Bem vindo! Use suas credenciais para se autenticar!</p>
-          </S.LoginFormTitle>
+            <p>Bem vindo! Crie uma conta e adquira novos cursos!</p>
+          </S.RegisterFormTitle>
 
-          <S.LoginFields>
+          <S.RegisterFields>
             <S.FormLabel $isError={false}>
               Nome
               <input ref={nameFieldRef} placeholder="Digite seu nome" type="text" />
@@ -117,32 +131,45 @@ const LoginComponent = () => {
                 <p className="validationError">{formErrors.password}</p>
               )}
             </S.FormLabel>
-          </S.LoginFields>
+
+            <S.FormLabel $isError={false}>
+              Confirme sua senha
+              <input
+                ref={confirmPasswordFieldRef}
+                placeholder="Confirme sua senha"
+                type="password"
+              />
+              {formErrors.confirmPassword && (
+                <p className="validationError">{formErrors.confirmPassword}</p>
+              )}
+            </S.FormLabel>
+          </S.RegisterFields>
 
           <span>
             <a href="/recuperar-senha">Esqueceu sua senha?</a>
           </span>
 
           <S.ApiError>{apiErrors && <p>{apiErrors}</p>}</S.ApiError>
+          <S.ApiSuccess>{apiSuccess && <p>{apiSuccess}</p>}</S.ApiSuccess>
 
-          <S.LoginButton type="submit" disabled={formSubmitting}>
-            Entrar
-          </S.LoginButton>
+          <S.RegisterButton type="submit" disabled={formSubmitting}>
+            Registrar
+          </S.RegisterButton>
 
           <span>
-            Não possui uma conta? Se{" "}
-            <a href="/registro">
-              registre aqui! <ExternalLink size={18} />
+            Já possui uma conta? Faça{" "}
+            <a href="/entrar">
+              login aqui! <ExternalLink size={18} />
             </a>
           </span>
 
           <S.BackLink href="/">
             <ChevronLeft color="#fff" size={25} />
           </S.BackLink>
-        </S.LoginForm>
-      </S.LoginWrapper>
-    </S.LoginContainer>
+        </S.RegisterForm>
+      </S.RegisterWrapper>
+    </S.RegisterContainer>
   )
 }
 
-export default LoginComponent
+export default RegisterComponent

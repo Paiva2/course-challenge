@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const LoginContainer = styled.div`
+export const RegisterContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -8,7 +8,7 @@ export const LoginContainer = styled.div`
   height: 100%;
 `
 
-export const LoginWrapper = styled.div`
+export const RegisterWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -28,7 +28,7 @@ export const LoginWrapper = styled.div`
   }
 `
 
-export const LoginFormTitle = styled.div`
+export const RegisterFormTitle = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -45,7 +45,7 @@ export const LoginFormTitle = styled.div`
   }
 `
 
-export const LoginForm = styled.form`
+export const RegisterForm = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -69,7 +69,7 @@ export const LoginForm = styled.form`
   }
 `
 
-export const LoginFields = styled.div`
+export const RegisterFields = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -106,7 +106,7 @@ export const FormLabel = styled.label<{ $isError: boolean }>`
   }
 `
 
-export const LoginButton = styled.button`
+export const RegisterButton = styled.button`
   width: 100%;
   background-color: #5a72e0;
   border-radius: 8px;
@@ -152,4 +152,14 @@ export const BackLink = styled.a`
   &:hover {
     background-color: #2644cf;
   }
+`
+
+export const ApiSuccess = styled.span`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: #32a13a;
+  font-weight: 600;
 `
