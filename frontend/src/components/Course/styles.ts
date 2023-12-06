@@ -11,6 +11,16 @@ export const Card = styled.a`
   justify-content: space-between;
   border-radius: 8px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  &:hover {
+    h1 {
+      color: #5a72e0;
+    }
+
+    svg {
+      fill: #5a72e0;
+    }
+  }
 `
 
 export const CourseDetails = styled.div`

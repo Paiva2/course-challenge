@@ -42,7 +42,10 @@ export default class Factory {
       questionModel
     )
 
-    const getActiveCoursesService = new GetActiveCoursesService(courseModel)
+    const getActiveCoursesService = new GetActiveCoursesService(
+      courseModel,
+      questionModel
+    )
 
     const updateCourseInformationsService = new UpdateCourseInformationsService(
       userModel,

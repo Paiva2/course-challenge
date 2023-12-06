@@ -8,21 +8,28 @@ import {
   LaunchDate,
   Title,
 } from "./styles"
+import { ICourse } from "@/@types/types"
 
-const Course = () => {
+interface ICourseProps {
+  course: ICourse
+}
+
+const Course = ({ course }: ICourseProps) => {
   return (
-    <Card href="#">
+    <Card href={`/course/${course.id}`}>
       <CourseDetails>
-        <Title>Nome do curso</Title>
+        <Title>{course.title}</Title>
 
-        <Description>Descrição do curso</Description>
+        <Description>Descrição: {course.description}</Description>
 
-        <LaunchDate>Data de lançamento</LaunchDate>
+        <LaunchDate>
+          Data de lançamento: {new Date(course.createdAt).toLocaleDateString()}
+        </LaunchDate>
       </CourseDetails>
 
       <CourseQuestions>
         <MessageCircle strokeWidth={0.5} fill="#3f3d3d" color="#3f3d3d" size={21} />
-        <span>3</span>
+        <span>{course.questions?.length}</span>
       </CourseQuestions>
     </Card>
   )

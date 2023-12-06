@@ -1,5 +1,6 @@
-import { ICourse } from "../../@types/types"
+import { ICourse, IQuestion } from "../../@types/types"
 import CourseInterface from "../../interfaces/courseInterface"
+import QuestionInterface from "../../interfaces/questionInterface"
 
 type GetActiveCoursesServiceRequest = {
   page: number
@@ -12,7 +13,10 @@ type GetActiveCoursesServiceResponse = {
 }
 
 export default class GetActiveCoursesService {
-  constructor(private courseInterface: CourseInterface) {}
+  constructor(
+    private courseInterface: CourseInterface,
+    private questionInterface: QuestionInterface
+  ) {}
 
   async exec({
     page = 1,
@@ -23,6 +27,33 @@ export default class GetActiveCoursesService {
 
     const activeCourses = await this.courseInterface.getActives(page)
 
-    return activeCourses
+    const questions = await this.questionInterface.findAll()
+
+    let formatCourses: ICourse[] = []
+
+    for (let course of activeCourses.courses) {
+      const courseQuestions = questions.find(
+        (question) => question.fkCourse === course.id
+      )
+
+      const doesCourseHasMoreQuestions = formatCourses.find(
+        (baseCourse) => baseCourse.id === course.id
+      )
+
+      if (courseQuestions) {
+        if (doesCourseHasMoreQuestions) {
+          doesCourseHasMoreQuestions?.questions?.push(courseQuestions)
+        } else {
+          formatCourses.push({ ...course, questions: [courseQuestions] })
+        }
+      } else {
+        formatCourses.push({ ...course, questions: [] })
+      }
+    }
+
+    return {
+      ...activeCourses,
+      courses: formatCourses,
+    }
   }
 }

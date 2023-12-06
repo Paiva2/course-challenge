@@ -6,4 +6,6 @@ export default interface QuestionInterface {
   findById(id: string): Promise<IQuestion | null>
 
   findAllFromCourse(courseId: string): Promise<IQuestion[]>
+
+  findAll(): Promise<IQuestion[]>
 }

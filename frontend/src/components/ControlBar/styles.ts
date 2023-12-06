@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 
 export const Bar = styled.div`
   background-color: #5a72e0;
@@ -18,6 +18,16 @@ export const BarWrapper = styled.div`
   justify-content: space-between;
 `
 
+const rotateLoading = keyframes`
+from {
+  transform: rotate(0deg);
+}
+
+to {
+  transform: rotate(360deg);
+}
+`
+
 export const RightSide = styled.div`
   display: flex;
   align-items: center;
@@ -27,6 +37,19 @@ export const RightSide = styled.div`
     color: #fff;
     font-weight: 700;
     font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+
+  .loadingQuantity {
+    border: 3px solid #e9e9e9;
+    border-top: 3px #5a3ce8 solid;
+    border-radius: 50%;
+    height: 1.25rem;
+    width: 1.25rem;
+    -webkit-animation: ${rotateLoading} 1s linear infinite;
+    animation: ${rotateLoading} 1s linear infinite;
   }
 `
 

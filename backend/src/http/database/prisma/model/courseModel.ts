@@ -69,7 +69,16 @@ export default class CourseModel implements CourseInterface {
       offset
     )
 
-    const pageTotal = Math.ceil(activeCourses.length / perPage)
+    const [activeCoursesCount] = await prisma.$queryRawUnsafe<{ count: string }[]>(
+      `SELECT COUNT(*)
+      FROM public.course
+      WHERE active = true;
+    `
+    )
+
+    const totalCount = Number(activeCoursesCount.count.toString().split("n")[0])
+
+    const pageTotal = Math.ceil(totalCount / perPage)
 
     return {
       page,

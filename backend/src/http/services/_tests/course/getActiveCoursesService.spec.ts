@@ -5,15 +5,20 @@ import RegisterNewStudentService from "../../student/registerNewStudentService"
 import CreateNewCourseService from "../../course/createNewCourseService"
 import InMemoryCourse from "../../../in-memory/inMemoryCourse"
 import GetActiveCoursesService from "../../course/getActiveCoursesService"
+import InMemoryQuestion from "../../../in-memory/inMemoryQuestion"
+import InsertNewQuestionService from "../../question/insertNewQuestionService"
 
 let fakeProfessor: IUser
+let fakeStudent: IUser
 
 let inMemoryUser: InMemoryUser
 let inMemoryCourse: InMemoryCourse
+let inMemoryQuestion: InMemoryQuestion
 
 let registerNewStudentService: RegisterNewStudentService
 
 let createNewCourseService: CreateNewCourseService
+let insertNewQuestionService: InsertNewQuestionService
 
 let sut: GetActiveCoursesService
 
@@ -21,10 +26,17 @@ describe("Get Active Courses Service", () => {
   beforeEach(async () => {
     inMemoryUser = new InMemoryUser()
     inMemoryCourse = new InMemoryCourse()
+    inMemoryQuestion = new InMemoryQuestion()
 
     registerNewStudentService = new RegisterNewStudentService(inMemoryUser)
 
     createNewCourseService = new CreateNewCourseService(inMemoryUser, inMemoryCourse)
+
+    insertNewQuestionService = new InsertNewQuestionService(
+      inMemoryUser,
+      inMemoryCourse,
+      inMemoryQuestion
+    )
 
     fakeProfessor = await registerNewStudentService.exec({
       name: "John Doe",
@@ -32,7 +44,13 @@ describe("Get Active Courses Service", () => {
       role: "professor",
     })
 
-    sut = new GetActiveCoursesService(inMemoryCourse)
+    fakeStudent = await registerNewStudentService.exec({
+      name: "John Doe Student",
+      password: "123456",
+      role: "student",
+    })
+
+    sut = new GetActiveCoursesService(inMemoryCourse, inMemoryQuestion)
   })
 
   it("should get active courses", async () => {
@@ -45,13 +63,19 @@ describe("Get Active Courses Service", () => {
       },
     })
 
-    await createNewCourseService.exec({
+    const fakeCourse = await createNewCourseService.exec({
       professorId: fakeProfessor.id as string,
       course: {
         title: "Test course 2",
         description: "Test description 2",
         duration: 14400, // 4h,
       },
+    })
+
+    await insertNewQuestionService.exec({
+      courseId: fakeCourse.id as string,
+      content: "Testing question",
+      studentId: fakeStudent.id as string,
     })
 
     const inativeCourse = await createNewCourseService.exec({
@@ -83,6 +107,7 @@ describe("Get Active Courses Service", () => {
           description: "Test description",
           createdAt: expect.any(Date),
           updatedAt: expect.any(Date),
+          questions: [],
         }),
 
         expect.objectContaining({
@@ -94,6 +119,15 @@ describe("Get Active Courses Service", () => {
           description: "Test description 2",
           createdAt: expect.any(Date),
           updatedAt: expect.any(Date),
+          questions: [
+            expect.objectContaining({
+              id: expect.any(String),
+              createdAt: expect.any(Date),
+              question: "Testing question",
+              fkStudent: fakeStudent.id,
+              fkCourse: fakeCourse.id,
+            }),
+          ],
         }),
       ],
     })
@@ -126,6 +160,7 @@ describe("Get Active Courses Service", () => {
           description: "Test description 21",
           createdAt: expect.any(Date),
           updatedAt: expect.any(Date),
+          questions: [],
         }),
 
         expect.objectContaining({
@@ -137,6 +172,7 @@ describe("Get Active Courses Service", () => {
           description: "Test description 22",
           createdAt: expect.any(Date),
           updatedAt: expect.any(Date),
+          questions: [],
         }),
 
         expect.objectContaining({
@@ -148,6 +184,7 @@ describe("Get Active Courses Service", () => {
           description: "Test description 23",
           createdAt: expect.any(Date),
           updatedAt: expect.any(Date),
+          questions: [],
         }),
       ],
     })

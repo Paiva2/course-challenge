@@ -38,4 +38,8 @@ export default class InMemoryQuestion implements QuestionInterface {
 
     return getAllQuestionsFromCourse
   }
+
+  async findAll(): Promise<IQuestion[]> {
+    return this.questions
+  }
 }

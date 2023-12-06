@@ -9,7 +9,7 @@ export interface ICourse {
   id?: string
   title: string
   duration: number
-  questions?: []
+  questions?: IQuestion[]
   professor?: string
   active?: boolean
   description: string
