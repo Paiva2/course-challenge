@@ -1,12 +1,13 @@
 "use client"
 
-import React, { useEffect, Fragment } from "react"
+import React, { useEffect, Fragment, useContext } from "react"
 import { MessageCircle, ChevronLeft } from "lucide-react"
 import { useQuery, UseMutationResult } from "react-query"
 import { IAnswer, IQuestion } from "@/@types/types"
 import secondsToHours from "@/utils/secondToHours"
 import api from "@/lib/api"
 import * as S from "./styles"
+import { UserContextProvider } from "@/contexts/userContext"
 
 interface TQueryCourse extends Omit<UseMutationResult, "data"> {
   data: {
@@ -27,6 +28,8 @@ interface TQueryCourse extends Omit<UseMutationResult, "data"> {
 }
 
 const CoursePage = ({ params }: { params: { id: string } }) => {
+  const { userProfile } = useContext(UserContextProvider)
+
   const courseId = params.id
 
   const queryCourse = useQuery({
@@ -162,9 +165,15 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
         <S.NewQuestionContainer>
           <h1>Adicionar nova pergunta</h1>
 
-          <textarea maxLength={500} placeholder="Escreva sua pergunta aqui..." />
+          <textarea
+            disabled={!userProfile.auth}
+            maxLength={500}
+            placeholder="Escreva sua pergunta aqui..."
+          />
 
-          <S.SendQuestionButton type="button">Enviar</S.SendQuestionButton>
+          <S.SendQuestionButton disabled={!userProfile.auth} type="button">
+            {userProfile.auth ? "Enviar" : "Você precisa entrar para perguntar."}
+          </S.SendQuestionButton>
         </S.NewQuestionContainer>
       </S.CoursePageWrapper>
     </S.CoursePageContainer>

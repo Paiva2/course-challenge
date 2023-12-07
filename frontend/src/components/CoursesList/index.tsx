@@ -3,6 +3,7 @@
 import React, { useContext } from "react"
 import { CourseContextProvider } from "@/contexts/courseContext"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import EmptyCoursesListPlaceholder from "../EmptyCoursesListPlaceholder"
 import Course from "../Course"
 import * as S from "./styles"
 
@@ -19,16 +20,16 @@ const CoursesList = () => {
           <S.LoadingWrapper>
             <div className="loadingCourses" />
           </S.LoadingWrapper>
+        ) : queryCourses?.data?.courses.length ? (
+          queryCourses?.data?.courses.map((course) => {
+            return <Course course={course} key={course.id} />
+          })
         ) : (
-          <>
-            {queryCourses?.data?.courses.map((course) => {
-              return <Course course={course} key={course.id} />
-            })}
-          </>
+          <EmptyCoursesListPlaceholder />
         )}
       </S.ListWrapper>
 
-      {!isCoursesLoading && (
+      {!isCoursesLoading && queryCourses?.data?.courses.length > 0 && (
         <S.PaginationWrapper>
           <button
             disabled={+pageNumber <= 1}

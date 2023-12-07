@@ -1,18 +1,11 @@
 "use client"
 
 import React, { Fragment, useContext, useState } from "react"
-import {
-  Bar,
-  BarWrapper,
-  LeftSide,
-  LoginLink,
-  OpenProfileModal,
-  RightSide,
-} from "./styles"
-import { MonitorPlay } from "lucide-react"
+import { MonitorPlay, Plus } from "lucide-react"
 import { CourseContextProvider } from "@/contexts/courseContext"
 import { UserContextProvider } from "@/contexts/userContext"
 import ProfileModal from "../ProfileModal"
+import * as S from "./styles"
 
 const ControlBar = () => {
   const { queryCourses } = useContext(CourseContextProvider)
@@ -21,47 +14,58 @@ const ControlBar = () => {
   const [openProfile, setOpenProfile] = useState(false)
 
   return (
-    <Bar>
-      <BarWrapper>
-        <RightSide>
-          <span>
-            <MonitorPlay size={30} color="#fff" />
-          </span>
+    <Fragment>
+      {userProfile.data.role === "professor" && (
+        <S.NewCourseTrigger>
+          <a href="/novo-curso">
+            <Plus color="#fff" />
+            Curso
+          </a>
+        </S.NewCourseTrigger>
+      )}
 
-          <p>
-            {queryCourses.isLoading || queryCourses.isError ? (
-              <span className="loadingQuantity" />
+      <S.Bar>
+        <S.BarWrapper>
+          <S.RightSide>
+            <span>
+              <MonitorPlay size={30} color="#fff" />
+            </span>
+
+            <p>
+              {queryCourses.isLoading || queryCourses.isError ? (
+                <span className="loadingQuantity" />
+              ) : (
+                queryCourses?.data?.totalCourses
+              )}{" "}
+              Cursos disponíveis
+            </p>
+          </S.RightSide>
+
+          <S.LeftSide>
+            {!userProfile.auth ? (
+              <S.LoginLink href="/entrar">Entrar</S.LoginLink>
             ) : (
-              queryCourses?.data?.totalCourses
-            )}{" "}
-            Cursos disponíveis
-          </p>
-        </RightSide>
+              <Fragment>
+                <S.OpenProfileModal
+                  onClick={() => setOpenProfile(!openProfile)}
+                  type="button"
+                >
+                  <img
+                    alt={`${userProfile.data.name}'s Profile Pic`}
+                    src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.webp"
+                  />
+                </S.OpenProfileModal>
 
-        <LeftSide>
-          {!userProfile.auth ? (
-            <LoginLink href="/entrar">Entrar</LoginLink>
-          ) : (
-            <Fragment>
-              <OpenProfileModal
-                onClick={() => setOpenProfile(!openProfile)}
-                type="button"
-              >
-                <img
-                  alt={`${userProfile.data.name}'s Profile Pic`}
-                  src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.webp"
+                <ProfileModal
+                  setOpenProfile={setOpenProfile}
+                  openProfile={openProfile}
                 />
-              </OpenProfileModal>
-
-              <ProfileModal
-                setOpenProfile={setOpenProfile}
-                openProfile={openProfile}
-              />
-            </Fragment>
-          )}
-        </LeftSide>
-      </BarWrapper>
-    </Bar>
+              </Fragment>
+            )}
+          </S.LeftSide>
+        </S.BarWrapper>
+      </S.Bar>
+    </Fragment>
   )
 }
 

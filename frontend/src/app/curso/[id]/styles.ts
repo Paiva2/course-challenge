@@ -225,6 +225,11 @@ export const NewQuestionContainer = styled.div`
     background-color: #f7f8fd;
     border: 0;
 
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     &::placeholder {
       color: #898989;
       font-size: 1rem;
@@ -243,6 +248,11 @@ export const SendQuestionButton = styled.button`
   padding: 0.75rem 1.875rem;
   transition: all 0.2s ease-in-out;
   font-weight: 600;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 
   &:hover {
     background-color: #2644cf;

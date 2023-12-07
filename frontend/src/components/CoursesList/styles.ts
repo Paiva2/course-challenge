@@ -83,6 +83,11 @@ export const PaginationWrapper = styled.div`
     border-radius: 10px;
     transition: 0.2s ease-in-out;
 
+    &:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
     &:hover {
       background-color: #223cb8;
     }

@@ -78,3 +78,39 @@ export const OpenProfileModal = styled.button`
     object-fit: contain;
   }
 `
+
+export const NewCourseTrigger = styled.span`
+  width: 100%;
+  max-width: 56.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  a {
+    width: 100%;
+    background-color: #5a72e0;
+    border-radius: 8px;
+    max-width: 7.5rem;
+    color: #fff;
+    font-weight: 600;
+    padding: 0.625rem;
+    text-align: center;
+    font-size: 1rem;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.125rem;
+    text-decoration: none;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    &:hover {
+      background-color: #2644cf;
+    }
+  }
+`
