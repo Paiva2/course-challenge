@@ -17,7 +17,7 @@ export default class UpdateUserProfileController {
         userId: userData.id,
       })
 
-      return res.status(204).send({ message: "Usuário atualizado com sucesso." })
+      return res.status(200).send({ message: "Usuário atualizado com sucesso." })
     } catch (e) {
       const error = e as HttpError
 

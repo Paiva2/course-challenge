@@ -32,3 +32,14 @@ export interface IAnswer {
   fkProfessor: string
   fkQuestion: string
 }
+
+export interface IToken {
+  data: {
+    id: string
+    name: string
+    role: string
+  }
+
+  expiresIn: string
+  iat: number
+}

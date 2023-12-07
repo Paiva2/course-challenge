@@ -65,3 +65,16 @@ export const LoginLink = styled.a`
     text-decoration: underline;
   }
 `
+
+export const OpenProfileModal = styled.button`
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 100%;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+`

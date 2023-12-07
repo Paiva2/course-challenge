@@ -3,7 +3,6 @@ import { createGlobalStyle } from "styled-components"
 const GlobalStyle = createGlobalStyle`
   body {
     background-color: #F7F8FD;
-    height: 100vh;
   }
 
   input {

@@ -5,7 +5,7 @@ export const LoginContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
 `
 
 export const LoginWrapper = styled.div`
