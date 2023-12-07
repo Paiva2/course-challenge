@@ -202,7 +202,7 @@ export const Answer = styled.div`
   }
 `
 
-export const NewQuestionContainer = styled.div`
+export const NewQuestionContainer = styled.form`
   background-color: #fff;
   border-radius: 8px;
   padding: 1.875rem;
@@ -257,4 +257,24 @@ export const SendQuestionButton = styled.button`
   &:hover {
     background-color: #2644cf;
   }
+`
+
+export const ApiError = styled.span`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: #e53333;
+  font-weight: 600;
+`
+
+export const ApiSuccess = styled.span`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: #32a13a;
+  font-weight: 600;
 `

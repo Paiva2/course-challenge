@@ -1,11 +1,10 @@
 "use client"
 
-import CourseContext from "@/contexts/courseContext"
-import UserContext from "@/contexts/userContext"
-import GlobalStyle from "@/global/globalStyles"
 import { Roboto } from "next/font/google"
 import { QueryClient, QueryClientProvider } from "react-query"
+import CourseContext from "@/contexts/courseContext"
 import StyledComponentsRegistry from "./registry"
+import UserContext from "@/contexts/userContext"
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["300", "400", "500", "700"] })
 

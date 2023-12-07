@@ -1,13 +1,21 @@
 "use client"
 
-import React, { useEffect, Fragment, useContext } from "react"
+import React, {
+  useEffect,
+  Fragment,
+  useContext,
+  useRef,
+  useState,
+  FormEvent,
+} from "react"
 import { MessageCircle, ChevronLeft } from "lucide-react"
-import { useQuery, UseMutationResult } from "react-query"
+import { useQuery, UseMutationResult, useQueryClient } from "react-query"
 import { IAnswer, IQuestion } from "@/@types/types"
+import { UserContextProvider } from "@/contexts/userContext"
+import { AxiosError } from "axios"
 import secondsToHours from "@/utils/secondToHours"
 import api from "@/lib/api"
 import * as S from "./styles"
-import { UserContextProvider } from "@/contexts/userContext"
 
 interface TQueryCourse extends Omit<UseMutationResult, "data"> {
   data: {
@@ -30,7 +38,15 @@ interface TQueryCourse extends Omit<UseMutationResult, "data"> {
 const CoursePage = ({ params }: { params: { id: string } }) => {
   const { userProfile } = useContext(UserContextProvider)
 
+  const queryClient = useQueryClient()
+
   const courseId = params.id
+
+  const questionRef = useRef<HTMLTextAreaElement>({} as HTMLTextAreaElement)
+
+  const [newQuestionSubmitting, setNewQuestionSubmitting] = useState(false)
+  const [newQuestionError, setNewQuestionError] = useState("")
+  const [newQuestionSuccess, setNewQuestionSuccess] = useState("")
 
   const queryCourse = useQuery({
     queryKey: ["queryCoursePage"],
@@ -39,6 +55,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
 
       return getCourseDetails.data
     },
+    enabled: Boolean(courseId),
   }) as unknown as TQueryCourse
 
   const { data: queryCourseProfessor } = useQuery({
@@ -58,6 +75,52 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
       window.document.title = `Curso: ${queryCourse.data.title}`
     }
   }, [queryCourse?.data])
+
+  async function handleSubmitNewQuestion(e: FormEvent) {
+    e.preventDefault()
+
+    if (questionRef.current.value.length < 10) {
+      return setNewQuestionError("A questão precisa ter pelo menos 10 caracteres.")
+    }
+
+    setNewQuestionSubmitting(true)
+
+    setNewQuestionError("")
+    setNewQuestionSuccess("")
+
+    try {
+      const newQuestion = await api.post(
+        "/question",
+        {
+          content: questionRef?.current?.value,
+          courseId: courseId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${userProfile.token}`,
+          },
+        }
+      )
+
+      if (newQuestion.status === 201) {
+        setNewQuestionSuccess(newQuestion.data.message)
+
+        questionRef.current!.value = ""
+
+        queryClient.invalidateQueries("queryCoursePage")
+
+        setTimeout(() => setNewQuestionSuccess(""), 4200)
+      }
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        setNewQuestionError(e.response?.data.message)
+
+        setTimeout(() => setNewQuestionError(""), 4200)
+      }
+    } finally {
+      setNewQuestionSubmitting(false)
+    }
+  }
 
   if (
     queryCourse?.isLoading ||
@@ -162,16 +225,32 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
           )}
         </S.QuestionsContainer>
 
-        <S.NewQuestionContainer>
+        <S.NewQuestionContainer onSubmit={handleSubmitNewQuestion}>
           <h1>Adicionar nova pergunta</h1>
 
           <textarea
+            ref={questionRef}
             disabled={!userProfile.auth}
             maxLength={500}
             placeholder="Escreva sua pergunta aqui..."
           />
 
-          <S.SendQuestionButton disabled={!userProfile.auth} type="button">
+          {newQuestionSuccess && (
+            <S.ApiSuccess>
+              <p>{newQuestionSuccess}</p>
+            </S.ApiSuccess>
+          )}
+
+          {newQuestionError && (
+            <S.ApiError>
+              <p>{newQuestionError}</p>
+            </S.ApiError>
+          )}
+
+          <S.SendQuestionButton
+            disabled={!userProfile.auth || newQuestionSubmitting}
+            type="submit"
+          >
             {userProfile.auth ? "Enviar" : "Você precisa entrar para perguntar."}
           </S.SendQuestionButton>
         </S.NewQuestionContainer>
