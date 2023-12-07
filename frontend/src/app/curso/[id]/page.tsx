@@ -1,19 +1,13 @@
 "use client"
 
-import React, {
-  useEffect,
-  Fragment,
-  useContext,
-  useRef,
-  useState,
-  FormEvent,
-} from "react"
+import React, { useEffect, useContext, useRef, useState, FormEvent } from "react"
 import { MessageCircle, ChevronLeft } from "lucide-react"
 import { useQuery, UseMutationResult, useQueryClient } from "react-query"
 import { IAnswer, IQuestion } from "@/@types/types"
 import { UserContextProvider } from "@/contexts/userContext"
 import { AxiosError } from "axios"
 import secondsToHours from "@/utils/secondToHours"
+import QuestionComponent from "@/components/QuestionComponent"
 import api from "@/lib/api"
 import * as S from "./styles"
 
@@ -130,6 +124,10 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
   )
     return <S.LoadingState />
 
+  const canIAnswerQuestionsOnThisCourse =
+    queryCourse.data.fkProfessor === userProfile.data.id &&
+    userProfile.data.role === "professor"
+
   return (
     <S.CoursePageContainer>
       <S.CoursePageWrapper>
@@ -173,46 +171,11 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
           {queryCourse.data.questions.length ? (
             queryCourse.data.questions.map((questionInfos) => {
               return (
-                <S.Question key={questionInfos.question.id}>
-                  <S.QuestionContent>
-                    {!questionInfos.answers.length ? (
-                      <S.AnswerQuestionButton type="button">
-                        Responder
-                      </S.AnswerQuestionButton>
-                    ) : (
-                      <S.AnswerQuestionButton disabled type="button">
-                        Respondido
-                      </S.AnswerQuestionButton>
-                    )}
-
-                    <p>Nome do estudante: X</p>
-                    <p>Dúvida: {questionInfos.question.question}</p>
-
-                    <p>
-                      Feita em:{" "}
-                      {new Date(
-                        questionInfos.question.createdAt
-                      ).toLocaleDateString()}
-                    </p>
-                  </S.QuestionContent>
-
-                  <Fragment>
-                    {questionInfos.answers.map((answer) => {
-                      return (
-                        <S.Answer key={answer.id}>
-                          <p>Professor: Y</p>
-
-                          <p>Resposta: {answer.answer}</p>
-
-                          <p>
-                            Respondida em:{" "}
-                            {new Date(answer.createdAt).toLocaleDateString()}
-                          </p>
-                        </S.Answer>
-                      )
-                    })}
-                  </Fragment>
-                </S.Question>
+                <QuestionComponent
+                  key={questionInfos.question.id}
+                  canAnswer={canIAnswerQuestionsOnThisCourse}
+                  questionInfos={questionInfos}
+                />
               )
             })
           ) : (
@@ -225,35 +188,37 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
           )}
         </S.QuestionsContainer>
 
-        <S.NewQuestionContainer onSubmit={handleSubmitNewQuestion}>
-          <h1>Adicionar nova pergunta</h1>
+        {queryCourse.data.fkProfessor !== userProfile.data.id && (
+          <S.NewQuestionContainer onSubmit={handleSubmitNewQuestion}>
+            <h1>Adicionar nova pergunta</h1>
 
-          <textarea
-            ref={questionRef}
-            disabled={!userProfile.auth}
-            maxLength={500}
-            placeholder="Escreva sua pergunta aqui..."
-          />
+            <textarea
+              ref={questionRef}
+              disabled={!userProfile.auth}
+              maxLength={500}
+              placeholder="Escreva sua pergunta aqui..."
+            />
 
-          {newQuestionSuccess && (
-            <S.ApiSuccess>
-              <p>{newQuestionSuccess}</p>
-            </S.ApiSuccess>
-          )}
+            {newQuestionSuccess && (
+              <S.ApiSuccess>
+                <p>{newQuestionSuccess}</p>
+              </S.ApiSuccess>
+            )}
 
-          {newQuestionError && (
-            <S.ApiError>
-              <p>{newQuestionError}</p>
-            </S.ApiError>
-          )}
+            {newQuestionError && (
+              <S.ApiError>
+                <p>{newQuestionError}</p>
+              </S.ApiError>
+            )}
 
-          <S.SendQuestionButton
-            disabled={!userProfile.auth || newQuestionSubmitting}
-            type="submit"
-          >
-            {userProfile.auth ? "Enviar" : "Você precisa entrar para perguntar."}
-          </S.SendQuestionButton>
-        </S.NewQuestionContainer>
+            <S.SendQuestionButton
+              disabled={!userProfile.auth || newQuestionSubmitting}
+              type="submit"
+            >
+              {userProfile.auth ? "Enviar" : "Você precisa entrar para perguntar."}
+            </S.SendQuestionButton>
+          </S.NewQuestionContainer>
+        )}
       </S.CoursePageWrapper>
     </S.CoursePageContainer>
   )

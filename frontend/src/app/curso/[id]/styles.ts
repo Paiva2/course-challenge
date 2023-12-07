@@ -152,56 +152,6 @@ export const QuestionPlaceholder = styled.div`
   }
 `
 
-export const Question = styled.div`
-  position: relative;
-  padding-bottom: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  border-bottom: 1px solid #e1e1e1;
-`
-
-export const AnswerQuestionButton = styled.button`
-  position: absolute;
-  right: 0;
-  color: #5a72e0;
-  font-weight: 600;
-  transition: all 0.2s ease-in-out;
-  font-size: 0.875rem;
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-
-  &:hover {
-    color: #2644cf;
-  }
-`
-
-export const QuestionContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-
-  p {
-    max-width: 90%;
-    word-break: normal;
-  }
-`
-
-export const Answer = styled.div`
-  padding-left: 1.875rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-
-  p {
-    max-width: 90%;
-    word-break: normal;
-  }
-`
-
 export const NewQuestionContainer = styled.form`
   background-color: #fff;
   border-radius: 8px;
@@ -219,7 +169,7 @@ export const NewQuestionContainer = styled.form`
   textarea {
     resize: none;
     outline: none;
-    height: 150px;
+    height: 9.375rem;
     padding: 0.9375rem;
     font-size: 1rem;
     background-color: #f7f8fd;

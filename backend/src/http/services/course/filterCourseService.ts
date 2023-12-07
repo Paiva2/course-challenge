@@ -42,21 +42,17 @@ export default class FilterCourseService {
     let courseQuestionsFormatted = []
 
     for (const question of getCourseQuestions) {
-      if (getQuestionAnswers.length) {
+      const doesQuestionHasAnswer = getQuestionAnswers.find(
+        (answers) => answers.fkQuestion === question.id
+      )
+
+      if (doesQuestionHasAnswer) {
         for (const answer of getQuestionAnswers) {
           if (question.id === answer.fkQuestion) {
-            const doesQuestionHasOtherAnswers = courseQuestionsFormatted.find(
-              (quest) => quest.question.id === question.id
-            )
-
-            if (doesQuestionHasOtherAnswers?.answers.length) {
-              doesQuestionHasOtherAnswers.answers.push(answer)
-            } else {
-              courseQuestionsFormatted.push({
-                question: question,
-                answers: [answer],
-              })
-            }
+            courseQuestionsFormatted.push({
+              question: question,
+              answers: [answer],
+            })
           }
         }
       } else {
