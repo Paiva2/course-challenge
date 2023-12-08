@@ -43,7 +43,7 @@ export const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.9375rem;
-  max-height: 40.625rem;
+  max-height: 35rem;
   padding: 0.3125rem;
   padding-bottom: 0.9375rem;
   padding-left: 0;

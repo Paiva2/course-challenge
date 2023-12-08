@@ -34,30 +34,6 @@ export const CoursePageContainer = styled.main`
   padding-bottom: 3.125rem;
 `
 
-const rotateLoading = keyframes`
-from {
-  transform: rotate(0deg);
-}
-
-to {
-  transform: rotate(360deg);
-}
-`
-
-export const LoadingState = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 50%);
-  border: 6px solid #e9e9e9;
-  border-top: 6px #5a3ce8 solid;
-  border-radius: 50%;
-  height: 5rem;
-  width: 5rem;
-  -webkit-animation: ${rotateLoading} 1s linear infinite;
-  animation: ${rotateLoading} 1s linear infinite;
-`
-
 export const CoursePageWrapper = styled.div`
   width: 100%;
   max-width: 56.25rem;

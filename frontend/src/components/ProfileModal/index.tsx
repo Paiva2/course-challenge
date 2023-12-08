@@ -12,9 +12,9 @@ import { UserContextProvider } from "@/contexts/userContext"
 import { AxiosError } from "axios"
 import { useQueryClient } from "react-query"
 import Cookies from "js-cookie"
+import { X } from "lucide-react"
 import api from "@/lib/api"
 import * as S from "./styles"
-import { X } from "lucide-react"
 
 interface IFormErrors {
   name: string
@@ -52,7 +52,7 @@ const ProfileModal = ({ openProfile, setOpenProfile }: IProfileModalProps) => {
         name: userProfile.data.name,
       }
     })
-  }, [userProfile.data.name])
+  }, [userProfile.data.name, openProfile])
 
   function handleChangeInputValue(field: string, value: string) {
     setFormFields((oldValue) => {
@@ -158,13 +158,19 @@ const ProfileModal = ({ openProfile, setOpenProfile }: IProfileModalProps) => {
     window.location.reload()
   }
 
+  function handleCloseProfile() {
+    !formSubmitting && setOpenProfile(!openProfile)
+
+    setFormFields(defaultFormFields)
+
+    setApiErrors("")
+    setApiSuccess("")
+  }
+
   return (
     <S.ProfileModalOverlay $openedOverlay={openProfile}>
       <S.ProfileModalContainer $openedModal={openProfile}>
-        <S.CloseModalButton
-          onClick={() => !formSubmitting && setOpenProfile(!openProfile)}
-          type="button"
-        >
+        <S.CloseModalButton onClick={handleCloseProfile} type="button">
           <X color="#d75d5d" size={45} />
         </S.CloseModalButton>
         <S.UserImage>

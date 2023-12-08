@@ -8,6 +8,7 @@ import { UserContextProvider } from "@/contexts/userContext"
 import { AxiosError } from "axios"
 import secondsToHours from "@/utils/secondToHours"
 import QuestionComponent from "@/components/QuestionComponent"
+import LoadingPage from "@/components/LoadingPage"
 import Link from "next/link"
 import api from "@/lib/api"
 import * as S from "./styles"
@@ -105,7 +106,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
     !queryCourse ||
     !queryCourseProfessor
   )
-    return <S.LoadingState />
+    return <LoadingPage />
 
   const doesIOwnThisCourse =
     queryCourse.data.fkProfessor === userProfile.data.id &&

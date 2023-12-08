@@ -1,9 +1,10 @@
 "use client"
 
-import React, { useContext } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { CourseContextProvider } from "@/contexts/courseContext"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import EmptyCoursesListPlaceholder from "../EmptyCoursesListPlaceholder"
+import LoadingPage from "../LoadingPage"
 import Course from "../Course"
 import * as S from "./styles"
 
@@ -11,16 +12,22 @@ const CoursesList = () => {
   const { pageNumber, queryCourses, setPageNumber } =
     useContext(CourseContextProvider)
 
+  const [listLoading, setListLoading] = useState(true)
+
   const isCoursesLoading = queryCourses.isLoading || queryCourses.isError
+
+  useEffect(() => {
+    setListLoading(false)
+  }, [])
+
+  if (isCoursesLoading || listLoading) {
+    return <LoadingPage />
+  }
 
   return (
     <S.ListContainer>
       <S.ListWrapper>
-        {isCoursesLoading ? (
-          <S.LoadingWrapper>
-            <div className="loadingCourses" />
-          </S.LoadingWrapper>
-        ) : queryCourses?.data?.courses.length ? (
+        {queryCourses?.data?.courses.length ? (
           queryCourses?.data?.courses.map((course) => {
             return <Course course={course} key={course.id} />
           })
