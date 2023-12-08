@@ -11,7 +11,7 @@ const roboto = Roboto({ subsets: ["latin"], weight: ["300", "400", "500", "700"]
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
+      refetchOnMount: true,
     },
   },
 })

@@ -45,3 +45,21 @@ export interface IToken {
   expiresIn: string
   iat: number
 }
+
+interface TQueryCourse extends Omit<UseMutationResult, "data"> {
+  data: {
+    title: string
+    updatedAt: string
+    active: boolean
+    createdAt: string
+    description: string
+    duration: number
+    fkProfessor: string
+    id: string
+
+    questions: {
+      question: IQuestion
+      answers: IAnswer[]
+    }[]
+  }
+}

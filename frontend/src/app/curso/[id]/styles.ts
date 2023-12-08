@@ -5,6 +5,24 @@ export const TopSide = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.3125rem;
+    background-color: #5a72e0;
+    border-radius: 8px;
+    color: #fff;
+    max-width: fit-content;
+    padding: 0.625rem;
+    text-decoration: none;
+    font-size: 0.9375rem;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #2644cf;
+    }
+  }
 `
 
 export const CoursePageContainer = styled.main`
@@ -14,23 +32,6 @@ export const CoursePageContainer = styled.main`
   align-items: center;
   justify-content: center;
   padding-bottom: 3.125rem;
-`
-
-export const BackLink = styled.a`
-  display: flex;
-  align-items: center;
-  background-color: #5a72e0;
-  border-radius: 8px;
-  color: #fff;
-  max-width: fit-content;
-  padding: 0.625rem;
-  text-decoration: none;
-  font-size: 0.9375rem;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    background-color: #2644cf;
-  }
 `
 
 const rotateLoading = keyframes`

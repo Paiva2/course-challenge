@@ -1,33 +1,16 @@
 "use client"
 
 import React, { useEffect, useContext, useRef, useState, FormEvent } from "react"
-import { MessageCircle, ChevronLeft } from "lucide-react"
-import { useQuery, UseMutationResult, useQueryClient } from "react-query"
-import { IAnswer, IQuestion } from "@/@types/types"
+import { MessageCircle, ChevronLeft, Pencil } from "lucide-react"
+import { useQuery, useQueryClient } from "react-query"
+import { TQueryCourse } from "@/@types/types"
 import { UserContextProvider } from "@/contexts/userContext"
 import { AxiosError } from "axios"
 import secondsToHours from "@/utils/secondToHours"
 import QuestionComponent from "@/components/QuestionComponent"
+import Link from "next/link"
 import api from "@/lib/api"
 import * as S from "./styles"
-
-interface TQueryCourse extends Omit<UseMutationResult, "data"> {
-  data: {
-    title: string
-    updatedAt: string
-    active: boolean
-    createdAt: string
-    description: string
-    duration: number
-    fkProfessor: string
-    id: string
-
-    questions: {
-      question: IQuestion
-      answers: IAnswer[]
-    }[]
-  }
-}
 
 const CoursePage = ({ params }: { params: { id: string } }) => {
   const { userProfile } = useContext(UserContextProvider)
@@ -124,7 +107,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
   )
     return <S.LoadingState />
 
-  const canIAnswerQuestionsOnThisCourse =
+  const doesIOwnThisCourse =
     queryCourse.data.fkProfessor === userProfile.data.id &&
     userProfile.data.role === "professor"
 
@@ -132,10 +115,16 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
     <S.CoursePageContainer>
       <S.CoursePageWrapper>
         <S.TopSide>
-          <S.BackLink href="/">
+          <a href="/">
             <ChevronLeft size={20} color="#fff" />
             Voltar
-          </S.BackLink>
+          </a>
+
+          {doesIOwnThisCourse && (
+            <Link href={`/curso/editar/${queryCourse.data.id}`} type="button">
+              <Pencil size={15} color="#fff" /> Editar
+            </Link>
+          )}
         </S.TopSide>
 
         <S.Card>
@@ -173,7 +162,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
               return (
                 <QuestionComponent
                   key={questionInfos.question.id}
-                  canAnswer={canIAnswerQuestionsOnThisCourse}
+                  canAnswer={doesIOwnThisCourse}
                   questionInfos={questionInfos}
                 />
               )

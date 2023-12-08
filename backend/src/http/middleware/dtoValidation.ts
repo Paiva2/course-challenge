@@ -13,7 +13,7 @@ const dtoValidation = (
       if (e instanceof ZodError) {
         return res.status(422).send({
           errorMessages: e.errors.map((error) => {
-            return `${error.message}`
+            return `${error.path}: ${error.message}`
           }),
         })
       }
