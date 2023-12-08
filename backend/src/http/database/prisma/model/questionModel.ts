@@ -7,17 +7,19 @@ export default class QuestionModel implements QuestionInterface {
   async create(
     studentId: string,
     courseId: string,
-    content: string
+    content: string,
+    name: string
   ): Promise<IQuestion> {
     const [newQuestion] = await prisma.$queryRawUnsafe<IQuestion[]>(
       `INSERT INTO public.question 
-      (id, question, "fkStudent", "fkCourse") 
-      VALUES ($1, $2, $3, $4) 
+      (id, question, "fkStudent", "fkCourse", name) 
+      VALUES ($1, $2, $3, $4, $5) 
       RETURNING *`,
       randomUUID(),
       content,
       studentId,
-      courseId
+      courseId,
+      name
     )
 
     return newQuestion

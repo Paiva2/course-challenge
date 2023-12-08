@@ -43,6 +43,7 @@ model Question {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   question  String   @db.VarChar(500)
+  name      String   @db.VarChar(100)
 
   answers QuestionAnswer[]
 
@@ -59,6 +60,7 @@ model QuestionAnswer {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   answer    String   @db.VarChar(500)
+  name      String   @db.VarChar(100)
 
   fkQuestion  String @db.VarChar(100)
   fkProfessor String @db.VarChar(100)

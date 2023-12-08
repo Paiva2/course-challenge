@@ -22,6 +22,7 @@ export interface IQuestion {
   fkCourse: string
   fkStudent: string
   question: string
+  name: string
 }
 
 export interface IAnswer {
@@ -31,6 +32,7 @@ export interface IAnswer {
   fkCourse: string
   fkProfessor: string
   fkQuestion: string
+  name: string
 }
 
 export interface IToken {

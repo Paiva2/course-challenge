@@ -91,7 +91,7 @@ const QuestionComponent = ({ questionInfos, canAnswer }: IQuestionComponent) => 
             </S.AnswerQuestionButton>
           ))}
 
-        <p>Nome do estudante: X</p>
+        <p>Nome do estudante: {questionInfos.question.name}</p>
         <p>Dúvida: {questionInfos.question.question}</p>
 
         <p>
@@ -115,7 +115,7 @@ const QuestionComponent = ({ questionInfos, canAnswer }: IQuestionComponent) => 
         {questionInfos.answers.map((answer) => {
           return (
             <S.Answer key={answer.id}>
-              <p>Professor: Y</p>
+              <p>Professor: {answer.name}</p>
 
               <p>Resposta: {answer.answer}</p>
 

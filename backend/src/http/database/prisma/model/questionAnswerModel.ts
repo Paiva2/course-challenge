@@ -8,18 +8,20 @@ export default class QuestionAnswerModel implements QuestionAnswerInterface {
     courseId: string,
     professorId: string,
     questionId: string,
-    content: string
+    content: string,
+    professorName: string
   ): Promise<IQuestionAnswer> {
     const [newQuestionAnswer] = await prisma.$queryRawUnsafe<IQuestionAnswer[]>(
       `INSERT INTO public.question_answer 
-        (id, answer, "fkQuestion", "fkProfessor", "fkCourse") 
-        VALUES ($1, $2, $3, $4, $5) 
+        (id, answer, "fkQuestion", "fkProfessor", "fkCourse", name) 
+        VALUES ($1, $2, $3, $4, $5, $6) 
         RETURNING *`,
       randomUUID(),
       content,
       questionId,
       professorId,
-      courseId
+      courseId,
+      professorName
     )
 
     return newQuestionAnswer

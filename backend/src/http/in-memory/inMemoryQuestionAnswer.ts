@@ -9,7 +9,8 @@ export default class InMemoryQuestionAnswer implements QuestionAnswerInterface {
     courseId: string,
     professorId: string,
     questionId: string,
-    content: string
+    content: string,
+    professorName: string
   ): Promise<IQuestionAnswer> {
     const newAnswer = {
       id: randomUUID(),
@@ -18,6 +19,7 @@ export default class InMemoryQuestionAnswer implements QuestionAnswerInterface {
       fkQuestion: questionId,
       fkProfessor: professorId,
       fkCourse: courseId,
+      name: professorName,
     }
 
     this.questionAnswers.push(newAnswer)

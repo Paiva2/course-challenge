@@ -80,7 +80,8 @@ export default class InsertNewQuestionService {
     const insertNewQuestion = await this.questionInterface.create(
       studentId,
       courseId,
-      content
+      content,
+      doesStudentExists.name
     )
 
     return insertNewQuestion

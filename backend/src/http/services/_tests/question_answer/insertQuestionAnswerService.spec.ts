@@ -92,6 +92,7 @@ describe("Insert new question answer service", () => {
         answer: "Answer to question test",
         fkQuestion: fakeQuestion.id,
         fkProfessor: fakeProfessor.id,
+        name: "John Doe Professor",
       })
     )
   })

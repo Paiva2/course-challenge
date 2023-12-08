@@ -47,14 +47,14 @@ export default class FilterCourseService {
       )
 
       if (doesQuestionHasAnswer) {
-        for (const answer of getQuestionAnswers) {
-          if (question.id === answer.fkQuestion) {
-            courseQuestionsFormatted.push({
-              question: question,
-              answers: [answer],
-            })
-          }
-        }
+        const getAnswer = getQuestionAnswers.find(
+          (answer) => answer.fkQuestion === question.id
+        )
+
+        courseQuestionsFormatted.push({
+          question: question,
+          answers: [getAnswer],
+        })
       } else {
         courseQuestionsFormatted.push({
           question: question,

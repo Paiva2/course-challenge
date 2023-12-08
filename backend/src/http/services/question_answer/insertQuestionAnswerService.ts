@@ -112,7 +112,8 @@ export default class InsertQuestionAnswerService {
       courseId,
       professorId,
       questionId,
-      content
+      content,
+      doesProfessorExists.name
     )
 
     return createNewAnswer

@@ -8,7 +8,8 @@ export default class InMemoryQuestion implements QuestionInterface {
   async create(
     studentId: string,
     courseId: string,
-    content: string
+    content: string,
+    name: string
   ): Promise<IQuestion> {
     const newQuestion = {
       id: randomUUID(),
@@ -16,6 +17,7 @@ export default class InMemoryQuestion implements QuestionInterface {
       question: content,
       fkStudent: studentId,
       fkCourse: courseId,
+      name,
     }
 
     this.questions.push(newQuestion)

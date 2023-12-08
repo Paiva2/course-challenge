@@ -5,7 +5,8 @@ export interface QuestionAnswerInterface {
     courseId: string,
     professorId: string,
     questionId: string,
-    content: string
+    content: string,
+    professorName: string
   ): Promise<IQuestionAnswer>
 
   find(professorId: string, questionId: string): Promise<IQuestionAnswer | null>
