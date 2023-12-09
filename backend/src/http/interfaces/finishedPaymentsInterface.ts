@@ -6,4 +6,6 @@ export default interface FinishedPaymentsInterface {
     value: number,
     reason: string
   ): Promise<IFinishedPayments>
+
+  getAllFromProfessor(professorId: string): Promise<IFinishedPayments[]>
 }

@@ -67,4 +67,14 @@ export default class PendingPaymentModel implements PendingPaymentInterface {
 
     return removedPending
   }
+
+  async getAllFromProfessor(professorId: string): Promise<IPendingPayments[]> {
+    const allProfessorPendings = await prisma.$queryRawUnsafe<IPendingPayments[]>(
+      `SELECT * FROM public.pending_payments
+      WHERE "fkProfessor" = $1`,
+      professorId
+    )
+
+    return allProfessorPendings
+  }
 }

@@ -47,6 +47,10 @@
     {
       "name": "Payments",
       "description": "Payments routes"
+    },
+    {
+      "name": "Professor",
+      "description": "Professor only routes"
     }
   ],
 
@@ -574,6 +578,31 @@
           },
           "404": {
             "description": "Pagamento pendente não encontrado."
+          }
+        }
+      }
+    },
+
+    "/my-balance": {
+      "get": {
+        "tags": ["Professor"],
+        "summary": "Get professor (own) balance. AUTH TOKEN REQUIRED!",
+        "description": "Get professor (own) balance.",
+        "requestBody": {
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso."
+          },
+          "422": {
+            "description": "Id do professor inválido."
+          },
+          "403": {
+            "description": "Apenas professores podem ter pagamento."
+          },
+          "404": {
+            "description": "Professor não encontrado."
           }
         }
       }

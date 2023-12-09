@@ -80,34 +80,39 @@ export default class FinishAPaymentService {
       getPendingPayment.reason
     )
 
+    if (process.env.NODE_ENV !== "test") {
+      await this.emailTrigger(
+        isReceiverAnProfessor.email,
+        getPendingPayment.reason,
+        getPendingPayment.value
+      )
+    }
+
+    return finishPayment
+  }
+
+  async emailTrigger(email: string, reason: string, value: number) {
     const determinePaymentReason =
-      getPendingPayment.reason === "course"
+      reason === "course"
         ? "Criar um novo curso"
         : "Responder a questão de um estudante"
 
     const formatPaymentValueForView = new Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL",
-    }).format(getPendingPayment.value)
+    }).format(value)
 
-    if (process.env.NODE_ENV !== "test") {
-      const mailToBeSent = {
-        from: process.env.MAIL_USERNAME,
-        to: isReceiverAnProfessor.email,
-        subject: "New payment!",
-        text: `Você recebeu um novo pagamento por ${determinePaymentReason}!\n Valor do pagamento: ${formatPaymentValueForView}. Obrigado pelo suporte!`,
-      }
-
-      try {
-        await transporter.sendMail(mailToBeSent)
-      } catch (err) {
-        console.log(
-          `Error while sending email to: ${isReceiverAnProfessor.email}`,
-          err
-        )
-      }
+    const mailToBeSent = {
+      from: process.env.MAIL_USERNAME,
+      to: email,
+      subject: "New payment!",
+      text: `Você recebeu um novo pagamento por ${determinePaymentReason}!\n Valor do pagamento: ${formatPaymentValueForView}. Obrigado pelo suporte!`,
     }
 
-    return finishPayment
+    try {
+      await transporter.sendMail(mailToBeSent)
+    } catch (err) {
+      console.log(`Error while sending email to: ${email}`, err)
+    }
   }
 }

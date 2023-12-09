@@ -33,4 +33,14 @@ export default class FinishedPaymentsModel implements FinishedPaymentsInterface 
       }
     }
   }
+
+  async getAllFromProfessor(professorId: string): Promise<IFinishedPayments[]> {
+    const allProfessorPendings = await prisma.$queryRawUnsafe<IFinishedPayments[]>(
+      `SELECT * FROM public.finished_payments
+      WHERE "fkProfessor" = $1`,
+      professorId
+    )
+
+    return allProfessorPendings
+  }
 }

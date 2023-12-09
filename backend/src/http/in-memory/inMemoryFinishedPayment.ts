@@ -22,4 +22,10 @@ export default class InMemoryFinishedPayment implements FinishedPaymentsInterfac
 
     return newFinishedPayment
   }
+
+  async getAllFromProfessor(professorId: string): Promise<IFinishedPayments[]> {
+    return this.finishedPayments.filter(
+      (payments) => payments.fkProfessor === professorId
+    )
+  }
 }

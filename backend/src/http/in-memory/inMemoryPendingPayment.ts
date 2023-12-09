@@ -68,4 +68,10 @@ export default class InMemoryPendingPayments implements PendingPaymentInterface 
   async getAll() {
     return this.pendingPayments
   }
+
+  async getAllFromProfessor(professorId: string): Promise<IPendingPayments[]> {
+    return this.pendingPayments.filter(
+      (payments) => payments.fkProfessor === professorId
+    )
+  }
 }
