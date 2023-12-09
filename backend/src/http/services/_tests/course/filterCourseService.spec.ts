@@ -10,6 +10,7 @@ import InMemoryQuestionAnswer from "../../../in-memory/inMemoryQuestionAnswer"
 import InsertQuestionAnswerService from "../../question_answer/insertQuestionAnswerService"
 import FilterCourseService from "../../course/filterCourseService"
 import InMemoryPendingPayments from "../../../in-memory/inMemoryPendingPayment"
+import InMemoryWallet from "../../../in-memory/inMemoryWallet"
 
 let fakeProfessor: IUser
 let fakeStudent: IUser
@@ -20,6 +21,7 @@ let fakeQuestionAnswer: IQuestionAnswer
 let fakeSecondQuestionAnswer: IQuestionAnswer
 
 let inMemoryUser: InMemoryUser
+let inMemoryWallet: InMemoryWallet
 let inMemoryCourse: InMemoryCourse
 let inMemoryQuestion: InMemoryQuestion
 let inMemoryQuestionAnswer: InMemoryQuestionAnswer
@@ -39,6 +41,7 @@ describe("Filter Course Service", () => {
     inMemoryQuestion = new InMemoryQuestion()
     inMemoryQuestionAnswer = new InMemoryQuestionAnswer()
     inMemoryPendingPayment = new InMemoryPendingPayments()
+    inMemoryWallet = new InMemoryWallet()
 
     insertNewQuestionService = new InsertNewQuestionService(
       inMemoryUser,
@@ -59,7 +62,10 @@ describe("Filter Course Service", () => {
       inMemoryQuestionAnswer
     )
 
-    registerNewStudentService = new RegisterNewStudentService(inMemoryUser)
+    registerNewStudentService = new RegisterNewStudentService(
+      inMemoryUser,
+      inMemoryWallet
+    )
 
     createNewCourseService = new CreateNewCourseService(
       inMemoryUser,

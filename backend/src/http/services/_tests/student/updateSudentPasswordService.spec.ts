@@ -3,8 +3,10 @@ import { compare } from "bcryptjs"
 import InMemoryUser from "../../../in-memory/inMemoryUser"
 import RegisterNewStudentService from "../../student/registerNewStudentService"
 import UpdateStudentPasswordService from "../../student/updateStudentPasswordService"
+import InMemoryWallet from "../../../in-memory/inMemoryWallet"
 
 let inMemoryUser: InMemoryUser
+let inMemoryWallet: InMemoryWallet
 
 let registerNewStudentService: RegisterNewStudentService
 
@@ -13,8 +15,12 @@ let sut: UpdateStudentPasswordService
 describe("Update Student Password Service", () => {
   beforeEach(() => {
     inMemoryUser = new InMemoryUser()
+    inMemoryWallet = new InMemoryWallet()
 
-    registerNewStudentService = new RegisterNewStudentService(inMemoryUser)
+    registerNewStudentService = new RegisterNewStudentService(
+      inMemoryUser,
+      inMemoryWallet
+    )
 
     sut = new UpdateStudentPasswordService(inMemoryUser)
   })

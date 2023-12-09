@@ -1,4 +1,5 @@
 import UserModel from "../../database/prisma/model/userModel"
+import WalletModel from "../../database/prisma/model/walletModel"
 import AuthStudentService from "../../services/student/authSudentService"
 import GetUserProfileService from "../../services/student/getUserProfileService"
 import RegisterNewStudentService from "../../services/student/registerNewStudentService"
@@ -8,6 +9,7 @@ import UpdateUserProfileService from "../../services/student/updateUserProfileSe
 export default class UserFactory {
   public static async exec() {
     const userModel = new UserModel()
+    const walletModel = new WalletModel()
 
     const updateUserProfileService = new UpdateUserProfileService(userModel)
 
@@ -17,7 +19,10 @@ export default class UserFactory {
 
     const updateStudentPasswordService = new UpdateStudentPasswordService(userModel)
 
-    const registerNewStudentService = new RegisterNewStudentService(userModel)
+    const registerNewStudentService = new RegisterNewStudentService(
+      userModel,
+      walletModel
+    )
 
     return {
       updateUserProfileService,

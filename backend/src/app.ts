@@ -8,6 +8,7 @@ import userRoutes from "./http/routes/userRoutes"
 import courseRoutes from "./http/routes/courseRoutes"
 import questionRoutes from "./http/routes/questionRoutes"
 import questionAnswerRoutes from "./http/routes/questionAnswerRoutes"
+import finishedPaymentsRoutes from "./http/routes/finishedPaymentsRoutes"
 
 export const app: Express = express()
 
@@ -19,3 +20,4 @@ userRoutes(app)
 courseRoutes(app)
 questionRoutes(app)
 questionAnswerRoutes(app)
+finishedPaymentsRoutes(app)

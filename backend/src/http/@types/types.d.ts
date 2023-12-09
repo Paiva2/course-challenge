@@ -44,7 +44,7 @@ export interface IQuestionAnswer {
 
 export interface IWallet {
   id?: string
-  total: string
+  total: number
   updatedAt?: Date
   fkUser: string
 }

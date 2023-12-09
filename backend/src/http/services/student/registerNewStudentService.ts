@@ -1,6 +1,7 @@
 import { IUser } from "../../@types/types"
 import { UserInterface } from "../../interfaces/userInterface"
 import { hash } from "bcryptjs"
+import WalletInterface from "../../interfaces/walletInterface"
 
 type RegisterNewStudentServiceRequest = {
   name: string
@@ -11,7 +12,10 @@ type RegisterNewStudentServiceRequest = {
 type RegisterNewStudentServiceResponse = IUser
 
 export default class RegisterNewStudentService {
-  constructor(private userInterface: UserInterface) {}
+  constructor(
+    private userInterface: UserInterface,
+    private walletInterface: WalletInterface
+  ) {}
 
   async exec({
     name,
@@ -42,6 +46,8 @@ export default class RegisterNewStudentService {
     const hashPassword = await hash(password, 6)
 
     const userCreated = await this.userInterface.create(name, hashPassword, role)
+
+    await this.walletInterface.create(userCreated.id)
 
     return userCreated
   }

@@ -8,4 +8,14 @@ export interface PendingPaymentInterface {
   ): Promise<IPendingPayments>
 
   findByUserId(professorId: string): Promise<IPendingPayments | null>
+
+  findById(
+    professorId: string,
+    pendingPaymentId: string
+  ): Promise<IPendingPayments | null>
+
+  removePending(
+    professorId: string,
+    pendingPaymentId: string
+  ): Promise<IPendingPayments>
 }

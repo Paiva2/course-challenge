@@ -3,10 +3,12 @@ import InMemoryUser from "../../../in-memory/inMemoryUser"
 import RegisterNewStudentService from "../../student/registerNewStudentService"
 import GetUserProfileService from "../../student/getUserProfileService"
 import { IUser } from "../../../@types/types"
+import InMemoryWallet from "../../../in-memory/inMemoryWallet"
 
 let fakeUser: IUser
 
 let inMemoryUser: InMemoryUser
+let inMemoryWallet: InMemoryWallet
 
 let registerNewStudentService: RegisterNewStudentService
 
@@ -15,8 +17,12 @@ let sut: GetUserProfileService
 describe("Get User Profile Service", () => {
   beforeEach(async () => {
     inMemoryUser = new InMemoryUser()
+    inMemoryWallet = new InMemoryWallet()
 
-    registerNewStudentService = new RegisterNewStudentService(inMemoryUser)
+    registerNewStudentService = new RegisterNewStudentService(
+      inMemoryUser,
+      inMemoryWallet
+    )
 
     sut = new GetUserProfileService(inMemoryUser)
 

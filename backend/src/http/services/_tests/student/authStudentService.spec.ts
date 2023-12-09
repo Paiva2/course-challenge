@@ -2,8 +2,10 @@ import { describe, it, expect, beforeEach } from "vitest"
 import InMemoryUser from "../../../in-memory/inMemoryUser"
 import RegisterNewStudentService from "../../student/registerNewStudentService"
 import AuthStudentService from "../../student/authSudentService"
+import InMemoryWallet from "../../../in-memory/inMemoryWallet"
 
 let inMemoryUser: InMemoryUser
+let inMemoryWallet: InMemoryWallet
 
 let registerNewStudentService: RegisterNewStudentService
 
@@ -12,8 +14,12 @@ let sut: AuthStudentService
 describe("Auth Student Service", () => {
   beforeEach(async () => {
     inMemoryUser = new InMemoryUser()
+    inMemoryWallet = new InMemoryWallet()
 
-    registerNewStudentService = new RegisterNewStudentService(inMemoryUser)
+    registerNewStudentService = new RegisterNewStudentService(
+      inMemoryUser,
+      inMemoryWallet
+    )
 
     await registerNewStudentService.exec({
       name: "John Doe",

@@ -43,6 +43,10 @@
     {
       "name": "Question Answer",
       "description": "Question Answer routes"
+    },
+    {
+      "name": "Payments",
+      "description": "Payments routes"
     }
   ],
 
@@ -523,6 +527,48 @@
           },
           "409": {
             "description": "Essa questão já foi respondida."
+          }
+        }
+      }
+    },
+
+    "/finish-payment": {
+      "post": {
+        "tags": ["Payments"],
+        "summary": "Finish an pending payment to an professor. ADMIN AUTH TOKEN REQUIRED!",
+        "description": "Finish an pending payment to an professor",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "professorId": {
+                    "description": "Professor id",
+                    "type": "string"
+                  },
+                  "pendingPaymentId": {
+                    "description": "Pending Payment id",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Pagamento realizado com sucesso."
+          },
+          "422": {
+            "description": "Falhas no envio da requisição por meio de formatos errados ou faltando."
+          },
+          "403": {
+            "description": "Permissões insuficientes, necessário ser um administrador ou apenas professores podem receber pagamentos."
+          },
+          "404": {
+            "description": "Pagamento pendente não encontrado."
           }
         }
       }

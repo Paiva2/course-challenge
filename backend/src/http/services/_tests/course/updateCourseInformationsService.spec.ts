@@ -6,6 +6,7 @@ import CreateNewCourseService from "../../course/createNewCourseService"
 import InMemoryCourse from "../../../in-memory/inMemoryCourse"
 import UpdateCourseInformationsService from "../../course/updateCourseInformationsService"
 import InMemoryPendingPayments from "../../../in-memory/inMemoryPendingPayment"
+import InMemoryWallet from "../../../in-memory/inMemoryWallet"
 
 let fakeProfessor: IUser
 let fakeCourse: ICourse
@@ -13,6 +14,7 @@ let fakeCourse: ICourse
 let inMemoryUser: InMemoryUser
 let inMemoryCourse: InMemoryCourse
 let inMemoryPendingPayments: InMemoryPendingPayments
+let inMemoryWallet: InMemoryWallet
 
 let registerNewStudentService: RegisterNewStudentService
 
@@ -25,8 +27,12 @@ describe("Update course informations service", () => {
     inMemoryUser = new InMemoryUser()
     inMemoryCourse = new InMemoryCourse()
     inMemoryPendingPayments = new InMemoryPendingPayments()
+    inMemoryWallet = new InMemoryWallet()
 
-    registerNewStudentService = new RegisterNewStudentService(inMemoryUser)
+    registerNewStudentService = new RegisterNewStudentService(
+      inMemoryUser,
+      inMemoryWallet
+    )
 
     createNewCourseService = new CreateNewCourseService(
       inMemoryUser,

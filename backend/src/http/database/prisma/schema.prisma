@@ -101,7 +101,7 @@ model PendingPayments {
 
   fkProfessor String @db.VarChar(100)
 
-  User User? @relation(fields: [fkProfessor], references: [id])
+  User User? @relation(fields: [fkProfessor], references: [id], onDelete: Cascade)
 
   @@map("pending_payments")
 }
@@ -113,7 +113,7 @@ model FinishedPayments {
   reason      PaymentReason
   fkProfessor String        @db.VarChar(100)
 
-  User User? @relation(fields: [fkProfessor], references: [id])
+  User User? @relation(fields: [fkProfessor], references: [id], onDelete: Cascade)
 
   @@map("finished_payments")
 }
