@@ -2,6 +2,7 @@ import FinishedPaymentsInterface from "../../interfaces/finishedPaymentsInterfac
 import WalletInterface from "../../interfaces/walletInterface"
 import { PendingPaymentInterface } from "../../interfaces/pendingPaymentInterface"
 import { UserInterface } from "../../interfaces/userInterface"
+import { transporter } from "../../lib/nodemailer"
 
 type FinishAPaymentServiceRequest = {
   adminId: string
@@ -78,6 +79,34 @@ export default class FinishAPaymentService {
       getPendingPayment.value,
       getPendingPayment.reason
     )
+
+    const determinePaymentReason =
+      getPendingPayment.reason === "course"
+        ? "Criar um novo curso"
+        : "Responder a questão de um estudante"
+
+    const formatPaymentValueForView = new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(getPendingPayment.value)
+
+    if (process.env.NODE_ENV !== "test") {
+      const mailToBeSent = {
+        from: process.env.MAIL_USERNAME,
+        to: isReceiverAnProfessor.email,
+        subject: "New payment!",
+        text: `Você recebeu um novo pagamento por ${determinePaymentReason}!\n Valor do pagamento: ${formatPaymentValueForView}. Obrigado pelo suporte!`,
+      }
+
+      try {
+        await transporter.sendMail(mailToBeSent)
+      } catch (err) {
+        console.log(
+          `Error while sending email to: ${isReceiverAnProfessor.email}`,
+          err
+        )
+      }
+    }
 
     return finishPayment
   }
