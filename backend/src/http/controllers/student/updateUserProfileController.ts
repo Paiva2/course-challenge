@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
+import { HttpError } from "../../@types/types"
 import parseJwt from "../../utils/parseJwt"
 import Factory from "../factory"
-import { HttpError } from "../../@types/types"
 
 export default class UpdateUserProfileController {
   public static async handle(req: Request, res: Response) {

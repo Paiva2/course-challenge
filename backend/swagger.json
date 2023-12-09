@@ -1,0 +1,531 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Course Challenge API Rest",
+    "description": "API Rest documentation of tech challenge from CEFIS.",
+    "contact": {
+      "email": "joaovitor.paiva145@hotmail.com"
+    },
+    "version": "1.0.0"
+  },
+
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "in": "header",
+        "name": "Authorization",
+        "description": "Bearer token to access authorized routes. PS: Paste only the token that you received on login.",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+
+  "tags": [
+    {
+      "name": "Student",
+      "description": "Student routes"
+    },
+    {
+      "name": "Course",
+      "description": "Course routes"
+    },
+    {
+      "name": "Question",
+      "description": "Question routes"
+    },
+    {
+      "name": "Question Answer",
+      "description": "Question Answer routes"
+    }
+  ],
+
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": ["Student"],
+        "summary": "Create a new student",
+        "description": "Register a student",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "New student name",
+                    "type": "string",
+                    "example": "My name"
+                  },
+                  "password": {
+                    "description": "New student password",
+                    "type": "string",
+                    "example": "mypassword123"
+                  },
+                  "passwordConfirmation": {
+                    "description": "New user password confirmation",
+                    "type": "string",
+                    "example": "mypassword123"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Estudante registrado com sucesso."
+          },
+          "422": {
+            "description": "Nome ou senha inválidos."
+          },
+          "409": {
+            "description": "Um estudante com esse nome já existe cadastrado."
+          }
+        }
+      }
+    },
+
+    "/password": {
+      "patch": {
+        "tags": ["Student"],
+        "summary": "Update an student password",
+        "description": "Update an existing student password.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "New student name",
+                    "type": "string",
+                    "example": "My name"
+                  },
+                  "newPassword": {
+                    "description": "New password",
+                    "type": "string",
+                    "example": "mynewpassword123"
+                  },
+                  "passwordConfirmation": {
+                    "description": "New user password confirmation",
+                    "type": "string",
+                    "example": "mynewpassword123"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Senha atualizada com sucesso."
+          },
+          "422": {
+            "description": "Nome ou senha inválidos."
+          },
+          "404": {
+            "description": "Estudante não encontrado."
+          }
+        }
+      }
+    },
+
+    "/login": {
+      "post": {
+        "tags": ["Student"],
+        "summary": "Login as an student or professor",
+        "description": "Login as an existing student or professor.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "Student name",
+                    "type": "string",
+                    "example": "My name"
+                  },
+                  "password": {
+                    "description": "Student password",
+                    "type": "string",
+                    "example": "mypassword123"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Login success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "description": "Authorization Token",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Nome ou senha inválidos."
+          },
+          "403": {
+            "description": "Credenciais inválidas."
+          },
+          "404": {
+            "description": "Estudante não encontrado."
+          }
+        }
+      }
+    },
+
+    "/profile": {
+      "patch": {
+        "tags": ["Student"],
+        "summary": "Update student or professor profile. AUTH TOKEN REQUIRED!",
+        "description": "Update your profile. You must be logged-in before.",
+
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fields": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "description": "New name",
+                        "type": "string",
+                        "example": "my new name",
+                        "required": false
+                      },
+                      "password": {
+                        "description": "New password",
+                        "type": "string",
+                        "example": "mynewpass123",
+                        "required": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Usuário atualizado com sucesso."
+          },
+          "422": {
+            "description": "Id do usuário inválido."
+          },
+          "404": {
+            "description": "Usuário não encontrado."
+          },
+          "409": {
+            "description": "Um usuário já possui esse nome cadastrado."
+          }
+        }
+      }
+    },
+
+    "/user/{userId}": {
+      "get": {
+        "tags": ["Student"],
+        "summary": "Get an user or professor by its id.",
+        "description": "Insert user id on URL parameter to get a single user.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "schema": {
+              "userId": {
+                "type": "string",
+                "required": true
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation success."
+          },
+          "422": {
+            "description": "Id do usuário inválido."
+          },
+          "404": {
+            "description": "Usuário não encontrado."
+          }
+        }
+      }
+    },
+
+    "/course": {
+      "post": {
+        "tags": ["Course"],
+        "summary": "Create a new course. AUTH TOKEN REQUIRED!",
+        "description": "Create a new course. AUTH TOKEN REQUIRED!",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "course": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "example": "My Course Title"
+                      },
+                      "duration": {
+                        "type": "number",
+                        "example": "3600"
+                      },
+                      "description": {
+                        "type": "string",
+                        "example": "My Course Description"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Novo curso criado com sucesso."
+          },
+          "422": {
+            "description": "Id do usuário inválido ou Informações do curso inválidas."
+          },
+          "404": {
+            "description": "Professor não encontrado nos registros."
+          },
+          "403": {
+            "description": "Apenas um professor ou administrador pode registrar novos cursos."
+          }
+        }
+      },
+
+      "patch": {
+        "tags": ["Course"],
+        "summary": "Update an course informations. AUTH TOKEN REQUIRED!",
+        "description": "Update an course informations",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "courseId": {
+                    "type": "string"
+                  },
+                  "fieldsToUpdate": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "example": "Update my Course Title",
+                        "required": false
+                      },
+                      "active": {
+                        "type": "boolean",
+                        "example": "true",
+                        "required": false
+                      },
+                      "description": {
+                        "type": "string",
+                        "example": "Update my Course Description",
+                        "required": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Curso atualizado com sucesso."
+          },
+          "422": {
+            "description": "Id do professor inválido."
+          },
+          "404": {
+            "description": "Professor não encontrado ou Curso não encontrado."
+          },
+          "403": {
+            "description": "Permissões insuficientes."
+          }
+        }
+      }
+    },
+
+    "/course/{courseId}": {
+      "get": {
+        "tags": ["Course"],
+        "summary": "Filter an course with its id.",
+        "description": "Filter an course with its id.",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "Course id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation success."
+          },
+          "422": {
+            "description": "Id do curso inválido."
+          },
+          "404": {
+            "description": "Curso não encontrado."
+          }
+        }
+      }
+    },
+
+    "/courses": {
+      "get": {
+        "tags": ["Course"],
+        "summary": "Get all active courses.",
+        "description": "Get all active courses list.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number from courses list",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation success."
+          }
+        }
+      }
+    },
+
+    "/question": {
+      "post": {
+        "tags": ["Question"],
+        "summary": "Inserts a new question on a course. AUTH TOKEN REQUIRED!",
+        "description": "Inserts a new question on a course",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "courseId": {
+                    "description": "Course id",
+                    "type": "string"
+                  },
+                  "content": {
+                    "description": "New question content",
+                    "type": "string",
+                    "example": "I want to ask if..."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Questão registrada com sucesso."
+          },
+          "422": {
+            "description": "Id do curso inválido ou Id do estudante inválido ou A questão não pode ser vazia."
+          },
+          "403": {
+            "description": "Um aluno só pode registrar no máximo 2 questões por curso."
+          },
+          "404": {
+            "description": "Estudante não encontrado ou Curso não encontrado."
+          }
+        }
+      }
+    },
+
+    "/question-answer": {
+      "post": {
+        "tags": ["Question Answer"],
+        "summary": "Answer a question from a course. AUTH TOKEN REQUIRED!",
+        "description": "Answer a question from a course",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "courseId": {
+                    "description": "Course id",
+                    "type": "string"
+                  },
+                  "questionId": {
+                    "description": "Course id",
+                    "type": "string"
+                  },
+                  "content": {
+                    "description": "Answer question content",
+                    "type": "string",
+                    "example": "Answering..."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Questão registrada com sucesso."
+          },
+          "422": {
+            "description": "Falhas no envio da requisição por meio de formatos errados ou faltando."
+          },
+          "403": {
+            "description": "Permissões insuficientes. Você precisa ser um professor ou dono do curso para responder questões do curso."
+          },
+          "404": {
+            "description": "Professor não encontrado ou Curso não encontrado ou Questão não encontrada."
+          },
+          "409": {
+            "description": "Essa questão já foi respondida."
+          }
+        }
+      }
+    }
+  }
+}
