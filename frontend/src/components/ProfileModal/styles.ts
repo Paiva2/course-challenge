@@ -2,7 +2,6 @@ import styled from "styled-components"
 
 export const ProfileModalOverlay = styled.div<{ $openedOverlay: boolean }>`
   transition: all 0.3s ease-in-out;
-
   opacity: ${(props) => (props.$openedOverlay ? "1" : "0")};
   visibility: ${(props) => (props.$openedOverlay ? "visible" : "hidden")};
   position: fixed;

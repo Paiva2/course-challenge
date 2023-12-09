@@ -5,7 +5,7 @@ export const EditCourseContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 100%;
 
   @media (max-width: 768px) {
     padding: 1.25rem;

@@ -1,9 +1,9 @@
 import { createGlobalStyle } from "styled-components"
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`  
   body {
     background-color: #F7F8FD;
-    min-height: 100vh;
+    height: 100vh;
   }
 
   input {

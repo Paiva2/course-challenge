@@ -5,11 +5,10 @@ export const NewCourseContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  min-height: 100%;
 
   @media (max-width: 768px) {
     padding: 1.25rem;
-    height: auto;
 
     span {
       font-size: 0.875rem;

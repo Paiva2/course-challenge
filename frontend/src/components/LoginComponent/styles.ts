@@ -5,7 +5,7 @@ export const LoginContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  min-height: 100%;
 
   @media (max-width: 768px) {
     padding: 1.25rem;
@@ -33,6 +33,10 @@ export const LoginWrapper = styled.div`
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  @media (max-width: 768px) {
+    max-height: 100%;
   }
 `
 
