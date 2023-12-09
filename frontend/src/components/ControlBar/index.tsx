@@ -41,7 +41,7 @@ const ControlBar = () => {
             </p>
           </S.RightSide>
 
-          <S.LeftSide>
+          <div>
             {!userProfile.auth ? (
               <S.LoginLink href="/entrar">Entrar</S.LoginLink>
             ) : (
@@ -62,7 +62,7 @@ const ControlBar = () => {
                 />
               </Fragment>
             )}
-          </S.LeftSide>
+          </div>
         </S.BarWrapper>
       </S.Bar>
     </Fragment>

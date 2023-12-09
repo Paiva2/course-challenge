@@ -16,5 +16,12 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   padding-top: 3.125rem;
-  gap: 0.9375rem;
+  gap: 0.625rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+
+  @media (max-width: 768px) {
+    padding: 0;
+    gap: 0;
+  }
 `

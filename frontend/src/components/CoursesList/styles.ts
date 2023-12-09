@@ -7,6 +7,10 @@ export const ListContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 0.625rem;
+
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+  }
 `
 
 const rotateLoading = keyframes`
@@ -63,6 +67,10 @@ export const ListWrapper = styled.div`
     background: #5a72e0;
     border-radius: 8px;
   }
+
+  @media (max-width: 768px) {
+    padding: 0.625rem;
+  }
 `
 
 export const PaginationWrapper = styled.div`
@@ -70,6 +78,12 @@ export const PaginationWrapper = styled.div`
   align-items: center;
   gap: 0.625rem;
   font-size: 1.25rem;
+  max-width: 100%;
+  overflow-x: auto;
+  padding-bottom: 0.9375rem;
+  padding-top: 0.5rem;
+  padding-right: 0.625rem;
+  padding-left: 0.625rem;
 
   button {
     background-color: #5a72e0;
@@ -90,6 +104,12 @@ export const PaginationWrapper = styled.div`
 
     &:hover {
       background-color: #223cb8;
+    }
+  }
+
+  @media (max-width: 768px) {
+    button {
+      padding: 0.75rem;
     }
   }
 `

@@ -16,6 +16,7 @@ export const NewCourseWrapper = styled.div`
   height: 100%;
   max-width: 34.375rem;
   max-height: 28.125rem;
+  padding: 1.5rem;
 
   a {
     color: #5a72e0;
@@ -25,6 +26,10 @@ export const NewCourseWrapper = styled.div`
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.25rem;
   }
 `
 
@@ -42,6 +47,16 @@ export const NewCourseFormTitle = styled.div`
   p {
     font-size: 1rem;
     color: #434343;
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.25rem;
+    }
+
+    p {
+      font-size: 0.875rem;
+    }
   }
 `
 
@@ -66,6 +81,10 @@ export const NewCourseForm = styled.form`
       align-items: center;
       gap: 0.3125rem;
     }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5625rem;
   }
 `
 
@@ -110,6 +129,15 @@ export const FormLabel = styled.label<{ $isError: boolean }>`
     resize: none;
     height: 6.25rem;
     outline: none;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.875rem;
+
+    input,
+    textarea {
+      font-size: 0.875rem;
+    }
   }
 `
 

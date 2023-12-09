@@ -34,6 +34,11 @@ export const ProfileModalContainer = styled.div<{ $openedModal: boolean }>`
   gap: 0.9375rem;
   transition: all 0.2s ease-in-out;
   position: relative;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+    width: 95%;
+  }
 `
 
 export const CloseModalButton = styled.button`

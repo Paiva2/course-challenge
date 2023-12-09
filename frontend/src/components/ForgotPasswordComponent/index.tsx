@@ -13,9 +13,9 @@ interface IFormErrors {
 }
 
 const ForgotPasswordComponent = () => {
-  const nameFieldRef = useRef<HTMLInputElement | null>(null)
-  const passwordFieldRef = useRef<HTMLInputElement | null>(null)
-  const passwordConfirmationRef = useRef<HTMLInputElement | null>(null)
+  const nameFieldRef = useRef<HTMLInputElement>({} as HTMLInputElement)
+  const passwordFieldRef = useRef<HTMLInputElement>({} as HTMLInputElement)
+  const passwordConfirmationRef = useRef<HTMLInputElement>({} as HTMLInputElement)
 
   const [formErrors, setFormErrors] = useState({} as IFormErrors)
   const [formSubmitting, setFormSubmitting] = useState(false)
@@ -33,15 +33,9 @@ const ForgotPasswordComponent = () => {
       if (submitRecoverPassword.status === 200) {
         setApiSuccess(submitRecoverPassword.data.message)
 
-        if (
-          nameFieldRef.current &&
-          passwordFieldRef.current &&
-          passwordConfirmationRef.current
-        ) {
-          nameFieldRef.current.value = ""
-          passwordFieldRef.current.value = ""
-          passwordConfirmationRef.current.value = ""
-        }
+        nameFieldRef.current.value = ""
+        passwordFieldRef.current.value = ""
+        passwordConfirmationRef.current.value = ""
 
         setTimeout(() => setApiSuccess(""), 4000)
       }
@@ -56,13 +50,6 @@ const ForgotPasswordComponent = () => {
 
   function checkFormErrors() {
     const errors = {} as IFormErrors
-
-    if (
-      !nameFieldRef.current ||
-      !passwordFieldRef.current ||
-      !passwordConfirmationRef.current
-    )
-      return
 
     if (nameFieldRef.current.value.length < 3) {
       errors.name = "O nome precisa ter pelo menos 3 caracteres"

@@ -6,6 +6,14 @@ export const LoginContainer = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
+
+  @media (max-width: 768px) {
+    padding: 1.25rem;
+
+    span {
+      font-size: 0.875rem;
+    }
+  }
 `
 
 export const LoginWrapper = styled.div`
@@ -43,6 +51,16 @@ export const LoginFormTitle = styled.div`
     font-size: 1rem;
     color: #434343;
   }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 0.875rem;
+    }
+  }
 `
 
 export const LoginForm = styled.form`
@@ -66,6 +84,10 @@ export const LoginForm = styled.form`
       align-items: center;
       gap: 0.3125rem;
     }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
   }
 `
 
@@ -102,6 +124,15 @@ export const FormLabel = styled.label<{ $isError: boolean }>`
 
     &::placeholder {
       color: ${(props) => (props.$isError ? "#e53333" : "#434343")};
+    }
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.875rem;
+
+    input,
+    textarea {
+      font-size: 0.875rem;
     }
   }
 `

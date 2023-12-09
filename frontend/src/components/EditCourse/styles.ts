@@ -6,6 +6,10 @@ export const EditCourseContainer = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
+
+  @media (max-width: 768px) {
+    padding: 1.25rem;
+  }
 `
 
 export const EditCourseWrapper = styled.div`
@@ -43,6 +47,16 @@ export const EditCourseFormTitle = styled.div`
     font-size: 1rem;
     color: #434343;
   }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 0.875rem;
+    }
+  }
 `
 
 export const EditCourseForm = styled.form`
@@ -65,6 +79,10 @@ export const EditCourseForm = styled.form`
       align-items: center;
       gap: 0.3125rem;
     }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5625rem;
   }
 `
 
@@ -109,6 +127,15 @@ export const FormLabel = styled.label<{ $isError: boolean }>`
     resize: none;
     height: 6.25rem;
     outline: none;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.875rem;
+
+    input,
+    textarea {
+      font-size: 0.875rem;
+    }
   }
 `
 
@@ -179,6 +206,10 @@ export const CheckboxLabel = styled.label`
     width: 1.125rem;
     height: 1.125rem;
     cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.875rem;
   }
 `
 

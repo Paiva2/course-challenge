@@ -17,13 +17,12 @@ export const LoadingWrapper = styled.div`
   z-index: 1000;
   inset: 0;
   background-color: #f7f8fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 export const LoadingState = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 50%);
   border: 6px solid #e9e9e9;
   border-top: 6px #5a3ce8 solid;
   border-radius: 50%;

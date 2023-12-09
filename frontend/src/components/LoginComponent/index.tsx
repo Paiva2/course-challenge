@@ -16,8 +16,8 @@ interface IFormErrors {
 const LoginComponent = () => {
   const route = useRouter()
 
-  const nameFieldRef = useRef<HTMLInputElement | null>(null)
-  const passwordFieldRef = useRef<HTMLInputElement | null>(null)
+  const nameFieldRef = useRef<HTMLInputElement>({} as HTMLInputElement)
+  const passwordFieldRef = useRef<HTMLInputElement>({} as HTMLInputElement)
 
   const [formErrors, setFormErrors] = useState({} as IFormErrors)
   const [formSubmitting, setFormSubmitting] = useState(false)
@@ -36,10 +36,8 @@ const LoginComponent = () => {
           path: "/",
         })
 
-        if (nameFieldRef.current && passwordFieldRef.current) {
-          nameFieldRef.current.value = ""
-          passwordFieldRef.current.value = ""
-        }
+        nameFieldRef.current.value = ""
+        passwordFieldRef.current.value = ""
 
         route.push("/")
       }
@@ -54,8 +52,6 @@ const LoginComponent = () => {
 
   function checkFormErrors() {
     const errors = {} as IFormErrors
-
-    if (!nameFieldRef.current || !passwordFieldRef.current) return
 
     if (nameFieldRef.current.value.length < 3) {
       errors.name = "O nome precisa ter pelo menos 3 caracteres"

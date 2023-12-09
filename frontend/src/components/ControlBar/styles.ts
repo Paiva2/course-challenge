@@ -9,6 +9,10 @@ export const Bar = styled.div`
   display: flex;
   align-items: center;
   padding: 1.875rem;
+
+  @media (max-width: 768px) {
+    border-radius: 0;
+  }
 `
 
 export const BarWrapper = styled.div`
@@ -52,8 +56,6 @@ export const RightSide = styled.div`
     animation: ${rotateLoading} 1s linear infinite;
   }
 `
-
-export const LeftSide = styled.div``
 
 export const LoginLink = styled.a`
   color: #fff;
@@ -111,6 +113,17 @@ export const NewCourseTrigger = styled.span`
 
     &:hover {
       background-color: #2644cf;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+
+    a {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 0;
+      height: 3.4375rem;
     }
   }
 `

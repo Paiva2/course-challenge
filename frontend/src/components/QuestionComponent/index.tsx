@@ -3,10 +3,10 @@
 import React, { Fragment, useState, useRef, FormEvent, useContext } from "react"
 import { IAnswer, IQuestion } from "@/@types/types"
 import { UserContextProvider } from "@/contexts/userContext"
-import * as S from "./styles"
-import api from "@/lib/api"
 import { AxiosError } from "axios"
 import { useQueryClient } from "react-query"
+import * as S from "./styles"
+import api from "@/lib/api"
 
 interface IQuestionComponent {
   questionInfos: {
@@ -23,6 +23,7 @@ const QuestionComponent = ({ questionInfos, canAnswer }: IQuestionComponent) => 
   const [answerError, setAnswerError] = useState("")
   const [answerSubmitting, setAnswerSubmitting] = useState(false)
   const [answerApiError, setAnswerApiError] = useState("")
+  const [answerApiSucess, setAnswerApiSucess] = useState("")
 
   const queryClient = useQueryClient()
 
@@ -61,9 +62,10 @@ const QuestionComponent = ({ questionInfos, canAnswer }: IQuestionComponent) => 
 
         queryClient.invalidateQueries("queryCoursePage")
         queryClient.invalidateQueries("queryCourseProfessorPage")
+
+        setAnswerApiSucess(newAnswer.data.message)
       }
     } catch (e) {
-      console.log(e)
       if (e instanceof AxiosError) {
         setAnswerApiError(e.response?.data.message)
 
@@ -77,26 +79,37 @@ const QuestionComponent = ({ questionInfos, canAnswer }: IQuestionComponent) => 
   return (
     <S.Question key={questionInfos.question.id}>
       <S.QuestionContent>
-        {canAnswer &&
-          (!questionInfos.answers.length ? (
-            <S.AnswerQuestionButton
-              onClick={() => !answerSubmitting && setOpenQuoteArea(!openQuoteArea)}
-              type="button"
-            >
-              Responder
-            </S.AnswerQuestionButton>
-          ) : (
-            <S.AnswerQuestionButton disabled type="button">
-              Respondido
-            </S.AnswerQuestionButton>
-          ))}
+        <S.TopArea>
+          <S.Texts>
+            <p>
+              <strong>Nome do estudante:</strong> {questionInfos.question.name}
+            </p>
+            <p>Dúvida: {questionInfos.question.question}</p>
 
-        <p>Nome do estudante: {questionInfos.question.name}</p>
-        <p>Dúvida: {questionInfos.question.question}</p>
+            <p>
+              Feita em:{" "}
+              {new Date(questionInfos.question.createdAt).toLocaleDateString()}
+            </p>
+          </S.Texts>
 
-        <p>
-          Feita em: {new Date(questionInfos.question.createdAt).toLocaleDateString()}
-        </p>
+          <div>
+            {canAnswer &&
+              (!questionInfos.answers.length ? (
+                <S.AnswerQuestionButton
+                  onClick={() =>
+                    !answerSubmitting && setOpenQuoteArea(!openQuoteArea)
+                  }
+                  type="button"
+                >
+                  Responder
+                </S.AnswerQuestionButton>
+              ) : (
+                <S.AnswerQuestionButton disabled type="button">
+                  Respondido
+                </S.AnswerQuestionButton>
+              ))}
+          </div>
+        </S.TopArea>
 
         <S.QuoteArea onSubmit={handleSubmitAnswer} $openQuote={openQuoteArea}>
           <textarea
@@ -105,17 +118,23 @@ const QuestionComponent = ({ questionInfos, canAnswer }: IQuestionComponent) => 
             placeholder="Escreva sua resposta aqui..."
           />
 
+          {answerError && <p className="validationError">{answerError}</p>}
           <S.QuoteButton disabled={answerSubmitting} type="submit">
             Responder
           </S.QuoteButton>
         </S.QuoteArea>
+
+        <S.ApiError>{answerApiError && <p>{answerApiError}</p>}</S.ApiError>
+        <S.ApiSuccess>{answerApiSucess && <p>{answerApiSucess}</p>}</S.ApiSuccess>
       </S.QuestionContent>
 
       <Fragment>
         {questionInfos.answers.map((answer) => {
           return (
             <S.Answer key={answer.id}>
-              <p>Professor: {answer.name}</p>
+              <p>
+                <strong>Professor:</strong> {answer.name}
+              </p>
 
               <p>Resposta: {answer.answer}</p>
 

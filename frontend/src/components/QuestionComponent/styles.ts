@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 export const Question = styled.div`
-  position: relative;
   padding-bottom: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -13,8 +12,6 @@ export const Question = styled.div`
 `
 
 export const AnswerQuestionButton = styled.button`
-  position: absolute;
-  right: 0;
   color: #5a72e0;
   font-weight: 600;
   transition: all 0.2s ease-in-out;
@@ -39,7 +36,25 @@ export const QuestionContent = styled.div`
     max-width: 90%;
     word-break: normal;
   }
+
+  @media (max-width: 768px) {
+    font-size: 0.875rem;
+  }
 `
+
+export const TopArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`
+
+export const Texts = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  gap: 0.25rem;
+`
+
 export const Answer = styled.div`
   padding-left: 1.875rem;
   display: flex;
@@ -49,6 +64,10 @@ export const Answer = styled.div`
   p {
     max-width: 90%;
     word-break: normal;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.875rem;
   }
 `
 
@@ -61,6 +80,14 @@ export const QuoteArea = styled.form<{ $openQuote: boolean }>`
   overflow: hidden;
   transition: max-height 0.3s ease-in-out;
   max-height: ${(props) => (props.$openQuote ? "12.5rem" : "0")};
+
+  .validationError {
+    color: #e53333;
+    font-size: 0.875rem;
+    margin-top: 0.1875rem;
+    font-weight: 500;
+    text-align: center;
+  }
 
   textarea {
     resize: none;
@@ -105,5 +132,32 @@ export const QuoteButton = styled.button`
 
   &:hover {
     background-color: #2644cf;
+  }
+`
+
+export const ApiError = styled.span`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: #e53333;
+  font-weight: 600;
+
+  @media (max-width: 768px) {
+    margin-top: 0.3125rem;
+  }
+`
+export const ApiSuccess = styled.span`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: #32a13a;
+  font-weight: 600;
+
+  @media (max-width: 768px) {
+    margin-top: 0.3125rem;
   }
 `
