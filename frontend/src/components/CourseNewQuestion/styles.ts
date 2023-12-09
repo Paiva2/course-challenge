@@ -55,6 +55,10 @@ export const SendQuestionButton = styled.button`
   &:hover {
     background-color: #2644cf;
   }
+
+  @media (max-width: 768px) {
+    font-size: 0.875rem;
+  }
 `
 
 export const ApiError = styled.span`

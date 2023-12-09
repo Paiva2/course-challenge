@@ -87,7 +87,9 @@ const EditCourse = ({ params }: IEditCourseProps) => {
 
     if (title === queryCourse.data.title || !title) {
       delete fieldsToUpdate.title
-    } else if (description === queryCourse.data.description || !description) {
+    }
+
+    if (description === queryCourse.data.description || !description) {
       delete fieldsToUpdate.description
     }
 

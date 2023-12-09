@@ -5,10 +5,14 @@ export const EditCourseContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
 
   @media (max-width: 768px) {
     padding: 1.25rem;
+
+    span {
+      font-size: 0.875rem;
+    }
   }
 `
 
@@ -29,6 +33,10 @@ export const EditCourseWrapper = styled.div`
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  @media (max-width: 768px) {
+    max-height: initial;
   }
 `
 

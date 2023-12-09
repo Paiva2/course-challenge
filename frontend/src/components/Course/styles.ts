@@ -11,6 +11,7 @@ export const Card = styled.a`
   justify-content: space-between;
   border-radius: 8px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  gap: 0.625rem;
 
   &:hover {
     h1 {

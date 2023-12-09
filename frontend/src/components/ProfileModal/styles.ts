@@ -36,8 +36,12 @@ export const ProfileModalContainer = styled.div<{ $openedModal: boolean }>`
   position: relative;
 
   @media (max-width: 768px) {
-    padding: 20px;
+    padding: 1.25rem;
     width: 95%;
+    height: initial;
+    justify-content: initial;
+    max-height: 90%;
+    overflow-y: auto;
   }
 `
 

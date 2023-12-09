@@ -127,3 +127,15 @@ export const NewCourseTrigger = styled.span`
     }
   }
 `
+
+export const PersonalWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.9375rem;
+`
+
+export const BalanceButton = styled.button`
+  width: fit-content;
+  display: flex;
+  align-items: center;
+`

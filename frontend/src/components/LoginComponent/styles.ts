@@ -5,7 +5,7 @@ export const LoginContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
 
   @media (max-width: 768px) {
     padding: 1.25rem;

@@ -5,10 +5,11 @@ export const RegisterContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
 
   @media (max-width: 768px) {
     padding: 1.25rem;
+    height: auto;
 
     span {
       font-size: 0.875rem;
@@ -33,6 +34,10 @@ export const RegisterWrapper = styled.div`
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  @media (max-width: 768px) {
+    max-height: initial;
   }
 `
 

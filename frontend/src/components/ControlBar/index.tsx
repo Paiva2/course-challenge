@@ -1,17 +1,19 @@
 "use client"
 
 import React, { Fragment, useContext, useState } from "react"
-import { MonitorPlay, Plus } from "lucide-react"
+import { CircleDollarSign, DollarSign, MonitorPlay, Plus } from "lucide-react"
 import { CourseContextProvider } from "@/contexts/courseContext"
 import { UserContextProvider } from "@/contexts/userContext"
 import ProfileModal from "../ProfileModal"
 import * as S from "./styles"
+import BalanceModal from "../BalanceModal"
 
 const ControlBar = () => {
   const { queryCourses } = useContext(CourseContextProvider)
   const { userProfile } = useContext(UserContextProvider)
 
   const [openProfile, setOpenProfile] = useState(false)
+  const [openBalanceModal, setOpenBalanceModal] = useState(false)
 
   return (
     <Fragment>
@@ -45,7 +47,16 @@ const ControlBar = () => {
             {!userProfile.auth ? (
               <S.LoginLink href="/entrar">Entrar</S.LoginLink>
             ) : (
-              <Fragment>
+              <S.PersonalWrapper>
+                {userProfile.data.role === "professor" && (
+                  <S.BalanceButton
+                    onClick={() => setOpenBalanceModal(!openBalanceModal)}
+                    type="button"
+                  >
+                    <DollarSign size={30} color="#fff" />
+                  </S.BalanceButton>
+                )}
+
                 <S.OpenProfileModal
                   onClick={() => setOpenProfile(!openProfile)}
                   type="button"
@@ -60,7 +71,12 @@ const ControlBar = () => {
                   setOpenProfile={setOpenProfile}
                   openProfile={openProfile}
                 />
-              </Fragment>
+
+                <BalanceModal
+                  openBalanceModal={openBalanceModal}
+                  setOpenBalanceModal={setOpenBalanceModal}
+                />
+              </S.PersonalWrapper>
             )}
           </div>
         </S.BarWrapper>
