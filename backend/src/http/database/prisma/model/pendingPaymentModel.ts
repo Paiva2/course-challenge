@@ -23,7 +23,7 @@ export default class PendingPaymentModel implements PendingPaymentInterface {
     return pendingPayment
   }
 
-  async findByUserId(professorId: string): Promise<IPendingPayments> {
+  async findFirstByUserId(professorId: string): Promise<IPendingPayments> {
     const [professorPaymentsPending] = await prisma.$queryRawUnsafe<
       IPendingPayments[]
     >(

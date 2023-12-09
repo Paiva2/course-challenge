@@ -53,7 +53,8 @@ describe("Filter Course Service", () => {
       inMemoryUser,
       inMemoryCourse,
       inMemoryQuestion,
-      inMemoryQuestionAnswer
+      inMemoryQuestionAnswer,
+      inMemoryPendingPayment
     )
 
     sut = new FilterCourseService(

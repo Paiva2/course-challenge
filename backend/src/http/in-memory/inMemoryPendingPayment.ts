@@ -23,7 +23,7 @@ export default class InMemoryPendingPayments implements PendingPaymentInterface 
     return newPendingPayment
   }
 
-  async findByUserId(professorId: string): Promise<IPendingPayments | null> {
+  async findFirstByUserId(professorId: string): Promise<IPendingPayments | null> {
     const findPayment = this.pendingPayments.find(
       (payment) => payment.fkProfessor === professorId
     )

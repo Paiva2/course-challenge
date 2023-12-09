@@ -1,5 +1,6 @@
 import { IQuestionAnswer } from "../../@types/types"
 import { QuestionAnswerInterface } from "../../interfaces/questionAnswerInterface"
+import { PendingPaymentInterface } from "../../interfaces/pendingPaymentInterface"
 import { UserInterface } from "../../interfaces/userInterface"
 import CourseInterface from "../../interfaces/courseInterface"
 import QuestionInterface from "../../interfaces/questionInterface"
@@ -18,7 +19,8 @@ export default class InsertQuestionAnswerService {
     private userInterface: UserInterface,
     private courseInterface: CourseInterface,
     private questionInterface: QuestionInterface,
-    private questionAnswerInterface: QuestionAnswerInterface
+    private questionAnswerInterface: QuestionAnswerInterface,
+    private pendingPaymentInterface: PendingPaymentInterface
   ) {}
 
   async exec({
@@ -116,6 +118,18 @@ export default class InsertQuestionAnswerService {
       doesProfessorExists.name
     )
 
+    await this.generatePendingPayment(professorId)
+
     return createNewAnswer
+  }
+
+  private async generatePendingPayment(professorId: string) {
+    const paymentByAnsweredQuestion = 15 //R$: 15,00
+
+    await this.pendingPaymentInterface.create(
+      paymentByAnsweredQuestion,
+      "questionAnswered",
+      professorId
+    )
   }
 }

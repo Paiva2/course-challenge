@@ -54,7 +54,7 @@ describe("Create new course service", () => {
     })
 
     const checkIfPendingPaymentIsCreated =
-      await inMemoryPendingPayments.findByUserId(fakeProfessor.id)
+      await inMemoryPendingPayments.findFirstByUserId(fakeProfessor.id)
 
     expect(checkIfPendingPaymentIsCreated).toEqual(
       expect.objectContaining({

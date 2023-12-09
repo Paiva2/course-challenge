@@ -29,7 +29,7 @@ let insertNewQuestionService: InsertNewQuestionService
 
 let sut: InsertQuestionAnswerService
 
-describe("Insert new question answer service", () => {
+describe.only("Insert new question answer service", () => {
   beforeEach(async () => {
     inMemoryUser = new InMemoryUser()
     inMemoryCourse = new InMemoryCourse()
@@ -80,7 +80,8 @@ describe("Insert new question answer service", () => {
       inMemoryUser,
       inMemoryCourse,
       inMemoryQuestion,
-      inMemoryQuestionAnswer
+      inMemoryQuestionAnswer,
+      inMemoryPendingPayments
     )
 
     fakeQuestion = await insertNewQuestionService.exec({
@@ -97,6 +98,18 @@ describe("Insert new question answer service", () => {
       professorId: fakeProfessor.id as string,
       questionId: fakeQuestion.id as string,
     })
+
+    const checkIfPendingPaymentIsCreated = await inMemoryPendingPayments.getAll()
+
+    expect(checkIfPendingPaymentIsCreated[1]).toEqual(
+      expect.objectContaining({
+        id: expect.any(String),
+        createdAt: expect.any(Date),
+        value: 15,
+        reason: "questionAnswered",
+        fkProfessor: fakeProfessor.id,
+      })
+    )
 
     expect(newAnswer).toEqual(
       expect.objectContaining({

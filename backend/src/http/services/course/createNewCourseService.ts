@@ -14,7 +14,7 @@ export default class CreateNewCourseService {
   constructor(
     private userInterface: UserInterface,
     private courseInterface: CourseInterface,
-    private pendingPaymentInteface: PendingPaymentInterface
+    private pendingPaymentInterface: PendingPaymentInterface
   ) {}
 
   async exec({
@@ -75,7 +75,7 @@ export default class CreateNewCourseService {
 
     const totalPayment = hoursToPay + minutesToPay
 
-    await this.pendingPaymentInteface.create(
+    await this.pendingPaymentInterface.create(
       +totalPayment.toFixed(2),
       "course",
       professorId

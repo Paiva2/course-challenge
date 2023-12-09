@@ -7,7 +7,7 @@ export interface PendingPaymentInterface {
     professorId: string
   ): Promise<IPendingPayments>
 
-  findByUserId(professorId: string): Promise<IPendingPayments | null>
+  findFirstByUserId(professorId: string): Promise<IPendingPayments | null>
 
   findById(
     professorId: string,
