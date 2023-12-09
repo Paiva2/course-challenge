@@ -16,7 +16,7 @@ interface IFormErrors {
 const LoginComponent = () => {
   const route = useRouter()
 
-  const nameFieldRef = useRef<HTMLInputElement>({} as HTMLInputElement)
+  const emailFieldRef = useRef<HTMLInputElement>({} as HTMLInputElement)
   const passwordFieldRef = useRef<HTMLInputElement>({} as HTMLInputElement)
 
   const [formErrors, setFormErrors] = useState({} as IFormErrors)
@@ -26,7 +26,7 @@ const LoginComponent = () => {
   async function submitInformations() {
     try {
       const submitLogin = await api.post("/login", {
-        name: nameFieldRef?.current?.value,
+        email: emailFieldRef?.current?.value,
         password: passwordFieldRef?.current?.value,
       })
 
@@ -36,7 +36,7 @@ const LoginComponent = () => {
           path: "/",
         })
 
-        nameFieldRef.current.value = ""
+        emailFieldRef.current.value = ""
         passwordFieldRef.current.value = ""
 
         route.push("/")
@@ -53,7 +53,7 @@ const LoginComponent = () => {
   function checkFormErrors() {
     const errors = {} as IFormErrors
 
-    if (nameFieldRef.current.value.length < 3) {
+    if (emailFieldRef.current.value.length < 3) {
       errors.name = "O nome precisa ter pelo menos 3 caracteres"
     }
 
@@ -96,8 +96,12 @@ const LoginComponent = () => {
 
           <S.LoginFields>
             <S.FormLabel $isError={false}>
-              Nome
-              <input ref={nameFieldRef} placeholder="Digite seu nome" type="text" />
+              E-mail
+              <input
+                ref={emailFieldRef}
+                placeholder="Digite seu e-mail"
+                type="email"
+              />
               {formErrors.name && (
                 <p className="validationError">{formErrors.name}</p>
               )}

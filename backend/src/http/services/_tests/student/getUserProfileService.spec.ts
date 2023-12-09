@@ -30,6 +30,7 @@ describe("Get User Profile Service", () => {
       name: "John Doe",
       password: "123456",
       role: "student",
+      email: "johndoe@email.com",
     })
   })
 

@@ -55,12 +55,14 @@ describe("Get Active Courses Service", () => {
       name: "John Doe",
       password: "123456",
       role: "professor",
+      email: "johndoeprofessor@email.com",
     })
 
     fakeStudent = await registerNewStudentService.exec({
       name: "John Doe Student",
       password: "123456",
       role: "student",
+      email: "johndoestudent@email.com",
     })
 
     sut = new GetActiveCoursesService(inMemoryCourse, inMemoryQuestion)

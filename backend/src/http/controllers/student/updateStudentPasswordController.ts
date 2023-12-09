@@ -4,13 +4,13 @@ import UserFactory from "../factory/userFactory"
 
 export default class UpdateStudentPasswordController {
   public static async handle(req: Request, res: Response) {
-    const { name, newPassword } = req.body
+    const { email, newPassword } = req.body
 
     const { updateStudentPasswordService } = await UserFactory.exec()
 
     try {
       await updateStudentPasswordService.exec({
-        name,
+        email,
         newPassword,
       })
 

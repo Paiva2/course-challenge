@@ -23,6 +23,7 @@ describe("Auth Student Service", () => {
 
     await registerNewStudentService.exec({
       name: "John Doe",
+      email: "johndoe@email.com",
       password: "123456",
       role: "student",
     })
@@ -32,7 +33,7 @@ describe("Auth Student Service", () => {
 
   it("should auth an student", async () => {
     const authUser = await sut.exec({
-      name: "John Doe",
+      email: "johndoe@email.com",
       password: "123456",
     })
 
@@ -40,20 +41,21 @@ describe("Auth Student Service", () => {
       expect.objectContaining({
         id: expect.any(String),
         name: "John Doe",
+        email: "johndoe@email.com",
         role: "student",
       })
     )
   })
 
-  it("should not auth an user if an valid name are not provided on request", async () => {
+  it("should not auth an user if an valid email are not provided on request", async () => {
     await expect(() => {
       return sut.exec({
-        name: "",
+        email: "",
         password: "123456",
       })
     }).rejects.toEqual(
       expect.objectContaining({
-        message: "Nome inválido.",
+        message: "E-mail inválido.",
       })
     )
   })
@@ -61,7 +63,7 @@ describe("Auth Student Service", () => {
   it("should not auth an user if an valid password are not provided on request", async () => {
     await expect(() => {
       return sut.exec({
-        name: "John Doe",
+        email: "johndoe@email.com",
         password: "",
       })
     }).rejects.toEqual(
@@ -74,7 +76,7 @@ describe("Auth Student Service", () => {
   it("should not auth an user if user doens't exists", async () => {
     await expect(() => {
       return sut.exec({
-        name: "Inexistent",
+        email: "Inexistent",
         password: "123456",
       })
     }).rejects.toEqual(
@@ -87,7 +89,7 @@ describe("Auth Student Service", () => {
   it("should not auth an user if credentials are wrong", async () => {
     await expect(() => {
       return sut.exec({
-        name: "John Doe",
+        email: "johndoe@email.com",
         password: "wrong pass",
       })
     }).rejects.toEqual(

@@ -40,6 +40,7 @@ describe("Create new course service", () => {
       name: "John Doe",
       password: "123456",
       role: "professor",
+      email: "johndoe@email.com",
     })
   })
 
@@ -131,6 +132,7 @@ describe("Create new course service", () => {
     const unauthStudent = await registerNewStudentService.exec({
       name: "John Doe Student",
       password: "123456",
+      email: "johndoestudent@email.com",
     })
 
     await expect(() => {

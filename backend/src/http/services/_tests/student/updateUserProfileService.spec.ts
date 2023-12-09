@@ -31,6 +31,7 @@ describe("Update user profile service", () => {
       name: "John Doe",
       password: "123456",
       role: "student",
+      email: "johndoe@email.com",
     })
   })
 

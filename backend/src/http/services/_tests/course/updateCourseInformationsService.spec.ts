@@ -46,6 +46,7 @@ describe("Update course informations service", () => {
       name: "John Doe",
       password: "123456",
       role: "professor",
+      email: "johndoeprofessor@email.com",
     })
 
     fakeCourse = await createNewCourseService.exec({
@@ -143,6 +144,7 @@ describe("Update course informations service", () => {
       name: "John Doe 2",
       password: "123456",
       role: "professor",
+      email: "johndoeprofessor2@email.com",
     })
 
     await expect(() => {

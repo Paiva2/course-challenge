@@ -51,12 +51,18 @@ describe("Finish an pending payment service", () => {
       inMemoryPendingPayments
     )
 
-    fakeAdmin = await inMemoryUser.create("John Doe Admin", "123456", "admin")
+    fakeAdmin = await inMemoryUser.create(
+      "John Doe Admin",
+      "johndoeadmin@email.com",
+      "123456",
+      "admin"
+    )
 
     fakeProfessor = await registerNewStudentService.exec({
       name: "John Doe Professor",
       password: "123456",
       role: "professor",
+      email: "johndoe@email.com",
     })
 
     fakeCourse = await createNewCourseService.exec({

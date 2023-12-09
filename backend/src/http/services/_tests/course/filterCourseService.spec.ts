@@ -78,12 +78,14 @@ describe("Filter Course Service", () => {
       name: "John Doe Professor",
       password: "123456",
       role: "professor",
+      email: "johndoeprofessor@email.com",
     })
 
     fakeStudent = await registerNewStudentService.exec({
       name: "John Doe Student",
       password: "123456",
       role: "student",
+      email: "johndoestudent@email.com",
     })
 
     fakeCourse = await createNewCourseService.exec({

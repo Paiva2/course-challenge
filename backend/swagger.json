@@ -67,6 +67,11 @@
                     "type": "string",
                     "example": "My name"
                   },
+                  "email": {
+                    "description": "New student e-mail",
+                    "type": "string",
+                    "example": "johndoe@email.com"
+                  },
                   "password": {
                     "description": "New student password",
                     "type": "string",
@@ -88,7 +93,7 @@
             "description": "Estudante registrado com sucesso."
           },
           "422": {
-            "description": "Nome ou senha inválidos."
+            "description": "Nome, senha ou e-mail inválidos."
           },
           "409": {
             "description": "Um estudante com esse nome já existe cadastrado."
@@ -108,10 +113,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
-                    "description": "New student name",
+                  "email": {
+                    "description": "New student e-mail",
                     "type": "string",
-                    "example": "My name"
+                    "example": "johndoe@email.com"
                   },
                   "newPassword": {
                     "description": "New password",
@@ -154,10 +159,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
-                    "description": "Student name",
+                  "email": {
+                    "description": "Student e-mail",
                     "type": "string",
-                    "example": "My name"
+                    "example": "johndoe@email.com"
                   },
                   "password": {
                     "description": "Student password",
@@ -188,7 +193,7 @@
             }
           },
           "422": {
-            "description": "Nome ou senha inválidos."
+            "description": "E-mail ou senha inválidos."
           },
           "403": {
             "description": "Credenciais inválidas."

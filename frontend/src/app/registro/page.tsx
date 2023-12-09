@@ -1,5 +1,5 @@
 import React from "react"
-import RegisterComponent from "@/components/RegisterModal"
+import RegisterComponent from "@/components/RegisterComponent"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {

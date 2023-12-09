@@ -7,13 +7,13 @@ import api from "@/lib/api"
 import * as S from "./styles"
 
 interface IFormErrors {
-  name: string
+  email: string
   password: string
   confirmPassword: string
 }
 
 const ForgotPasswordComponent = () => {
-  const nameFieldRef = useRef<HTMLInputElement>({} as HTMLInputElement)
+  const emailFieldRef = useRef<HTMLInputElement>({} as HTMLInputElement)
   const passwordFieldRef = useRef<HTMLInputElement>({} as HTMLInputElement)
   const passwordConfirmationRef = useRef<HTMLInputElement>({} as HTMLInputElement)
 
@@ -25,7 +25,7 @@ const ForgotPasswordComponent = () => {
   async function submitInformations() {
     try {
       const submitRecoverPassword = await api.patch("/password", {
-        name: nameFieldRef.current?.value,
+        email: emailFieldRef.current?.value,
         newPassword: passwordFieldRef.current?.value,
         passwordConfirmation: passwordConfirmationRef.current?.value,
       })
@@ -33,7 +33,7 @@ const ForgotPasswordComponent = () => {
       if (submitRecoverPassword.status === 200) {
         setApiSuccess(submitRecoverPassword.data.message)
 
-        nameFieldRef.current.value = ""
+        emailFieldRef.current.value = ""
         passwordFieldRef.current.value = ""
         passwordConfirmationRef.current.value = ""
 
@@ -50,10 +50,6 @@ const ForgotPasswordComponent = () => {
 
   function checkFormErrors() {
     const errors = {} as IFormErrors
-
-    if (nameFieldRef.current.value.length < 3) {
-      errors.name = "O nome precisa ter pelo menos 3 caracteres"
-    }
 
     if (passwordFieldRef.current.value.length < 6) {
       errors.password = "A senha precisa ter pelo menos 6 caracteres"
@@ -101,10 +97,14 @@ const ForgotPasswordComponent = () => {
 
           <S.ForgotPasswordFields>
             <S.FormLabel $isError={false}>
-              Nome
-              <input ref={nameFieldRef} placeholder="Digite seu nome" type="text" />
-              {formErrors.name && (
-                <p className="validationError">{formErrors.name}</p>
+              E-mail
+              <input
+                ref={emailFieldRef}
+                placeholder="Digite seu e-mail"
+                type="email"
+              />
+              {formErrors.email && (
+                <p className="validationError">{formErrors.email}</p>
               )}
             </S.FormLabel>
             <S.FormLabel $isError={false}>

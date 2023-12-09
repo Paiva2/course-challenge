@@ -2,18 +2,18 @@ import { UserInterface } from "../../interfaces/userInterface"
 import { hash } from "bcryptjs"
 
 type UpdateStudentPasswordServiceRequest = {
-  name: string
+  email: string
   newPassword: string
 }
 
 export default class UpdateStudentPasswordService {
   constructor(private userInterface: UserInterface) {}
 
-  async exec({ name, newPassword }: UpdateStudentPasswordServiceRequest) {
-    if (!name || name.length < 3) {
+  async exec({ email, newPassword }: UpdateStudentPasswordServiceRequest) {
+    if (!email) {
       throw {
         status: 422,
-        message: "Nome inválido.",
+        message: "E-mail inválido.",
       }
     } else if (!newPassword || newPassword.length < 3) {
       throw {
@@ -22,7 +22,7 @@ export default class UpdateStudentPasswordService {
       }
     }
 
-    const doesUserExists = await this.userInterface.findByName(name)
+    const doesUserExists = await this.userInterface.findByEmail(email)
 
     if (!doesUserExists) {
       throw {
@@ -34,7 +34,7 @@ export default class UpdateStudentPasswordService {
     const hashNewPassword = await hash(newPassword, 6)
 
     const updatedStudentPassword = await this.userInterface.updatePassword(
-      name,
+      email,
       hashNewPassword
     )
 

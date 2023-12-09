@@ -4,7 +4,7 @@ import UserFactory from "../factory/userFactory"
 
 export default class RegisterNewStudentController {
   public static async handle(req: Request, res: Response) {
-    const { name, password } = req.body
+    const { name, email, password } = req.body
 
     const { registerNewStudentService } = await UserFactory.exec()
 
@@ -12,6 +12,7 @@ export default class RegisterNewStudentController {
       await registerNewStudentService.exec({
         name,
         password,
+        email,
         role: "student",
       })
 

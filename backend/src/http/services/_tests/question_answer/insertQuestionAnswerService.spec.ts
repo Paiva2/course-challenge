@@ -53,12 +53,14 @@ describe.only("Insert new question answer service", () => {
       name: "John Doe Professor",
       password: "123456",
       role: "professor",
+      email: "johndoeprofessor@email.com",
     })
 
     fakeStudent = await registerNewStudentService.exec({
       name: "John Doe Student",
       password: "123456",
       role: "student",
+      email: "johndoestudent@email.com",
     })
 
     fakeCourse = await createNewCourseService.exec({
@@ -219,6 +221,7 @@ describe.only("Insert new question answer service", () => {
       name: "John Doe Professor 2",
       password: "123456",
       role: "professor",
+      email: "johndoe@email.com",
     })
 
     await expect(() => {

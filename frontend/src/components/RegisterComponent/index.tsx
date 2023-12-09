@@ -8,14 +8,16 @@ import * as S from "./styles"
 
 interface IFormErrors {
   name: string
+  email: string
   password: string
   confirmPassword: string
 }
 
 const RegisterComponent = () => {
-  const nameFieldRef = useRef<HTMLInputElement | null>(null)
-  const passwordFieldRef = useRef<HTMLInputElement | null>(null)
-  const confirmPasswordFieldRef = useRef<HTMLInputElement | null>(null)
+  const nameFieldRef = useRef<HTMLInputElement>({} as HTMLInputElement)
+  const emailFieldRef = useRef<HTMLInputElement>({} as HTMLInputElement)
+  const passwordFieldRef = useRef<HTMLInputElement>({} as HTMLInputElement)
+  const confirmPasswordFieldRef = useRef<HTMLInputElement>({} as HTMLInputElement)
 
   const [formErrors, setFormErrors] = useState({} as IFormErrors)
   const [formSubmitting, setFormSubmitting] = useState(false)
@@ -26,6 +28,7 @@ const RegisterComponent = () => {
     try {
       const submitRegister = await api.post("/register", {
         name: nameFieldRef?.current?.value,
+        email: emailFieldRef?.current?.value,
         password: passwordFieldRef?.current?.value,
         passwordConfirmation: confirmPasswordFieldRef?.current?.value,
       })
@@ -33,15 +36,10 @@ const RegisterComponent = () => {
       if (submitRegister.status === 201) {
         setApiSuccess(submitRegister.data.message)
 
-        if (
-          nameFieldRef.current &&
-          passwordFieldRef.current &&
-          confirmPasswordFieldRef?.current
-        ) {
-          nameFieldRef.current.value = ""
-          passwordFieldRef.current.value = ""
-          confirmPasswordFieldRef.current.value = ""
-        }
+        nameFieldRef.current.value = ""
+        passwordFieldRef.current.value = ""
+        confirmPasswordFieldRef.current.value = ""
+        emailFieldRef.current.value = ""
 
         setTimeout(() => setApiSuccess(""), 4000)
       }
@@ -56,13 +54,6 @@ const RegisterComponent = () => {
 
   function checkFormErrors() {
     const errors = {} as IFormErrors
-
-    if (
-      !nameFieldRef.current ||
-      !passwordFieldRef.current ||
-      !confirmPasswordFieldRef.current
-    )
-      return
 
     if (nameFieldRef.current.value.length < 3) {
       errors.name = "O nome precisa ter pelo menos 3 caracteres"
@@ -118,6 +109,17 @@ const RegisterComponent = () => {
               <input ref={nameFieldRef} placeholder="Digite seu nome" type="text" />
               {formErrors.name && (
                 <p className="validationError">{formErrors.name}</p>
+              )}
+            </S.FormLabel>
+            <S.FormLabel $isError={false}>
+              E-mail
+              <input
+                ref={emailFieldRef}
+                placeholder="Digite seu e-mail"
+                type="email"
+              />
+              {formErrors.email && (
+                <p className="validationError">{formErrors.email}</p>
               )}
             </S.FormLabel>
             <S.FormLabel $isError={false}>

@@ -29,11 +29,12 @@ describe("Update Student Password Service", () => {
     await registerNewStudentService.exec({
       name: "John Doe",
       password: "123456",
+      email: "johndoe@email.com",
       role: "student",
     })
 
     const updatedPassword = await sut.exec({
-      name: "John Doe",
+      email: "johndoe@email.com",
       newPassword: "changed",
     })
 
@@ -45,15 +46,15 @@ describe("Update Student Password Service", () => {
     expect(checkIfPasswordChangedCorrectly).toBeTruthy()
   })
 
-  it("should not update an password if an name are not provided on request", async () => {
+  it("should not update an password if an e-mail are not provided on request", async () => {
     await expect(() => {
       return sut.exec({
-        name: "",
+        email: "",
         newPassword: "123456",
       })
     }).rejects.toEqual(
       expect.objectContaining({
-        message: "Nome inválido.",
+        message: "E-mail inválido.",
       })
     )
   })
@@ -61,7 +62,7 @@ describe("Update Student Password Service", () => {
   it("should not update an student password if an new password are not provided on request", async () => {
     await expect(() => {
       return sut.exec({
-        name: "John Doe",
+        email: "johndoe@email.com",
         newPassword: "",
       })
     }).rejects.toEqual(
@@ -74,7 +75,7 @@ describe("Update Student Password Service", () => {
   it("should not update an user password if provided user doesn't exists", async () => {
     await expect(() => {
       return sut.exec({
-        name: "Inexistent",
+        email: "Inexistent",
         newPassword: "123456",
       })
     }).rejects.toEqual(

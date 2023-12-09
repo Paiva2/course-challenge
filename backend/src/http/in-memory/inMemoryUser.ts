@@ -5,10 +5,16 @@ import { UserInterface } from "../interfaces/userInterface"
 export default class InMemoryUser implements UserInterface {
   private users = [] as IUser[]
 
-  async create(name: string, password: string, role: string): Promise<IUser> {
+  async create(
+    name: string,
+    email: string,
+    password: string,
+    role: string
+  ): Promise<IUser> {
     const newUser = {
       id: randomUUID(),
       name,
+      email,
       password,
       role,
     }
@@ -26,11 +32,19 @@ export default class InMemoryUser implements UserInterface {
     return findUser
   }
 
-  async updatePassword(name: string, newPassword: string): Promise<IUser> {
+  async findByEmail(email: string): Promise<IUser> {
+    const findUser = this.users.find((user) => user.email === email)
+
+    if (!findUser) return null
+
+    return findUser
+  }
+
+  async updatePassword(email: string, newPassword: string): Promise<IUser> {
     let userUpdated = {} as IUser
 
     const updatedUsers = this.users.map((user) => {
-      if (user.name === name) {
+      if (user.email === email) {
         user.password = newPassword
 
         userUpdated = user

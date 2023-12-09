@@ -5,13 +5,13 @@ import UserFactory from "../factory/userFactory"
 
 export default class AuthStudentController {
   public static async handle(req: Request, res: Response) {
-    const { name, password } = req.body
+    const { email, password } = req.body
 
     const { authStudentService } = await UserFactory.exec()
 
     try {
       const authUser = await authStudentService.exec({
-        name,
+        email,
         password,
       })
 

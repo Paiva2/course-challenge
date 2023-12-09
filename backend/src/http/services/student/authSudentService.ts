@@ -3,7 +3,7 @@ import { UserInterface } from "../../interfaces/userInterface"
 import { compare } from "bcryptjs"
 
 type AuthStudentServiceRequest = {
-  name: string
+  email: string
   password: string
 }
 
@@ -13,13 +13,13 @@ export default class AuthStudentService {
   constructor(private userInterface: UserInterface) {}
 
   async exec({
-    name,
+    email,
     password,
   }: AuthStudentServiceRequest): Promise<AuthStudentServiceResponse> {
-    if (!name) {
+    if (!email) {
       throw {
         status: 422,
-        message: "Nome inválido.",
+        message: "E-mail inválido.",
       }
     } else if (!password) {
       throw {
@@ -28,7 +28,7 @@ export default class AuthStudentService {
       }
     }
 
-    const doesStudentExists = await this.userInterface.findByName(name)
+    const doesStudentExists = await this.userInterface.findByEmail(email)
 
     if (!doesStudentExists) {
       throw {

@@ -6,6 +6,11 @@ export const registerNewStudentDto = z
       .string()
       .min(3, { message: "Nome precisa ter pelo menos 3 caracteres." }),
 
+    email: z
+      .string()
+      .email({ message: "Formato de e-mail inválido." })
+      .min(3, { message: "E-mail precisa ter pelo menos 3 caracteres." }),
+
     password: z
       .string()
       .min(6, { message: "A senha precisa ter pelo menos 6 caracteres." }),
@@ -20,9 +25,10 @@ export const registerNewStudentDto = z
 
 export const updateStudentPasswordDto = z
   .object({
-    name: z
+    email: z
       .string()
-      .min(3, { message: "Nome precisa ter pelo menos 3 caracteres." }),
+      .email({ message: "Formato de e-mail inválido." })
+      .min(3, { message: "E-mail precisa ter pelo menos 3 caracteres." }),
 
     newPassword: z
       .string()
@@ -37,7 +43,10 @@ export const updateStudentPasswordDto = z
   })
 
 export const authStudentDto = z.object({
-  name: z.string().min(3, { message: "Nome precisa ter pelo menos 3 caracteres." }),
+  email: z
+    .string()
+    .email({ message: "Formato de e-mail inválido." })
+    .min(3, { message: "E-mail precisa ter pelo menos 3 caracteres." }),
 
   password: z
     .string()

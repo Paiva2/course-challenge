@@ -4,13 +4,22 @@ import { UserInterface } from "../../../interfaces/userInterface"
 import prisma from "../client"
 
 export default class UserModel implements UserInterface {
-  async create(name: string, password: string, role: string): Promise<IUser> {
+  async create(
+    name: string,
+    email: string,
+    password: string,
+    role: string
+  ): Promise<IUser> {
     const [createdUser] = await prisma.$queryRawUnsafe<IUser[]>(
-      `INSERT INTO public.user (id, name, password, role) VALUES ($1, $2, $3, $4) RETURNING *`,
+      `INSERT INTO public.user 
+      (id, name, password, role, email) 
+      VALUES ($1, $2, $3, $4, $5) 
+      RETURNING *`,
       randomUUID(),
       name,
       password,
-      role
+      role,
+      email
     )
 
     return createdUser
@@ -27,10 +36,21 @@ export default class UserModel implements UserInterface {
     return findUser
   }
 
-  async updatePassword(name: string, newPassword: string): Promise<IUser> {
+  async findByEmail(email: string): Promise<IUser> {
+    const [findUser] = await prisma.$queryRawUnsafe<IUser[]>(
+      `SELECT * FROM public.user WHERE email = $1`,
+      email
+    )
+
+    if (!findUser) return null
+
+    return findUser
+  }
+
+  async updatePassword(email: string, newPassword: string): Promise<IUser> {
     const [updatedUser] = await prisma.$queryRawUnsafe<IUser[]>(
-      `UPDATE public.user SET password = $2 WHERE name = $1 RETURNING *`,
-      name,
+      `UPDATE public.user SET password = $2 WHERE email = $1 RETURNING *`,
+      email,
       newPassword
     )
 
