@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { HttpError } from "../../@types/types"
 import parseJwt from "../../utils/parseJwt"
-import Factory from "../factory"
+import UserFactory from "../factory/userFactory"
 
 export default class UpdateUserProfileController {
   public static async handle(req: Request, res: Response) {
@@ -9,7 +9,7 @@ export default class UpdateUserProfileController {
 
     const { data: userData } = parseJwt(req.headers.authorization as string)
 
-    const { updateUserProfileService } = await Factory.exec()
+    const { updateUserProfileService } = await UserFactory.exec()
 
     try {
       await updateUserProfileService.exec({

@@ -1,12 +1,12 @@
 import { Request, Response } from "express"
 import { HttpError } from "../../@types/types"
-import Factory from "../factory"
+import UserFactory from "../factory/userFactory"
 
 export default class RegisterNewStudentController {
   public static async handle(req: Request, res: Response) {
     const { name, password } = req.body
 
-    const { registerNewStudentService } = await Factory.exec()
+    const { registerNewStudentService } = await UserFactory.exec()
 
     try {
       await registerNewStudentService.exec({

@@ -42,6 +42,29 @@ export interface IQuestionAnswer {
   fkCourse: string
 }
 
+export interface IWallet {
+  id?: string
+  total: string
+  updatedAt?: Date
+  fkUser: string
+}
+
+export interface IPendingPayments {
+  id?: string
+  createdAt?: Date
+  value: number
+  reason: string
+  fkProfessor: string
+}
+
+export interface IFinishedPayments {
+  id?: string
+  createdAt?: Date
+  value: number
+  reason: string
+  fkProfessor: string
+}
+
 export interface HttpError {
   status: number
   message: string

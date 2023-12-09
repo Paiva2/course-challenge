@@ -8,6 +8,7 @@ import InsertNewQuestionService from "../../question/insertNewQuestionService"
 import InMemoryQuestion from "../../../in-memory/inMemoryQuestion"
 import InMemoryQuestionAnswer from "../../../in-memory/inMemoryQuestionAnswer"
 import InsertQuestionAnswerService from "../../question_answer/insertQuestionAnswerService"
+import InMemoryPendingPayments from "../../../in-memory/inMemoryPendingPayment"
 
 let fakeProfessor: IUser
 let fakeStudent: IUser
@@ -18,6 +19,7 @@ let inMemoryUser: InMemoryUser
 let inMemoryCourse: InMemoryCourse
 let inMemoryQuestion: InMemoryQuestion
 let inMemoryQuestionAnswer: InMemoryQuestionAnswer
+let inMemoryPendingPayments: InMemoryPendingPayments
 
 let registerNewStudentService: RegisterNewStudentService
 let createNewCourseService: CreateNewCourseService
@@ -31,10 +33,15 @@ describe("Insert new question answer service", () => {
     inMemoryCourse = new InMemoryCourse()
     inMemoryQuestion = new InMemoryQuestion()
     inMemoryQuestionAnswer = new InMemoryQuestionAnswer()
+    inMemoryPendingPayments = new InMemoryPendingPayments()
 
     registerNewStudentService = new RegisterNewStudentService(inMemoryUser)
 
-    createNewCourseService = new CreateNewCourseService(inMemoryUser, inMemoryCourse)
+    createNewCourseService = new CreateNewCourseService(
+      inMemoryUser,
+      inMemoryCourse,
+      inMemoryPendingPayments
+    )
 
     fakeProfessor = await registerNewStudentService.exec({
       name: "John Doe Professor",

@@ -1,5 +1,6 @@
 import { ICourse, ICourseCreation } from "../../@types/types"
 import CourseInterface from "../../interfaces/courseInterface"
+import { PendingPaymentInterface } from "../../interfaces/pendingPaymentInterface"
 import { UserInterface } from "../../interfaces/userInterface"
 
 type CreateNewCourseServiceRequest = {
@@ -12,7 +13,8 @@ type CreateNewCourseServiceResponse = ICourse
 export default class CreateNewCourseService {
   constructor(
     private userInterface: UserInterface,
-    private courseInterface: CourseInterface
+    private courseInterface: CourseInterface,
+    private pendingPaymentInteface: PendingPaymentInterface
   ) {}
 
   async exec({
@@ -54,6 +56,29 @@ export default class CreateNewCourseService {
       course
     )
 
+    await this.generatePendingPayment(course.duration, doesProfessorExists.id)
+
     return newCourse
+  }
+
+  private async generatePendingPayment(duration: number, professorId: string) {
+    const courseDuration = duration
+
+    const paymentPerHour = 300 //300.00/h
+
+    const hoursToPay = Math.floor(courseDuration / 3600) * paymentPerHour
+
+    const courseDurationMinutes = Math.floor((courseDuration % 3600) / 60)
+
+    const minutesToPay =
+      courseDurationMinutes < 1 ? 0 : paymentPerHour / courseDurationMinutes
+
+    const totalPayment = hoursToPay + minutesToPay
+
+    await this.pendingPaymentInteface.create(
+      +totalPayment.toFixed(2),
+      "course",
+      professorId
+    )
   }
 }

@@ -1,13 +1,13 @@
 import { Request, Response } from "express"
 import { HttpError } from "../../@types/types"
 import jwt from "jsonwebtoken"
-import Factory from "../factory"
+import UserFactory from "../factory/userFactory"
 
 export default class AuthStudentController {
   public static async handle(req: Request, res: Response) {
     const { name, password } = req.body
 
-    const { authStudentService } = await Factory.exec()
+    const { authStudentService } = await UserFactory.exec()
 
     try {
       const authUser = await authStudentService.exec({

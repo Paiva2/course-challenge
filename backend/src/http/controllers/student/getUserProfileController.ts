@@ -1,12 +1,12 @@
 import { Request, Response } from "express"
 import { HttpError } from "../../@types/types"
-import Factory from "../factory"
+import UserFactory from "../factory/userFactory"
 
 export default class GetUserProfileController {
   public static async handle(req: Request, res: Response) {
     const { userId } = req.params as unknown as { userId: string }
 
-    const { getUserProfileService } = await Factory.exec()
+    const { getUserProfileService } = await UserFactory.exec()
 
     try {
       const profile = await getUserProfileService.exec({

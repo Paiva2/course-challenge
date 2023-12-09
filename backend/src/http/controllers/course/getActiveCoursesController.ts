@@ -1,12 +1,12 @@
 import { Request, Response } from "express"
-import Factory from "../factory"
 import { HttpError } from "../../@types/types"
+import CourseFactory from "../factory/courseFactory"
 
 export default class GetActiveCoursesController {
   public static async handle(req: Request, res: Response) {
     const { page } = req.query as unknown as { page: string }
 
-    const { getActiveCoursesService } = await Factory.exec()
+    const { getActiveCoursesService } = await CourseFactory.exec()
 
     try {
       const coursesData = await getActiveCoursesService.exec({

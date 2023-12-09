@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import parseJwt from "../../utils/parseJwt"
-import Factory from "../factory"
 import { HttpError } from "../../@types/types"
+import QuestionFactory from "../factory/questionFactory"
 
 export default class InsertNewQuestionController {
   public static async handle(req: Request, res: Response) {
@@ -9,7 +9,7 @@ export default class InsertNewQuestionController {
 
     const { data: userData } = parseJwt(req.headers.authorization as string)
 
-    const { insertNewQuestionService } = await Factory.exec()
+    const { insertNewQuestionService } = await QuestionFactory.exec()
 
     try {
       await insertNewQuestionService.exec({

@@ -4,11 +4,13 @@ import InMemoryUser from "../../../in-memory/inMemoryUser"
 import RegisterNewStudentService from "../../student/registerNewStudentService"
 import CreateNewCourseService from "../../course/createNewCourseService"
 import InMemoryCourse from "../../../in-memory/inMemoryCourse"
+import InMemoryPendingPayments from "../../../in-memory/inMemoryPendingPayment"
 
 let fakeProfessor: IUser
 
 let inMemoryUser: InMemoryUser
 let inMemoryCourse: InMemoryCourse
+let inMemoryPendingPayments: InMemoryPendingPayments
 
 let registerNewStudentService: RegisterNewStudentService
 
@@ -18,10 +20,15 @@ describe("Create new course service", () => {
   beforeEach(async () => {
     inMemoryUser = new InMemoryUser()
     inMemoryCourse = new InMemoryCourse()
+    inMemoryPendingPayments = new InMemoryPendingPayments()
 
     registerNewStudentService = new RegisterNewStudentService(inMemoryUser)
 
-    sut = new CreateNewCourseService(inMemoryUser, inMemoryCourse)
+    sut = new CreateNewCourseService(
+      inMemoryUser,
+      inMemoryCourse,
+      inMemoryPendingPayments
+    )
 
     fakeProfessor = await registerNewStudentService.exec({
       name: "John Doe",
@@ -39,6 +46,19 @@ describe("Create new course service", () => {
         duration: 3600, // 1h,
       },
     })
+
+    const checkIfPendingPaymentIsCreated =
+      await inMemoryPendingPayments.findByUserId(fakeProfessor.id)
+
+    expect(checkIfPendingPaymentIsCreated).toEqual(
+      expect.objectContaining({
+        id: expect.any(String),
+        createdAt: expect.any(Date),
+        value: 300,
+        reason: "course",
+        fkProfessor: fakeProfessor.id,
+      })
+    )
 
     expect(newCourse).toEqual(
       expect.objectContaining({

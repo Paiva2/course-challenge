@@ -5,12 +5,14 @@ import RegisterNewStudentService from "../../student/registerNewStudentService"
 import CreateNewCourseService from "../../course/createNewCourseService"
 import InMemoryCourse from "../../../in-memory/inMemoryCourse"
 import UpdateCourseInformationsService from "../../course/updateCourseInformationsService"
+import InMemoryPendingPayments from "../../../in-memory/inMemoryPendingPayment"
 
 let fakeProfessor: IUser
 let fakeCourse: ICourse
 
 let inMemoryUser: InMemoryUser
 let inMemoryCourse: InMemoryCourse
+let inMemoryPendingPayments: InMemoryPendingPayments
 
 let registerNewStudentService: RegisterNewStudentService
 
@@ -22,10 +24,15 @@ describe("Update course informations service", () => {
   beforeEach(async () => {
     inMemoryUser = new InMemoryUser()
     inMemoryCourse = new InMemoryCourse()
+    inMemoryPendingPayments = new InMemoryPendingPayments()
 
     registerNewStudentService = new RegisterNewStudentService(inMemoryUser)
 
-    createNewCourseService = new CreateNewCourseService(inMemoryUser, inMemoryCourse)
+    createNewCourseService = new CreateNewCourseService(
+      inMemoryUser,
+      inMemoryCourse,
+      inMemoryPendingPayments
+    )
 
     sut = new UpdateCourseInformationsService(inMemoryUser, inMemoryCourse)
 
