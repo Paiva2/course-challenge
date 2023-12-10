@@ -67,9 +67,9 @@ bash
 
 $ cd course-challenge
 
-$ npm install
-
 $ cd backend
+
+$ npm install
 
 $ npm run test
 
