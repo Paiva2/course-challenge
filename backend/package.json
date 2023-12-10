@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "build": "npx tsc"
   },
   "prisma": {
     "schema": "src/http/database/prisma/schema.prisma"

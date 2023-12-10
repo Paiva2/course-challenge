@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model User {
@@ -52,6 +53,7 @@ model Course {
 
   user User? @relation(fields: [fkProfessor], references: [id], onDelete: Cascade)
 
+  @@index([fkProfessor])
   @@map("course")
 }
 
@@ -69,6 +71,8 @@ model Question {
   user   User?   @relation(fields: [fkStudent], references: [id], onDelete: Cascade)
   course Course? @relation(fields: [fkCourse], references: [id], onDelete: Cascade)
 
+  @@index([fkCourse])
+  @@index([fkStudent])
   @@map("question")
 }
 
@@ -86,6 +90,9 @@ model QuestionAnswer {
   user     User?     @relation(fields: [fkProfessor], references: [id], onDelete: Cascade)
   course   Course?   @relation(fields: [fkCourse], references: [id], onDelete: Cascade)
 
+  @@index([fkCourse])
+  @@index([fkProfessor])
+  @@index([fkQuestion])
   @@map("question_answer")
 }
 
@@ -104,6 +111,7 @@ model PendingPayments {
 
   User User? @relation(fields: [fkProfessor], references: [id], onDelete: Cascade)
 
+  @@index([fkProfessor])
   @@map("pending_payments")
 }
 
@@ -116,5 +124,6 @@ model FinishedPayments {
 
   User User? @relation(fields: [fkProfessor], references: [id], onDelete: Cascade)
 
+  @@index([fkProfessor])
   @@map("finished_payments")
 }
