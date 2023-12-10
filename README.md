@@ -71,4 +71,4 @@ $ npm run test
 
 - Professor: e-mail: professor@email.com // password: 123456
 
-- Admin: e-mail: admin@email.com // password: admin123
+- Admin: e-mail: admin@email.com // password: 123456

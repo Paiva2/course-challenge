@@ -7,7 +7,7 @@ export default async function startUsersDb() {
   try {
     const studentPass = await hash("123456", 6)
     const professorPass = await hash("123456", 6)
-    const adminPass = await hash("admin123", 6)
+    const adminPass = await hash("123456", 6)
 
     const studentId = randomUUID()
     const professorId = randomUUID()

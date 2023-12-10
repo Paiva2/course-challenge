@@ -64,6 +64,8 @@ const QuestionComponent = ({ questionInfos, canAnswer }: IQuestionComponent) => 
         queryClient.invalidateQueries("queryCourseProfessorPage")
 
         setAnswerApiSucess(newAnswer.data.message)
+
+        setTimeout(() => setAnswerApiSucess(""), 4000)
       }
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -123,9 +125,6 @@ const QuestionComponent = ({ questionInfos, canAnswer }: IQuestionComponent) => 
             Responder
           </S.QuoteButton>
         </S.QuoteArea>
-
-        <S.ApiError>{answerApiError && <p>{answerApiError}</p>}</S.ApiError>
-        <S.ApiSuccess>{answerApiSucess && <p>{answerApiSucess}</p>}</S.ApiSuccess>
       </S.QuestionContent>
 
       <Fragment>
@@ -143,6 +142,9 @@ const QuestionComponent = ({ questionInfos, canAnswer }: IQuestionComponent) => 
           )
         })}
       </Fragment>
+
+      <S.ApiError>{answerApiError && <p>{answerApiError}</p>}</S.ApiError>
+      <S.ApiSuccess>{answerApiSucess && <p>{answerApiSucess}</p>}</S.ApiSuccess>
     </S.Question>
   )
 }
