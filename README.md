@@ -13,7 +13,7 @@
 
 ## Installation guide
 
-### You will need Node version >= 18.0.0
+### You will need Node version >= 18.0.0 and Docker installed
 
 ```
 bash
@@ -21,6 +21,8 @@ bash
 $ git clone https://github.com/Paiva2/course-challenge.git
 
 $ cd course-challenge
+
+$ npm install
 
 $ npm run install:both
 
@@ -39,6 +41,8 @@ $ npm run dev
 ### You will find all endpoints docs on localhost:5000/docs/#/
 
 # Live App
+
+### The first loading might be more slow due render free plan on "inactivity" on each 15min
 
 - Front-end: https://course-challenge-front-paiva2.vercel.app/
 
