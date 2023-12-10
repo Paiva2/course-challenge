@@ -59,7 +59,7 @@ $ npm run test
 
 ### The first loading might be more slow due render free plan on "inactivity" on each 15min
 
-- Front-end: https://course-challenge-front-paiva2.vercel.app/
+- Front-end: https://course-challenge.vercel.app/
 
 - Back-end: https://course-back.onrender.com
 
