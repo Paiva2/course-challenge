@@ -49,13 +49,14 @@ const CoursesList = () => {
           {Array.from({
             length: queryCourses?.data?.totalPages,
           }).map((_, page) => (
-            <button
+            <S.PageNumber
+              $highlight={String(page + 1) === pageNumber}
               key={page}
               onClick={() => setPageNumber(String(page + 1))}
               type="button"
             >
               {page + 1}
-            </button>
+            </S.PageNumber>
           ))}
 
           <button

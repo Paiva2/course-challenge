@@ -80,11 +80,13 @@ export const PaginationWrapper = styled.div`
   gap: 0.625rem;
   font-size: 1.25rem;
   max-width: 100%;
-  overflow-x: auto;
   padding-bottom: 0.9375rem;
   padding-top: 0.5rem;
   padding-right: 0.625rem;
   padding-left: 0.625rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0 auto;
 
   button {
     background-color: #5a72e0;
@@ -109,8 +111,15 @@ export const PaginationWrapper = styled.div`
   }
 
   @media (max-width: 768px) {
+    overflow-x: auto;
+
     button {
       padding: 0.75rem;
     }
   }
+`
+
+export const PageNumber = styled.button<{ $highlight: boolean }>`
+  background-color: ${(props) =>
+    props.$highlight ? "#223cb8" : "#5a72e0"} !important;
 `

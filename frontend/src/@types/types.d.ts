@@ -63,3 +63,19 @@ interface TQueryCourse extends Omit<UseMutationResult, "data"> {
     }[]
   }
 }
+
+interface TQueryPayments extends Omit<UseBaseMutationResult, "data"> {
+  data: {
+    page: number
+    payments: {
+      createdAt: string
+      fkProfessor: string
+      id: string
+      reason: string
+      value: string
+    }[]
+    totalPages: number
+    totalPayments: number
+    type: string
+  }
+}
