@@ -76,17 +76,17 @@ describe("Finish an pending payment service", () => {
   })
 
   it("should finish an pending payment and insert to professor wallet", async () => {
-    const getAllPendings = await inMemoryPendingPayments.getAll()
+    const getAllPendings = await inMemoryPendingPayments.getAll(1)
 
-    const pendingPaymentVal = getAllPendings[0].value
+    const pendingPaymentVal = getAllPendings.payments[0].value
 
     await sut.exec({
       adminId: fakeAdmin.id as string,
-      pendingPaymentId: getAllPendings[0].id as string,
+      pendingPaymentId: getAllPendings.payments[0].id as string,
       professorId: fakeProfessor.id as string,
     })
 
-    const getAllPendingsAfterFinishOne = await inMemoryPendingPayments.getAll()
+    const getAllPendingsAfterFinishOne = await inMemoryPendingPayments.getAll(1)
 
     const getWallet = await inMemoryWallet.getByUserId(fakeProfessor.id as string)
 
@@ -95,7 +95,7 @@ describe("Finish an pending payment service", () => {
         total: pendingPaymentVal,
       })
     )
-    expect(getAllPendingsAfterFinishOne.length).toBe(0)
+    expect(getAllPendingsAfterFinishOne.payments.length).toBe(0)
   })
 
   it("should not finish an pending payment without correctly request args", async () => {

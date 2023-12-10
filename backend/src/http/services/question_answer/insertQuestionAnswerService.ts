@@ -34,17 +34,23 @@ export default class InsertQuestionAnswerService {
         status: 422,
         message: "Id do curso inválido.",
       }
-    } else if (!professorId) {
+    }
+
+    if (!professorId) {
       throw {
         status: 422,
         message: "Id do professor inválido.",
       }
-    } else if (!questionId) {
+    }
+
+    if (!questionId) {
       throw {
         status: 422,
         message: "Id da questão inválido.",
       }
-    } else if (!content) {
+    }
+
+    if (!content) {
       throw {
         status: 422,
         message: "A resposta da questão não pode ser vazia.",

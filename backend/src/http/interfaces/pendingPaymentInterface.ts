@@ -20,4 +20,11 @@ export interface PendingPaymentInterface {
   ): Promise<IPendingPayments>
 
   getAllFromProfessor(professorId: string): Promise<IPendingPayments[]>
+
+  getAll(page: number): Promise<{
+    page: number
+    totalPages: number
+    payments: IPendingPayments[]
+    totalPayments: number
+  }>
 }

@@ -21,7 +21,9 @@ export default class AuthStudentService {
         status: 422,
         message: "E-mail inválido.",
       }
-    } else if (!password) {
+    }
+
+    if (!password) {
       throw {
         status: 422,
         message: "Senha inválida.",

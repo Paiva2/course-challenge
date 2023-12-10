@@ -101,9 +101,9 @@ describe.only("Insert new question answer service", () => {
       questionId: fakeQuestion.id as string,
     })
 
-    const checkIfPendingPaymentIsCreated = await inMemoryPendingPayments.getAll()
+    const checkIfPendingPaymentIsCreated = await inMemoryPendingPayments.getAll(1)
 
-    expect(checkIfPendingPaymentIsCreated[1]).toEqual(
+    expect(checkIfPendingPaymentIsCreated.payments[1]).toEqual(
       expect.objectContaining({
         id: expect.any(String),
         createdAt: expect.any(Date),

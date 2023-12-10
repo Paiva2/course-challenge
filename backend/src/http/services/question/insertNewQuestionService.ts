@@ -28,12 +28,16 @@ export default class InsertNewQuestionService {
         status: 422,
         message: "Id do curso inválido.",
       }
-    } else if (!studentId) {
+    }
+
+    if (!studentId) {
       throw {
         status: 422,
         message: "Id do estudante inválido.",
       }
-    } else if (!content) {
+    }
+
+    if (!content) {
       throw {
         status: 422,
         message: "A questão não pode ser vazia.",

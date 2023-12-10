@@ -129,11 +129,11 @@ describe("Get professor balance service", () => {
   })
 
   it("should get professor balance", async () => {
-    const getAllPendings = await inMemoryPendingPayments.getAll()
+    const getAllPendings = await inMemoryPendingPayments.getAll(1)
 
     await finishAPaymentService.exec({
       adminId: fakeAdmin.id as string,
-      pendingPaymentId: getAllPendings[0].id as string,
+      pendingPaymentId: getAllPendings.payments[0].id as string,
       professorId: fakeProfessor.id as string,
     })
 
@@ -149,9 +149,11 @@ describe("Get professor balance service", () => {
       })
     )
 
+    const getAllPendingsAfterOnePayment = await inMemoryPendingPayments.getAll(1)
+
     await finishAPaymentService.exec({
       adminId: fakeAdmin.id as string,
-      pendingPaymentId: getAllPendings[0].id as string,
+      pendingPaymentId: getAllPendingsAfterOnePayment.payments[0].id as string,
       professorId: fakeProfessor.id as string,
     })
 

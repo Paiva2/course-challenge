@@ -15,7 +15,9 @@ export default class UpdateStudentPasswordService {
         status: 422,
         message: "E-mail inválido.",
       }
-    } else if (!newPassword || newPassword.length < 3) {
+    }
+
+    if (!newPassword || newPassword.length < 3) {
       throw {
         status: 422,
         message: "Senha inválida.",

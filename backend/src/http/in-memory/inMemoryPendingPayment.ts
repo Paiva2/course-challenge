@@ -67,8 +67,19 @@ export default class InMemoryPendingPayments implements PendingPaymentInterface 
     return findPending as IPendingPayments
   }
 
-  async getAll() {
-    return this.pendingPayments
+  async getAll(page: number) {
+    const perPage = 10
+
+    const getPendingPayments = this.pendingPayments
+
+    const totalPages = Math.ceil(getPendingPayments.length / perPage)
+
+    return {
+      totalPages,
+      page,
+      totalPayments: getPendingPayments.length,
+      payments: getPendingPayments.slice((page - 1) * perPage, page * perPage),
+    }
   }
 
   async getAllFromProfessor(professorId: string): Promise<IPendingPayments[]> {

@@ -51,6 +51,10 @@
     {
       "name": "Professor",
       "description": "Professor only routes"
+    },
+    {
+      "name": "Admin",
+      "description": "Admin only routes"
     }
   ],
 
@@ -603,6 +607,47 @@
           },
           "404": {
             "description": "Professor não encontrado."
+          }
+        }
+      }
+    },
+
+    "/payments": {
+      "get": {
+        "tags": ["Admin"],
+        "summary": "Filter payments by type and page. ADMIN TOKEN AUTH REQUIRED!",
+        "description": "Filter payments by type and page. ADMIN TOKEN AUTH REQUIRED!",
+
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Payment type. Must be finished or pending",
+            "example": "pending",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "List page",
+            "required": true,
+            "type": "string",
+            "default": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation success."
+          },
+          "422": {
+            "description": "Id do administrador inválido."
+          },
+          "403": {
+            "description": "Permissões insuficientes."
+          },
+          "404": {
+            "description": "Administrador não encontrado."
           }
         }
       }

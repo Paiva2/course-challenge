@@ -8,4 +8,11 @@ export default interface FinishedPaymentsInterface {
   ): Promise<IFinishedPayments>
 
   getAllFromProfessor(professorId: string): Promise<IFinishedPayments[]>
+
+  getAll(page: number): Promise<{
+    page: number
+    totalPages: number
+    payments: IFinishedPayments[]
+    totalPayments: number
+  }>
 }

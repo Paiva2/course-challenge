@@ -77,4 +77,40 @@ export default class PendingPaymentModel implements PendingPaymentInterface {
 
     return allProfessorPendings
   }
+
+  async getAll(page: number): Promise<{
+    page: number
+    totalPages: number
+    payments: IPendingPayments[]
+    totalPayments: number
+  }> {
+    const perPage = 10
+    const offset = (page - 1) * perPage
+
+    const pendingPayments = await prisma.$queryRawUnsafe<IPendingPayments[]>(
+      `SELECT *
+      FROM public.pending_payments
+      ORDER BY "createdAt" DESC
+      LIMIT $1
+      OFFSET $2
+    `,
+      perPage,
+      offset
+    )
+
+    const [pendingPaymentsCount] = await prisma.$queryRawUnsafe<{ count: string }[]>(
+      `SELECT COUNT(*) FROM public.pending_payments`
+    )
+
+    const totalCount = Number(pendingPaymentsCount.count.toString().split("n")[0])
+
+    const pageTotal = Math.ceil(totalCount / perPage)
+
+    return {
+      page,
+      totalPayments: totalCount,
+      totalPages: pageTotal,
+      payments: pendingPayments,
+    }
+  }
 }

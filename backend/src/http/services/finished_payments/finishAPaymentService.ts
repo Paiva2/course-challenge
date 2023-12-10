@@ -28,12 +28,16 @@ export default class FinishAPaymentService {
         status: 422,
         message: "Id do professor inválido.",
       }
-    } else if (!adminId) {
+    }
+
+    if (!adminId) {
       throw {
         status: 422,
         message: "Id do admin inválido.",
       }
-    } else if (!pendingPaymentId) {
+    }
+
+    if (!pendingPaymentId) {
       throw {
         status: 422,
         message: "Id do pagamento pendente inválido.",

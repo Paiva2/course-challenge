@@ -29,12 +29,16 @@ export default class RegisterNewStudentService {
         status: 422,
         message: "Nome inválido.",
       }
-    } else if (!password || password.length < 6) {
+    }
+
+    if (!password || password.length < 6) {
       throw {
         status: 422,
         message: "Senha inválida.",
       }
-    } else if (!email) {
+    }
+
+    if (!email) {
       throw {
         status: 422,
         message: "E-mail inválido.",
