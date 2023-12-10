@@ -45,3 +45,11 @@ $ npm run dev
 - Admin: e-mail: admin@email.com // password: admin123
 
 ### You will find all endpoints docs on localhost:5000/docs/#/
+
+# Live App
+
+- Front-end: https://course-challenge-front-paiva2.vercel.app/
+
+- Back-end: https://course-back.onrender.com
+
+- Docs: https://course-back.onrender.com/docs/#/
