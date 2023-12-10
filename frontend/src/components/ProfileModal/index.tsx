@@ -167,6 +167,15 @@ const ProfileModal = ({ openProfile, setOpenProfile }: IProfileModalProps) => {
     setApiSuccess("")
   }
 
+  const userRole =
+    userProfile.data.role === "student"
+      ? "Estudante"
+      : userProfile.data.role === "professor"
+      ? "Professor"
+      : userProfile.data.role === "admin"
+      ? "Admin"
+      : ""
+
   return (
     <S.ProfileModalOverlay $openedOverlay={openProfile}>
       <S.ProfileModalContainer $openedModal={openProfile}>
@@ -178,7 +187,7 @@ const ProfileModal = ({ openProfile, setOpenProfile }: IProfileModalProps) => {
         </S.UserImage>
 
         <S.ProfileRole>
-          <p>{userProfile.data.role === "student" ? "Estudante" : "Professor"}</p>
+          <p>{userRole}</p>
         </S.ProfileRole>
         <S.ProfileForm onSubmit={handleInitSubmit}>
           <S.ProfileFormFields>

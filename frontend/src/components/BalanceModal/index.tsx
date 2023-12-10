@@ -37,6 +37,7 @@ const BalanceModal = ({ openBalanceModal, setOpenBalanceModal }: IBalanceModal) 
       return fetchUser.data
     },
 
+    retry: 1,
     onSuccess: () => setRefreshing(false),
   })
 

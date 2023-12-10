@@ -1,5 +1,6 @@
 import React from "react"
 import RegisterComponent from "@/components/RegisterComponent"
+import NoAuthPage from "@/components/NoAuthPage"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
 }
 
 const Register = () => {
-  return <RegisterComponent />
+  return (
+    <NoAuthPage>
+      <RegisterComponent />
+    </NoAuthPage>
+  )
 }
 
 export default Register

@@ -9,6 +9,7 @@ import { useQuery, useQueryClient } from "react-query"
 import { UserContextProvider } from "@/contexts/userContext"
 import api from "@/lib/api"
 import * as S from "./styles"
+import AuthPage from "../AuthPage"
 
 interface IEditCourseProps {
   params: { id: string } | undefined
@@ -164,69 +165,71 @@ const EditCourse = ({ params }: IEditCourseProps) => {
   }
 
   return (
-    <S.EditCourseContainer>
-      <S.EditCourseWrapper>
-        <S.EditCourseForm onSubmit={handleInitSubmit}>
-          <S.EditCourseFormTitle>
-            <h1>Editar curso</h1>
+    <AuthPage validRoles={["professor", "admin"]}>
+      <S.EditCourseContainer>
+        <S.EditCourseWrapper>
+          <S.EditCourseForm onSubmit={handleInitSubmit}>
+            <S.EditCourseFormTitle>
+              <h1>Editar curso</h1>
 
-            <p>Edite as informações do curso preenchendo o formulário.</p>
-          </S.EditCourseFormTitle>
+              <p>Edite as informações do curso preenchendo o formulário.</p>
+            </S.EditCourseFormTitle>
 
-          <S.EditCourseFields>
-            <S.FormLabel $isError={false}>
-              Título
-              <input
-                value={formFields.title}
-                onChange={({ target }) =>
-                  handleEditFieldValues("title", target.value)
-                }
-                placeholder="Título do curso"
-                type="text"
-              />
-              {formErrors.title && (
-                <p className="validationError">{formErrors.title}</p>
-              )}
-            </S.FormLabel>
+            <S.EditCourseFields>
+              <S.FormLabel $isError={false}>
+                Título
+                <input
+                  value={formFields.title}
+                  onChange={({ target }) =>
+                    handleEditFieldValues("title", target.value)
+                  }
+                  placeholder="Título do curso"
+                  type="text"
+                />
+                {formErrors.title && (
+                  <p className="validationError">{formErrors.title}</p>
+                )}
+              </S.FormLabel>
 
-            <S.FormLabel $isError={false}>
-              Descrição do curso
-              <textarea
-                value={formFields.description}
-                maxLength={100}
-                onChange={({ target }) =>
-                  handleEditFieldValues("description", target.value)
-                }
-                placeholder="Descrição do curso"
-              />
-              {formErrors.description && (
-                <p className="validationError">{formErrors.description}</p>
-              )}
-            </S.FormLabel>
+              <S.FormLabel $isError={false}>
+                Descrição do curso
+                <textarea
+                  value={formFields.description}
+                  maxLength={100}
+                  onChange={({ target }) =>
+                    handleEditFieldValues("description", target.value)
+                  }
+                  placeholder="Descrição do curso"
+                />
+                {formErrors.description && (
+                  <p className="validationError">{formErrors.description}</p>
+                )}
+              </S.FormLabel>
 
-            <S.CheckboxLabel>
-              Ativo:
-              <input
-                defaultChecked={queryCourse.data.active}
-                ref={activeCourseRef}
-                type="checkbox"
-              />
-            </S.CheckboxLabel>
-          </S.EditCourseFields>
+              <S.CheckboxLabel>
+                Ativo:
+                <input
+                  defaultChecked={queryCourse.data.active}
+                  ref={activeCourseRef}
+                  type="checkbox"
+                />
+              </S.CheckboxLabel>
+            </S.EditCourseFields>
 
-          <S.ApiError>{apiErrors && <p>{apiErrors}</p>}</S.ApiError>
-          <S.ApiSuccess>{apiSuccess && <p>{apiSuccess}</p>}</S.ApiSuccess>
+            <S.ApiError>{apiErrors && <p>{apiErrors}</p>}</S.ApiError>
+            <S.ApiSuccess>{apiSuccess && <p>{apiSuccess}</p>}</S.ApiSuccess>
 
-          <S.EditCourseButton type="submit" disabled={formSubmitting}>
-            Confirmar
-          </S.EditCourseButton>
+            <S.EditCourseButton type="submit" disabled={formSubmitting}>
+              Confirmar
+            </S.EditCourseButton>
 
-          <S.BackButton onClick={() => router.back()}>
-            <ChevronLeft color="#fff" size={25} />
-          </S.BackButton>
-        </S.EditCourseForm>
-      </S.EditCourseWrapper>
-    </S.EditCourseContainer>
+            <S.BackButton onClick={() => router.back()}>
+              <ChevronLeft color="#fff" size={25} />
+            </S.BackButton>
+          </S.EditCourseForm>
+        </S.EditCourseWrapper>
+      </S.EditCourseContainer>
+    </AuthPage>
   )
 }
 

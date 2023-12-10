@@ -1,5 +1,6 @@
 import LoginComponent from "@/components/LoginComponent"
 import React from "react"
+import NoAuthPage from "@/components/NoAuthPage"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
 }
 
 const Login = () => {
-  return <LoginComponent />
+  return (
+    <NoAuthPage>
+      <LoginComponent />
+    </NoAuthPage>
+  )
 }
 
 export default Login

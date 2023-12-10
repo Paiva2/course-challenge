@@ -19,14 +19,14 @@ interface UserContextProviderProps {
 interface UserContextInterface {
   userProfile: {
     token: string
-    auth: boolean
-    data: { id: string; name: string; role: string }
+    auth: boolean | undefined
+    data: { id: string; name: string; role: string | undefined }
   }
   setUserProfile: Dispatch<
     SetStateAction<{
       token: string
-      auth: boolean
-      data: { id: string; name: string; role: string }
+      auth: boolean | undefined
+      data: { id: string; name: string; role: string | undefined }
     }>
   >
 }
@@ -40,15 +40,15 @@ const UserContext = ({ children }: UserContextProviderProps) => {
 
   const [userProfile, setUserProfile] = useState<{
     token: string
-    auth: boolean
-    data: { id: string; name: string; role: string }
+    auth: boolean | undefined
+    data: { id: string; name: string; role: string | undefined }
   }>({
     token: "",
-    auth: false,
+    auth: undefined,
     data: {
       id: "",
       name: "",
-      role: "",
+      role: undefined,
     },
   })
 
@@ -74,15 +74,17 @@ const UserContext = ({ children }: UserContextProviderProps) => {
   })
 
   useLayoutEffect(() => {
-    if (userToken) {
-      setUserProfile((oldValue) => {
-        return {
-          ...oldValue,
-          token: userToken,
-          auth: true,
-        }
-      })
-    }
+    setUserProfile((oldValue) => {
+      return {
+        ...oldValue,
+        token: userToken ? userToken : "",
+        auth: userToken ? true : false,
+        data: {
+          ...oldValue.data,
+          role: !userToken ? "none" : oldValue.data.role,
+        },
+      }
+    })
   }, [pathname.toString()])
 
   return (

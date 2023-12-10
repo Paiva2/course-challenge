@@ -7,6 +7,7 @@ import { UserContextProvider } from "@/contexts/userContext"
 import api from "@/lib/api"
 import formatInputToHours from "@/utils/formatInputToHours"
 import * as S from "./styles"
+import AuthPage from "../AuthPage"
 
 interface IFormErrors {
   duration: string
@@ -117,68 +118,70 @@ const NewCourseForm = () => {
   }, [formErrors])
 
   return (
-    <S.NewCourseContainer>
-      <S.NewCourseWrapper>
-        <S.NewCourseForm onSubmit={handleInitSubmit}>
-          <S.NewCourseFormTitle>
-            <h1>Novo curso</h1>
+    <AuthPage validRoles={["professor", "admin"]}>
+      <S.NewCourseContainer>
+        <S.NewCourseWrapper>
+          <S.NewCourseForm onSubmit={handleInitSubmit}>
+            <S.NewCourseFormTitle>
+              <h1>Novo curso</h1>
 
-            <p>Registre um novo curso preenchendo os campos do formulário!</p>
-          </S.NewCourseFormTitle>
+              <p>Registre um novo curso preenchendo os campos do formulário!</p>
+            </S.NewCourseFormTitle>
 
-          <S.NewCourseFields>
-            <S.FormLabel $isError={false}>
-              Título do curso
-              <input
-                ref={titleFieldRef}
-                placeholder="Digite o título do curso"
-                type="text"
-              />
-              {formErrors.title && (
-                <p className="validationError">{formErrors.title}</p>
-              )}
-            </S.FormLabel>
-            <S.FormLabel $isError={false}>
-              Duração do curso
-              <input
-                type="text"
-                defaultValue="1:00"
-                maxLength={4}
-                onChange={(e) => formatInputToHours(e.target)}
-                ref={durationRef}
-                placeholder="Duração do curso ex: 1:20 (1h e 20m)"
-              />
-              {formErrors.duration && (
-                <p className="validationError">{formErrors.duration}</p>
-              )}
-            </S.FormLabel>
+            <S.NewCourseFields>
+              <S.FormLabel $isError={false}>
+                Título do curso
+                <input
+                  ref={titleFieldRef}
+                  placeholder="Digite o título do curso"
+                  type="text"
+                />
+                {formErrors.title && (
+                  <p className="validationError">{formErrors.title}</p>
+                )}
+              </S.FormLabel>
+              <S.FormLabel $isError={false}>
+                Duração do curso
+                <input
+                  type="text"
+                  defaultValue="1:00"
+                  maxLength={4}
+                  onChange={(e) => formatInputToHours(e.target)}
+                  ref={durationRef}
+                  placeholder="Duração do curso ex: 1:20 (1h e 20m)"
+                />
+                {formErrors.duration && (
+                  <p className="validationError">{formErrors.duration}</p>
+                )}
+              </S.FormLabel>
 
-            <S.FormLabel $isError={false}>
-              Descrição do curso
-              <textarea
-                maxLength={100}
-                ref={descriptionRef}
-                placeholder="Descrição do curso"
-              />
-              {formErrors.description && (
-                <p className="validationError">{formErrors.description}</p>
-              )}
-            </S.FormLabel>
-          </S.NewCourseFields>
+              <S.FormLabel $isError={false}>
+                Descrição do curso
+                <textarea
+                  maxLength={100}
+                  ref={descriptionRef}
+                  placeholder="Descrição do curso"
+                />
+                {formErrors.description && (
+                  <p className="validationError">{formErrors.description}</p>
+                )}
+              </S.FormLabel>
+            </S.NewCourseFields>
 
-          <S.ApiSuccess>{apiSuccess && <p>{apiSuccess}</p>}</S.ApiSuccess>
-          <S.ApiError>{apiErrors && <p>{apiErrors}</p>}</S.ApiError>
+            <S.ApiSuccess>{apiSuccess && <p>{apiSuccess}</p>}</S.ApiSuccess>
+            <S.ApiError>{apiErrors && <p>{apiErrors}</p>}</S.ApiError>
 
-          <S.NewCourseButton type="submit" disabled={formSubmitting}>
-            Criar
-          </S.NewCourseButton>
+            <S.NewCourseButton type="submit" disabled={formSubmitting}>
+              Criar
+            </S.NewCourseButton>
 
-          <S.BackLink href="/">
-            <ChevronLeft color="#fff" size={25} />
-          </S.BackLink>
-        </S.NewCourseForm>
-      </S.NewCourseWrapper>
-    </S.NewCourseContainer>
+            <S.BackLink href="/">
+              <ChevronLeft color="#fff" size={25} />
+            </S.BackLink>
+          </S.NewCourseForm>
+        </S.NewCourseWrapper>
+      </S.NewCourseContainer>
+    </AuthPage>
   )
 }
 

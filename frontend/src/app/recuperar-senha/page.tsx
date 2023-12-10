@@ -1,5 +1,6 @@
 import React from "react"
 import ForgotPasswordComponent from "@/components/ForgotPasswordComponent"
+import NoAuthPage from "@/components/NoAuthPage"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
 }
 
 const RecoverPassword = () => {
-  return <ForgotPasswordComponent />
+  return (
+    <NoAuthPage>
+      <ForgotPasswordComponent />
+    </NoAuthPage>
+  )
 }
 
 export default RecoverPassword
