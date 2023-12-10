@@ -32,7 +32,7 @@ export default class InMemoryUser implements UserInterface {
     return findUser
   }
 
-  async findByEmail(email: string): Promise<IUser> {
+  async findByEmail(email: string): Promise<IUser | null> {
     const findUser = this.users.find((user) => user.email === email)
 
     if (!findUser) return null

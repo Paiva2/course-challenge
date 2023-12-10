@@ -56,7 +56,10 @@ export default class CreateNewCourseService {
       course
     )
 
-    await this.generatePendingPayment(course.duration, doesProfessorExists.id)
+    await this.generatePendingPayment(
+      course.duration,
+      doesProfessorExists.id as string
+    )
 
     return newCourse
   }

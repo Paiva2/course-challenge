@@ -106,7 +106,7 @@ describe("Get professor balance service", () => {
     })
 
     fakeCourse = await createNewCourseService.exec({
-      professorId: fakeProfessor.id,
+      professorId: fakeProfessor.id as string,
       course: {
         title: "Test course",
         description: "Test description",
@@ -116,15 +116,15 @@ describe("Get professor balance service", () => {
 
     const fakeQuestion = await insertNewQuestionService.exec({
       content: "Question test",
-      courseId: fakeCourse.id,
-      studentId: fakeStudent.id,
+      courseId: fakeCourse.id as string,
+      studentId: fakeStudent.id as string,
     })
 
     await insertQuestionAnswerService.exec({
       content: "Answer test",
-      courseId: fakeCourse.id,
-      professorId: fakeProfessor.id,
-      questionId: fakeQuestion.id,
+      courseId: fakeCourse.id as string,
+      professorId: fakeProfessor.id as string,
+      questionId: fakeQuestion.id as string,
     })
   })
 
@@ -133,12 +133,12 @@ describe("Get professor balance service", () => {
 
     await finishAPaymentService.exec({
       adminId: fakeAdmin.id as string,
-      pendingPaymentId: getAllPendings[0].id,
+      pendingPaymentId: getAllPendings[0].id as string,
       professorId: fakeProfessor.id as string,
     })
 
     const getBalanceOne = await sut.exec({
-      professorId: fakeProfessor.id,
+      professorId: fakeProfessor.id as string,
     })
 
     expect(getBalanceOne).toEqual(
@@ -151,12 +151,12 @@ describe("Get professor balance service", () => {
 
     await finishAPaymentService.exec({
       adminId: fakeAdmin.id as string,
-      pendingPaymentId: getAllPendings[0].id,
+      pendingPaymentId: getAllPendings[0].id as string,
       professorId: fakeProfessor.id as string,
     })
 
     const getBalanceTwo = await sut.exec({
-      professorId: fakeProfessor.id,
+      professorId: fakeProfessor.id as string,
     })
 
     expect(getBalanceTwo).toEqual(
@@ -195,7 +195,7 @@ describe("Get professor balance service", () => {
   it("should not get professor balance if user insn't an professor", async () => {
     await expect(() => {
       return sut.exec({
-        professorId: fakeStudent.id,
+        professorId: fakeStudent.id as string,
       })
     }).rejects.toEqual(
       expect.objectContaining({

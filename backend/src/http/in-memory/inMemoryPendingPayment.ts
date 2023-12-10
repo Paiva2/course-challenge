@@ -36,7 +36,7 @@ export default class InMemoryPendingPayments implements PendingPaymentInterface 
   async findById(
     professorId: string,
     pendingPaymentId: string
-  ): Promise<IPendingPayments> {
+  ): Promise<IPendingPayments | null> {
     const findPending = this.pendingPayments.find(
       (pendingPayment) =>
         pendingPayment.id === pendingPaymentId &&
@@ -58,11 +58,13 @@ export default class InMemoryPendingPayments implements PendingPaymentInterface 
         pendingPayment.id === pendingPaymentId
     )
 
-    const getPendingPos = this.pendingPayments.indexOf(findPending)
+    if (findPending) {
+      const getPendingPos = this.pendingPayments.indexOf(findPending)
 
-    this.pendingPayments.splice(getPendingPos, 1)
+      this.pendingPayments.splice(getPendingPos, 1)
+    }
 
-    return findPending
+    return findPending as IPendingPayments
   }
 
   async getAll() {

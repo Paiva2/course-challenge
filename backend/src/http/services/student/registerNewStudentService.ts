@@ -66,7 +66,7 @@ export default class RegisterNewStudentService {
       role
     )
 
-    await this.walletInterface.create(userCreated.id)
+    await this.walletInterface.create(userCreated.id as string)
 
     return userCreated
   }

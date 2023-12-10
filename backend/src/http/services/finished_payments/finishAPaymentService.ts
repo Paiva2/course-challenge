@@ -42,7 +42,7 @@ export default class FinishAPaymentService {
 
     const isRequestMadeByAnAdmin = await this.userInteface.findById(adminId)
 
-    if (isRequestMadeByAnAdmin.role !== "admin") {
+    if (isRequestMadeByAnAdmin?.role !== "admin") {
       throw {
         status: 403,
         message: "Permissões insuficientes.",

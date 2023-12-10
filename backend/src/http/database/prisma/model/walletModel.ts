@@ -51,9 +51,6 @@ export default class WalletModel implements WalletInterface {
       `SELECT * FROM public.wallet WHERE "fkUser" = $1`,
       userId
     )
-
-    if (!findWallet) return null
-
     return findWallet
   }
 }

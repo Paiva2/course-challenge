@@ -82,7 +82,7 @@ describe("Finish an pending payment service", () => {
 
     await sut.exec({
       adminId: fakeAdmin.id as string,
-      pendingPaymentId: getAllPendings[0].id,
+      pendingPaymentId: getAllPendings[0].id as string,
       professorId: fakeProfessor.id as string,
     })
 

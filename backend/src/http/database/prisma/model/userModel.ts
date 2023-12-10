@@ -36,7 +36,7 @@ export default class UserModel implements UserInterface {
     return findUser
   }
 
-  async findByEmail(email: string): Promise<IUser> {
+  async findByEmail(email: string): Promise<IUser | null> {
     const [findUser] = await prisma.$queryRawUnsafe<IUser[]>(
       `SELECT * FROM public.user WHERE email = $1`,
       email

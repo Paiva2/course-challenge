@@ -38,14 +38,16 @@ export default class GetProfessorBalanceService {
       }
     }
 
-    const getWallet = await this.walletInterface.getByUserId(getProfessor.id)
+    const getWallet = await this.walletInterface.getByUserId(
+      getProfessor.id as string
+    )
 
     const getPendings = await this.pendingPaymentInterface.getAllFromProfessor(
-      getProfessor.id
+      getProfessor.id as string
     )
 
     const getFinished = await this.finishedPaymentsInterface.getAllFromProfessor(
-      getProfessor.id
+      getProfessor.id as string
     )
 
     let pendingTotal = 0

@@ -19,7 +19,7 @@ export default class InMemoryWallet implements WalletInterface {
   }
 
   async insert(professorId: string, value: number): Promise<IWallet> {
-    let getWalletUpdated: IWallet
+    let getWalletUpdated = {} as IWallet
 
     const updateUserWallet = this.wallets.map((wallet) => {
       if (wallet.fkUser === professorId) {
@@ -39,7 +39,7 @@ export default class InMemoryWallet implements WalletInterface {
   }
 
   async getByUserId(userId: string): Promise<IWallet> {
-    const findUserWallet = this.wallets.find((wallet) => wallet.fkUser === userId)
+    const findUserWallet = this.wallets.find((wallet) => wallet.fkUser === userId)!
 
     return findUserWallet
   }

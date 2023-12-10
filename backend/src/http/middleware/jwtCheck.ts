@@ -5,7 +5,7 @@ export default function jwtCheck(req: Request, res: Response, next: NextFunction
   try {
     const token = req.headers.authorization
 
-    const getToken = token?.replace("Bearer", "").trim()
+    const getToken = token?.replace("Bearer", "").trim() as string
 
     const decodedJwt = jwt.verify(
       getToken.toString(),

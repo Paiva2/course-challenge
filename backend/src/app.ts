@@ -13,7 +13,15 @@ import professorRoutes from "./http/routes/professorRoutes"
 
 export const app: Express = express()
 
-app.use(cors())
+const corsOptions = {
+  origin:
+    process.env.NODE_ENV === "production "
+      ? "https://course-challenge.vercel.app"
+      : "*",
+  optionsSuccessStatus: 200,
+}
+
+app.use(cors(corsOptions))
 app.use(bodyParser.json())
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 
