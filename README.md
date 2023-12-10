@@ -30,7 +30,7 @@ $ cd backend
 
 $ docker compose up -d
 
-$ npx prisma migrate dev --name init db or npx prisma migrate deploy
+$ npx prisma migrate deploy
 
 $ cd ..
 
