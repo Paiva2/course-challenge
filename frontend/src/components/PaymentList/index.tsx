@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useMutation } from "react-query"
 import { UserContextProvider } from "@/contexts/userContext"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, Receipt } from "lucide-react"
 import { TQueryPayments } from "@/@types/types"
 import LoadingPage from "../LoadingPage"
 import PaymentCard from "../PaymentCard"
@@ -55,7 +55,8 @@ const PaymentList = () => {
   return (
     <S.PaymentListContainer>
       <S.BackLink href="/">
-        <ChevronLeft color="#fff" size={25} />
+        <ChevronLeft size={20} color="#fff" />
+        Voltar
       </S.BackLink>
       <div>
         <S.Title>Pagamentos</S.Title>
@@ -79,16 +80,23 @@ const PaymentList = () => {
         </S.ListControl>
 
         <S.ListItems>
-          {listMutation.data.payments.map((item) => {
-            return (
-              <PaymentCard
-                listMutation={listMutation}
-                typeShowing={paymentType}
-                key={item.id}
-                item={item}
-              />
-            )
-          })}
+          {listMutation.data.payments.length > 0 ? (
+            listMutation.data.payments.map((item) => {
+              return (
+                <PaymentCard
+                  listMutation={listMutation}
+                  typeShowing={paymentType}
+                  key={item.id}
+                  item={item}
+                />
+              )
+            })
+          ) : (
+            <S.Placeholder>
+              <h1>Nenhum pagamento para exibir...</h1>
+              <Receipt size={50} color="#2b822b" />
+            </S.Placeholder>
+          )}
         </S.ListItems>
 
         {listMutation.data.payments.length > 0 && (

@@ -1,7 +1,13 @@
 "use client"
 
 import React, { Fragment, useContext, useState } from "react"
-import { CircleDollarSign, DollarSign, MonitorPlay, Plus } from "lucide-react"
+import {
+  Banknote,
+  CircleDollarSign,
+  DollarSign,
+  MonitorPlay,
+  Plus,
+} from "lucide-react"
 import { CourseContextProvider } from "@/contexts/courseContext"
 import { UserContextProvider } from "@/contexts/userContext"
 import ProfileModal from "../ProfileModal"
@@ -18,12 +24,21 @@ const ControlBar = () => {
   return (
     <Fragment>
       {userProfile.data.role === "professor" && (
-        <S.NewCourseTrigger>
+        <S.TopTrigger>
           <a href="/novo-curso">
             <Plus color="#fff" />
             Curso
           </a>
-        </S.NewCourseTrigger>
+        </S.TopTrigger>
+      )}
+
+      {userProfile.data.role === "admin" && (
+        <S.TopTrigger>
+          <a href="/pagamentos">
+            <Banknote />
+            Pagamentos
+          </a>
+        </S.TopTrigger>
       )}
 
       <S.Bar>
@@ -72,10 +87,12 @@ const ControlBar = () => {
                   openProfile={openProfile}
                 />
 
-                <BalanceModal
-                  openBalanceModal={openBalanceModal}
-                  setOpenBalanceModal={setOpenBalanceModal}
-                />
+                {userProfile.data.role === "professor" && (
+                  <BalanceModal
+                    openBalanceModal={openBalanceModal}
+                    setOpenBalanceModal={setOpenBalanceModal}
+                  />
+                )}
               </S.PersonalWrapper>
             )}
           </div>

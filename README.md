@@ -38,6 +38,21 @@ $ npm run dev
 
 ```
 
+## To run unit tests
+
+```
+bash
+
+$ cd course-challenge
+
+$ npm install
+
+$ cd backend
+
+$ npm run test
+
+```
+
 ### You will find all endpoints docs on localhost:5000/docs/#/
 
 # Live App

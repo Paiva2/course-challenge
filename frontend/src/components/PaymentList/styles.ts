@@ -135,17 +135,51 @@ export const PageNumber = styled.button<{ $highlight: boolean }>`
 `
 
 export const BackLink = styled.a`
-  background-color: #5a72e0;
-  border-radius: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 2.8125rem;
-  height: 2.8125rem;
+  gap: 0.3125rem;
+  background-color: #5a72e0;
+  border-radius: 8px;
+  color: #fff;
+  max-width: fit-content;
+  padding: 0.625rem;
+  text-decoration: none;
+  font-size: 0.9375rem;
   transition: all 0.2s ease-in-out;
-  align-self: center;
 
   &:hover {
     background-color: #2644cf;
+  }
+`
+
+export const Placeholder = styled.div`
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9375rem;
+  background-color: #fff;
+  padding: 1.875rem;
+  border-radius: 8px;
+  max-width: fit-content;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 1.375rem;
+    color: #4a4a4a;
+  }
+
+  @media (max-width: 768px) {
+    text-align: center;
+
+    svg {
+      width: 1.875rem;
+      height: 1.875rem;
+    }
+
+    h1 {
+      font-size: 1.125rem;
+    }
   }
 `

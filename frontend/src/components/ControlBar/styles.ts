@@ -81,7 +81,7 @@ export const OpenProfileModal = styled.button`
   }
 `
 
-export const NewCourseTrigger = styled.span`
+export const TopTrigger = styled.span`
   width: 100%;
   max-width: 56.25rem;
   display: flex;
@@ -92,7 +92,7 @@ export const NewCourseTrigger = styled.span`
     width: 100%;
     background-color: #5a72e0;
     border-radius: 8px;
-    max-width: 7.5rem;
+    max-width: fit-content;
     color: #fff;
     font-weight: 600;
     padding: 0.625rem;
@@ -103,7 +103,7 @@ export const NewCourseTrigger = styled.span`
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.125rem;
+    gap: 0.3125rem;
     text-decoration: none;
 
     &:disabled {
@@ -124,6 +124,7 @@ export const NewCourseTrigger = styled.span`
       max-width: 100%;
       border-radius: 0;
       height: 3.4375rem;
+      border-bottom: 1px solid #e1e1e1;
     }
   }
 `
