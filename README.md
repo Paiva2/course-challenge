@@ -1,4 +1,4 @@
-# Course System Challenge - Cefis
+# Course System Challenge
 
 ## Application possibilities
 
@@ -75,22 +75,3 @@ $ npm run test
 
 ```
 
-### You will find all endpoints docs on localhost:5000/docs/#/
-
-# Live App
-
-### The first loading might be more slow due render free plan on "inactivity" on each 15min
-
-- Front-end: https://course-challenge.vercel.app/
-
-- Back-end: https://course-back.onrender.com
-
-- Docs: https://course-back.onrender.com/docs/#/
-
-### Logins to use for tests
-
-- Student: e-mail: student@email.com // password: 123456
-
-- Professor: e-mail: professor@email.com // password: 123456
-
-- Admin: e-mail: admin@email.com // password: 123456
